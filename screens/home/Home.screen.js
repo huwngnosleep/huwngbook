@@ -1,34 +1,33 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
-import Avatar from '../../components/Avatar'
-import CustomInput from '../../components/CustomInput'
-import DeviceDimensions from '../../constants/DeviceDimensions'
+import { StyleSheet, 
+    View, 
+    Text, 
+    FlatList, 
+} from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
+import Post from '../../components/Post'
+import PostStatus from '../../components/PostStatus'
 
 const HomeScreen = (props) => {
     return(
-        <View style={styles.screen} >
-            <View style={styles.statusContainer}>
-                <Avatar style={styles.avatar} />
-                <CustomInput 
-                    placeholder="What's on your mind?"
-                />
-            </View>
-        </View>
+        <ScrollView 
+            contentContainerStyle={styles.screen} >
+            <PostStatus />
+            <FlatList 
+                data={[1,2,3]}
+                renderItem={(itemData) => <Post />}
+            />
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
+        alignItems: 'center',
         margin: 10,
     },
-    statusContainer: {
-        width: '100%',
-        height: DeviceDimensions.deviceHeight / 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
+    
 })
 
 export default HomeScreen

@@ -7,7 +7,7 @@ import {
 
 const Avatar = (props) => {
     return(
-        <View style={styles.imageContainer}>
+        <View style={{...styles.imageContainer, ...props.style}}>
             <Image 
                 source={{uri: 'https://via.placeholder.com/150'}}
                 style={styles.image}
@@ -18,10 +18,11 @@ const Avatar = (props) => {
 
 const styles = StyleSheet.create({
     imageContainer: {
-        height: 70,
-        width: 70,
-        borderRadius: 35,
+        height: 50,
+        width: 50,
+        borderRadius: 25,
         overflow: 'hidden',
+        marginRight: 10,
     },
     image: {
         height: '100%',
