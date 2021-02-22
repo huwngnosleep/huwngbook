@@ -4,11 +4,12 @@ import {
     StyleSheet, 
     View, 
     Text,
+    TouchableOpacity,
 } from 'react-native'
 
 const FriendCard = (props) => {
     return(
-        <View style={{...styles.container, ...props.style}} >
+        <TouchableOpacity style={{...styles.container, ...props.style}} >
             <View style={styles.imageContainer}>
                 <Image 
                     source={{uri: 'https://via.placeholder.com/150'}}
@@ -18,7 +19,7 @@ const FriendCard = (props) => {
             <View style={styles.nameContainer}>
                 <Text>Friend's name</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

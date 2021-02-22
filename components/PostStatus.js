@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         height: DeviceDimensions.deviceHeight / 10,
         flexDirection: 'row',
         alignItems: 'center',
+        marginBottom: 15,
     },
     avatar: {
         height: 50,

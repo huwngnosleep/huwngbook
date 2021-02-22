@@ -21,7 +21,7 @@ const ProfileScreen = (props) => {
             <View>
                 <Avatar style={styles.backgroundImg}/>
                 <View style={styles.introContainer}>
-                    <Avatar />
+                    <Avatar style={styles.avatar}/>
                     <View style={styles.intro}>
                         <Text style={styles.name}>Name</Text>
                         <Text style={styles.bio}>Biooooooooooo</Text>
@@ -47,7 +47,7 @@ const ProfileScreen = (props) => {
                     <Button 
                         title="See all friends"
                         color="grey"
-                        onPress={() => {}}
+                        onPress={() => {props.navigation.navigate('Friends')}}
                     />
                 </View>
             </View>
@@ -58,10 +58,8 @@ const ProfileScreen = (props) => {
                 <PostStatus />
             </View>
             <View style={styles.container}>
-                <FlatList 
-                    data={[1,2,3]}
-                    renderItem={(itemData) => <Post />}
-                />
+                {[1,2,3,4,5].map((itemData) => <Post />)}
+
             </View>
         </ScrollView>
     )
@@ -73,15 +71,20 @@ const styles = StyleSheet.create({
         
     },
     backgroundImg: {
-        height: DeviceDimensions.deviceHeight / 6,
+        height: DeviceDimensions.deviceHeight / 5,
         width: DeviceDimensions.deviceWidth,
         borderRadius: 0,
     },
     introContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
         alignItems: 'flex-end',
         marginVertical: 10,
+    },
+    avatar: {
+        height: DeviceDimensions.deviceWidth / 4,
+        width: DeviceDimensions.deviceWidth / 4,
+        borderRadius: DeviceDimensions.deviceWidth / 8,
     },
     intro: {
         alignItems: 'center',

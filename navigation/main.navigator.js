@@ -12,8 +12,14 @@ const MainNavigator = () => {
     return (
         <NavigationContainer>
             <Tab.Navigator>
-                <Tab.Screen name="Home" component={HomeNavigator} />
-                <Tab.Screen name="Account" component={AccountNavigator} />
+                <Tab.Screen 
+                    name="Home" 
+                    component={HomeNavigator} 
+                />
+                <Tab.Screen 
+                    name="Account" 
+                    component={AccountNavigator} 
+                />
             </Tab.Navigator>
         </NavigationContainer>
 

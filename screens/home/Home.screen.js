@@ -4,20 +4,19 @@ import { StyleSheet,
     Text, 
     FlatList, 
 } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
 import Post from '../../components/Post'
 import PostStatus from '../../components/PostStatus'
 
 const HomeScreen = (props) => {
     return(
-        <ScrollView 
-            contentContainerStyle={styles.screen} >
+        <View 
+            style={styles.screen} >
             <PostStatus />
             <FlatList 
                 data={[1,2,3]}
                 renderItem={(itemData) => <Post />}
             />
-        </ScrollView>
+        </View>
     )
 }
 
