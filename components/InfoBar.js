@@ -3,9 +3,9 @@ import {
     StyleSheet, 
     View, 
     Text,
-    Touchable,
 } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import DeviceDimensions from '../constants/DeviceDimensions'
 import Avatar from './Avatar'
 
 const InfoBar = (props) => {
@@ -13,8 +13,8 @@ const InfoBar = (props) => {
         <TouchableOpacity onPress={props.onPress} style={{...styles.container, ...props.style}}>
             <Avatar />
             <View>
-                <Text style={styles.name}>Name</Text>
-                <Text style={styles.date}>{props.customText}</Text>
+                <Text style={styles.mainText}>{props.mainText}</Text>
+                <Text style={styles.customText}>{props.customText}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -25,13 +25,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-end',
     },
-    name: {
+    mainText: {
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: DeviceDimensions.deviceWidth > 400 ? 20 : 18,
     },
-    date: {
+    customText: {
         fontSize: 12,
-        fontWeight: '200',
+        fontWeight: '300',
     },
 })
 

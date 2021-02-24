@@ -9,7 +9,6 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import DeviceDimensions from '../constants/DeviceDimensions';
 import ActionButton from './ActionButton';
-import Avatar from './Avatar'
 import CustomImage from './CustomImage';
 import InfoBar from './InfoBar';
 
@@ -17,7 +16,7 @@ const Post = (props) => {
     return(
         <View style={styles.container}>
             <View style={styles.topRow}>
-                <InfoBar customText="Date"/>
+                <InfoBar mainText={props.mainText} customText={props.customText}/>
                 <TouchableOpacity
                     activeOpacity={0.7}
                     onPress={() => {}}
@@ -30,9 +29,9 @@ const Post = (props) => {
                 </TouchableOpacity>
             </View>
             <View>
-                <Text>abcabcabc</Text>
+                <Text style={styles.content}>{props.content}</Text>
             </View>
-            <CustomImage />
+            <CustomImage imageUri={props.imageUri}/>
             <View style={styles.actionsContainer}>
                 <ActionButton style={styles.action} iconName="heart-outline" action="Like"/>
                 <ActionButton style={styles.action} iconName="chatbox-ellipses-outline" action="Comment"/>
@@ -53,6 +52,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         marginBottom: 10,
+    },
+    content: {
+        
     },
     actionsContainer: {
         flexDirection: 'row',

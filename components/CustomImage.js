@@ -11,7 +11,7 @@ const CustomImage = (props) => {
     return(
         <View style={{...styles.imageContainer, ...props.style}}>
             <Image 
-                source={{uri: 'https://via.placeholder.com/150'}}
+                source={{uri: props.imageUri}}
                 style={styles.image}
             />
         </View>
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         width: '100%',
         maxHeight: DeviceDimensions.deviceHeight / 2,
-        marginTop: 5,
+        marginTop: 10,
     },
     image: {
         height: '100%',

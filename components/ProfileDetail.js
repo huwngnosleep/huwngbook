@@ -8,7 +8,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import DeviceDimensions from '../constants/DeviceDimensions';
 
 
-const InfoDetail = (props) => {
+const ProfileDetail = (props) => {
     return(
         <View style={styles.container} >
             <View style={styles.iconContainer}>
@@ -40,4 +40,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default InfoDetail
+export default ProfileDetail

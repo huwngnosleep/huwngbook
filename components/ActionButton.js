@@ -5,13 +5,13 @@ import {
     Text,
     TouchableOpacity,
 } from 'react-native'
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-vector-icons/Ionicons"
 
 const ActionButton = (props) => {
     return(
         <TouchableOpacity 
-            onPress={() => {}}
-            activeOpacity={0.2}    
+            onPress={props.onPress}
+            activeOpacity={0.5}    
             style={{...styles.container, ...props.style}} 
         >
             <Icon 

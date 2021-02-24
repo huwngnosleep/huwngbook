@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { 
     Image,
     StyleSheet, 
@@ -6,16 +6,28 @@ import {
     Text,
     ScrollView,
     Button,
+    FlatList,
 } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler'
+import { useSelector, useDispatch } from 'react-redux'
+import * as postActions from '../../store/actions/posts.actions'
+
 import Avatar from '../../components/Avatar'
 import FriendCard from '../../components/FriendCard'
-import InfoDetail from '../../components/InfoDetail'
+import ProfileDetail from '../../components/ProfileDetail'
 import Post from '../../components/Post'
 import PostStatus from '../../components/PostStatus'
+
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
 const ProfileScreen = (props) => {
+    const posts = useSelector((state) => state.post.posts)
+    
+    const dispatch = useDispatch()
+    
+    useEffect(() => {
+        dispatch(postActions.setPosts())
+    }, [dispatch])
+
     return(
         <ScrollView style={styles.screen} >
             <View>
@@ -29,9 +41,9 @@ const ProfileScreen = (props) => {
                 </View>
             </View>
             <View style={styles.detail}>
-                <InfoDetail/>
-                <InfoDetail/>
-                <InfoDetail/>
+                <ProfileDetail/>
+                <ProfileDetail/>
+                <ProfileDetail/>
             </View>
             <View style={styles.container}>
                 <View style={styles.textSummary}>
@@ -52,14 +64,20 @@ const ProfileScreen = (props) => {
                 </View>
             </View>
             <View style={styles.container}>
+                <PostStatus onPress={() => {props.navigation.navigate('Create Post')}}/>
                 <View style={styles.textSummary}>
                     <Text style={styles.title}>Post</Text>
                 </View>
-                <PostStatus />
             </View>
             <View style={styles.container}>
-                {[1,2,3,4,5].map((itemData) => <Post />)}
-
+                {posts.map((item) => 
+                    <Post
+                        mainText={item.owner}
+                        customText={item.date}
+                        imageUri={item.imageUri}
+                        content={item.content}
+                    />
+                )}
             </View>
         </ScrollView>
     )
@@ -98,10 +116,12 @@ const styles = StyleSheet.create({
     },
     container: {
         alignItems: 'center',
+        marginVertical: 5,
     },
     textSummary: {
         width: '90%',
         alignItems: 'flex-start',
+        marginBottom: 10,
     },
     friendCard: {
         width: DeviceDimensions.deviceWidth / 4,

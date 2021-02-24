@@ -9,7 +9,7 @@ const AccountScreen = (props) => {
     return(
         <View style={styles.screen} >
             <View style={styles.goToProfile}>
-                <InfoBar customText="View your profile" onPress={() => {props.navigation.navigate('Profile')}}/>
+                <InfoBar mainText="User Name" customText="View your profile" onPress={() => {props.navigation.navigate('Profile')}}/>
                 <Icon 
                     name="chevron-forward"
                     size={25}
