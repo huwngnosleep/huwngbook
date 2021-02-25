@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { 
     StyleSheet, 
     View, 
@@ -7,12 +7,27 @@ import {
     Button,
     TextInput,
 } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import * as postActions from '../../store/actions/posts.actions'
+
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import ActionButton from '../../components/ActionButton'
 import InfoBar from '../../components/InfoBar'
 
 const CreatePostScreen = (props) => {
     const [textInput, setTextInput] = useState('')
+
+    const dispatch = useDispatch()
+
+    const submitHandler = useCallback(async () => {
+        dispatch(postActions.createPost(
+            'User Name',
+            new Date().toDateString(),
+            "http://dummyimage.com/200x200.bmp/ff4444/ffffff",
+            textInput,
+        ))
+        props.navigation.goBack()
+    }, [dispatch, textInput])
 
     useEffect(() => {
         props.navigation.setOptions({
@@ -21,19 +36,21 @@ const CreatePostScreen = (props) => {
                     <Button 
                         disabled={textInput === '' ? true : false}
                         title="Post"
-                        onPress={() => {}}
+                        onPress={submitHandler}
                     />
                 </View>
             )
         })
     })
 
+    const user = useSelector((state) => state.auth.user)
+
     return(
         <View 
             style={styles.container}
         >
             <View style={styles.header}>
-                <InfoBar mainText="User Name" customText={new Date().toDateString()}/>
+                <InfoBar mainText={user.name} customText={new Date().toDateString()}/>
             </View>
             <View style={styles.textInputContainer}>
                 <TextInput

@@ -2,14 +2,17 @@ import React from 'react'
 import { StyleSheet, View, Text, Button } from 'react-native'
 import AccountItem from '../../components/AccountItem'
 import InfoBar from '../../components/InfoBar'
-import DeviceDimensions from '../../constants/DeviceDimensions'
 import Icon from "react-native-vector-icons/Ionicons";
+import { useSelector } from 'react-redux';
 
 const AccountScreen = (props) => {
+    let userId = useSelector((state) => state.auth.userId)
+    let user = useSelector((state) => state.auth.user)
+    
     return(
         <View style={styles.screen} >
             <View style={styles.goToProfile}>
-                <InfoBar mainText="User Name" customText="View your profile" onPress={() => {props.navigation.navigate('Profile')}}/>
+                <InfoBar mainText={user.name} customText="View your profile" onPress={() => {props.navigation.navigate('Profile')}}/>
                 <Icon 
                     name="chevron-forward"
                     size={25}
@@ -17,10 +20,35 @@ const AccountScreen = (props) => {
                 />
             </View>
             <View style={styles.actions}>
-                <AccountItem iconName="flag" action="Pages"/>
-                <AccountItem iconName="people" action="Groups"/>
-                <AccountItem iconName="bookmarks" action="Saved"/>
-                <AccountItem iconName="log-out" action="Sign out"/>
+                <AccountItem 
+                    haveRightArrow
+                    iconName="flag" 
+                    action="Pages"
+                    onPress={() => {}}
+                />
+                <AccountItem 
+                    haveRightArrow
+                    iconName="people" 
+                    action="Groups"
+                    onPress={() => {}}
+                />
+                <AccountItem 
+                    haveRightArrow
+                    iconName="bookmarks" 
+                    action="Saved" 
+                    onPress={() => {}}
+                />
+                <AccountItem 
+                    iconName={userId ? "log-out" : "log-in"}
+                    action={userId ? "Sign out" : "Sign in"}
+                    onPress={() => {
+                        if(userId) {
+                            () => {}
+                        } else {
+                            props.navigation.navigate('Authentication')
+                        }
+                    }}
+                />
             </View>
         </View>
     )

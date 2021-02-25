@@ -18,7 +18,7 @@ const ProfileDetail = (props) => {
                     size={25}
                 />
             </View>
-            <Text styles={styles.detail}>Detailllllllllllllllllllllllllllllllllllllllllllllllll</Text>
+            <Text styles={styles.detail}>{props.content}</Text>
         </View>
     )
 }

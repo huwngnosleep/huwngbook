@@ -10,14 +10,18 @@ import ActionButton from './ActionButton';
 
 const AccountItem = (props) => {
     return(
-        <TouchableOpacity style={styles.container} >
-            <ActionButton iconName={props.iconName} action={props.action}/>
-            <Icon 
+        <View style={styles.container} activeOpacity={1}>
+            <ActionButton 
+                onPress={props.onPress}
+                iconName={props.iconName} 
+                action={props.action}
+            />
+            {props.haveRightArrow ? <Icon 
                 name="chevron-down"
                 color="#333"
                 size={25}
-            />
-        </TouchableOpacity>
+            /> : null}
+        </View>
     )
 }
 

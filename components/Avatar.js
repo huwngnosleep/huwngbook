@@ -4,12 +4,15 @@ import {
     StyleSheet, 
     View, 
 } from 'react-native'
+import { useSelector } from 'react-redux'
 
 const Avatar = (props) => {
+    const avatar = useSelector((state) => state.auth.user.avatar)
+
     return(
         <View style={{...styles.imageContainer, ...props.style}}>
             <Image 
-                source={{uri: 'https://via.placeholder.com/150'}}
+                source={{uri: avatar}}
                 style={styles.image}
             />
         </View>

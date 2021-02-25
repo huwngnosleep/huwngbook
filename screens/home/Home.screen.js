@@ -3,6 +3,7 @@ import {
     StyleSheet, 
     View, 
     Text, 
+    Button,
     FlatList, 
     ActivityIndicator
 } from 'react-native'
@@ -30,14 +31,19 @@ const HomeScreen = (props) => {
             setError(error.message)
         }
         setIsRefreshing(false)
-    }, [dispatch, setError])
+    }, [dispatch, setError, setIsRefreshing])
 
     useEffect(() => {
         setIsLoading(true)
         loadPosts().then(() => {
             setIsLoading(false)
         })
-    }, [dispatch, loadPosts])
+    }, [dispatch, loadPosts, setIsLoading])
+
+    useEffect(() => {
+        const unsubscribe = props.navigation.addListener('focus', loadPosts)
+        return unsubscribe
+    }, [loadPosts, props])
 
     if (error) {
         return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

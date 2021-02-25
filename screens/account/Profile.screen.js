@@ -20,7 +20,9 @@ import PostStatus from '../../components/PostStatus'
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
 const ProfileScreen = (props) => {
-    const posts = useSelector((state) => state.post.posts)
+    let user = useSelector((state) => state.auth.user)
+
+    console.log(typeof(user.friends))
     
     const dispatch = useDispatch()
     
@@ -35,15 +37,13 @@ const ProfileScreen = (props) => {
                 <View style={styles.introContainer}>
                     <Avatar style={styles.avatar}/>
                     <View style={styles.intro}>
-                        <Text style={styles.name}>Name</Text>
-                        <Text style={styles.bio}>Biooooooooooo</Text>
+                        <Text style={styles.name}>{user.name}</Text>
+                        <Text style={styles.bio}>{user.bio}</Text>
                     </View>
                 </View>
             </View>
             <View style={styles.detail}>
-                <ProfileDetail/>
-                <ProfileDetail/>
-                <ProfileDetail/>
+                {user.detailInfo.map((item) => <ProfileDetail content={item}/>)}
             </View>
             <View style={styles.container}>
                 <View style={styles.textSummary}>
@@ -51,7 +51,7 @@ const ProfileScreen = (props) => {
                     <Text>xxx friends</Text>
                 </View>
                 <FlatList 
-                    data={[1,2,3,4,5,6,7,8,9]}
+                    data={user.friends}
                     renderItem={(itemData) => <FriendCard style={styles.friendCard} />}
                     numColumns={3}
                 />
@@ -70,7 +70,7 @@ const ProfileScreen = (props) => {
                 </View>
             </View>
             <View style={styles.container}>
-                {posts.map((item) => 
+                {user.posts.map((item) => 
                     <Post
                         mainText={item.owner}
                         customText={item.date}

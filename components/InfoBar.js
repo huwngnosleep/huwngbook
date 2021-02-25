@@ -13,7 +13,7 @@ const InfoBar = (props) => {
         <TouchableOpacity onPress={props.onPress} style={{...styles.container, ...props.style}}>
             <Avatar />
             <View>
-                <Text style={styles.mainText}>{props.mainText}</Text>
+                <Text numberOfLines={1} style={styles.mainText}>{props.mainText}</Text>
                 <Text style={styles.customText}>{props.customText}</Text>
             </View>
         </TouchableOpacity>
