@@ -2,17 +2,15 @@ import React, { useState, useCallback } from 'react'
 import { 
     StyleSheet, 
     View, 
-    Text,
-    TextInput,
     Button,
     ScrollView,
     ActivityIndicator,
-    KeyboardAvoidingView,
     Keyboard,
     TouchableOpacity,
-    Touchable,
 } from 'react-native'
 import { useDispatch } from 'react-redux'
+import AlertText from '../../components/AlertText'
+import CustomTextInput from '../../components/CustomTextInput'
 import * as authActions from '../../store/actions/auth.actions'
 
 const AuthScreen = (props) => {
@@ -30,17 +28,22 @@ const AuthScreen = (props) => {
         try {
             if (isSignIn === true) {
                 await dispatch(authActions.signIn(email, password))
+                if(isSignIn) {
+                    props.navigation.navigate('Profile')
+                }
             } else {
                 await dispatch(authActions.signUp(email, password))
+                if(!isSignIn) {
+                    props.navigation.navigate('Create User', {alertText: 'Signed up successfully!'})
+                }
             }
-            
         } catch (error) {
             setError(error.message)
         }
         setIsLoading(false)
         setEmail('')
         setPassword('')
-    }, [dispatch, email, password])
+    }, [dispatch, isSignIn, email, password, error])
 
     return(
         <TouchableOpacity
@@ -50,30 +53,32 @@ const AuthScreen = (props) => {
         >
             <View style={styles.authContainer}>
                 <ScrollView>
-                    {error ? <Text>{error}</Text> : null}
-                    <Text style={styles.label}>Email</Text>
-                    <TextInput 
-                        style={styles.input}
+                    <CustomTextInput 
+                        label="Email"
                         keyboardType='email-address'
                         value={email}
-                        required
-                        email
                         autoCapitalize='none'
                         placeholder="example@gmail.com"
-                        onChangeText={(text) => {setEmail(text)}}
+                        onChangeText={(text) => {
+                            setEmail(text)
+                            setError(null)
+                        }}
                     />
-                    <Text style={styles.label}>Password</Text>
-                    <TextInput 
+                    <CustomTextInput 
                         style={styles.input}
+                        label="Password"
                         keyboardType='default'
                         value={password}
                         secureTextEntry
-                        required
                         autoCapitalize='none'
                         placeholder="Don't let anyone know"
-                        onChangeText={(text) => {setPassword(text)}}
+                        onChangeText={(text) => {
+                            setPassword(text)
+                            setError(null)
+                        }}
                     />
                 </ScrollView>
+                {error ? <AlertText alertText={error}/> : null}
                 <View style={styles.buttonsContainer}>
                     <View style={styles.button}>
                         {isLoading ? 
@@ -81,14 +86,17 @@ const AuthScreen = (props) => {
                             : 
                             <Button 
                                 title={isSignIn ? 'Sign in' : 'Sign up'} 
-                                onPress={authHandler} 
+                                onPress={authHandler}
                             />
                         }
                     </View>
                     <View style={styles.button}>
                         <Button 
                             title={`Switch to ${isSignIn ? 'Sign up' : 'Sign in' }`} 
-                            onPress={() => {setIsSignIn((isSignIn) => !isSignIn)}} 
+                            onPress={() => {
+                                setIsSignIn((isSignIn) => !isSignIn)
+                                setError(null)
+                            }} 
                         />
                     </View>
                 </View>
@@ -122,7 +130,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     buttonsContainer: {
-        marginTop: 20,
+        marginTop: 10,
     },
     button: {
         marginTop: 10,

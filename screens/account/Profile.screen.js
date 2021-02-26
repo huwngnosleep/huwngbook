@@ -22,8 +22,6 @@ import DeviceDimensions from '../../constants/DeviceDimensions'
 const ProfileScreen = (props) => {
     let user = useSelector((state) => state.auth.user)
 
-    console.log(typeof(user.friends))
-    
     const dispatch = useDispatch()
     
     useEffect(() => {
@@ -43,18 +41,22 @@ const ProfileScreen = (props) => {
                 </View>
             </View>
             <View style={styles.detail}>
-                {user.detailInfo.map((item) => <ProfileDetail content={item}/>)}
+                {user.detailInfo ? user.detailInfo.map((item) => <ProfileDetail content={item}/>) : null}
             </View>
             <View style={styles.container}>
                 <View style={styles.textSummary}>
                     <Text style={styles.title}>Friends</Text>
-                    <Text>xxx friends</Text>
+                    {user.friends ? <Text>{user.friends.length} friends</Text> : null}
                 </View>
-                <FlatList 
-                    data={user.friends}
-                    renderItem={(itemData) => <FriendCard style={styles.friendCard} />}
-                    numColumns={3}
-                />
+                {user.friends ?
+                    <FlatList 
+                        data={user.friends}
+                        renderItem={(itemData) => <FriendCard style={styles.friendCard} />}
+                        numColumns={3}
+                    />
+                    : 
+                    <Text>You have no friend yet!</Text>
+                }
                 <View style={styles.actions}>
                     <Button 
                         title="See all friends"
@@ -70,7 +72,8 @@ const ProfileScreen = (props) => {
                 </View>
             </View>
             <View style={styles.container}>
-                {user.posts.map((item) => 
+                {user.posts ? null : <Text>Create your first post!</Text>}
+                {user.posts && user.posts.map((item) => 
                     <Post
                         mainText={item.owner}
                         customText={item.date}
@@ -115,8 +118,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     container: {
-        alignItems: 'center',
         marginVertical: 5,
+        alignItems: 'center',
+        width: DeviceDimensions.deviceWidth,
     },
     textSummary: {
         width: '90%',
@@ -127,7 +131,6 @@ const styles = StyleSheet.create({
         width: DeviceDimensions.deviceWidth / 4,
         height: DeviceDimensions.deviceWidth / 4,
     },
-
     actions: {
         width: '80%',
     },

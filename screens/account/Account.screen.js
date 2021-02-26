@@ -3,12 +3,16 @@ import { StyleSheet, View, Text, Button } from 'react-native'
 import AccountItem from '../../components/AccountItem'
 import InfoBar from '../../components/InfoBar'
 import Icon from "react-native-vector-icons/Ionicons";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { signOut } from '../../store/actions/auth.actions'
 
 const AccountScreen = (props) => {
-    let userId = useSelector((state) => state.auth.userId)
-    let user = useSelector((state) => state.auth.user)
+    const localId = useSelector((state) => state.auth.localId)
+    const user = useSelector((state) => state.auth.user)
     
+    const dispatch = useDispatch()
+
     return(
         <View style={styles.screen} >
             <View style={styles.goToProfile}>
@@ -39,11 +43,11 @@ const AccountScreen = (props) => {
                     onPress={() => {}}
                 />
                 <AccountItem 
-                    iconName={userId ? "log-out" : "log-in"}
-                    action={userId ? "Sign out" : "Sign in"}
+                    iconName={localId ? "log-out" : "log-in"}
+                    action={localId ? "Sign out" : "Sign in"}
                     onPress={() => {
-                        if(userId) {
-                            () => {}
+                        if(localId) {
+                            dispatch(signOut())
                         } else {
                             props.navigation.navigate('Authentication')
                         }

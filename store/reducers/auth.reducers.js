@@ -1,8 +1,13 @@
-import { SIGN_IN, SIGN_UP } from "../actions/auth.actions";
+import { SIGN_IN, SIGN_OUT, SIGN_UP } from "../actions/auth.actions";
 
 const initialState = {
-    idToken: null,
-    userId: null,
+    // id: response name from firebase database, used for editing user info in database
+    id: null,
+    
+    // localId: from firebase authentication, used for getting user data when signing in
+    localId: null,
+
+    // user: temporary user data when signing up or used as guess account
     user: {
         name: 'Guess',
         avatar: 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png',
@@ -20,18 +25,26 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case SIGN_OUT: 
+            return {
+                ...state,
+                id: action.id,
+                localId: action.localId,
+                user: action.user,
+            }
         case SIGN_IN:
             return {
                 ...state,
-                token: action.token,
-                userId: action.userId,
+                id: action.id,
+                localId: action.localId,
                 user: action.user,
             }
         case SIGN_UP:
             return {
                 ...state,
-                token: action.token,
-                userId: action.userId,
+                id: action.id,
+                localId: action.localId,
+                user: action.user,
             }
     
         default:
