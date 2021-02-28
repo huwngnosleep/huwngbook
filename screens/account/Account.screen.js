@@ -6,10 +6,11 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from 'react-redux';
 
 import { signOut } from '../../store/actions/auth.actions'
+import { signUserOut } from '../../store/actions/user.actions'
 
 const AccountScreen = (props) => {
     const localId = useSelector((state) => state.auth.localId)
-    const user = useSelector((state) => state.auth.user)
+    const user = useSelector((state) => state.user.currentUser)
     
     const dispatch = useDispatch()
 
@@ -48,6 +49,7 @@ const AccountScreen = (props) => {
                     onPress={() => {
                         if(localId) {
                             dispatch(signOut())
+                            dispatch(signUserOut())
                         } else {
                             props.navigation.navigate('Authentication')
                         }

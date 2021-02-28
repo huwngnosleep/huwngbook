@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
         case CREATE_POST:
             return {
                 ...state,
-                posts: [...state.posts.posts.unshift(action.post)]
+                posts: [...state.posts.posts.unshift(action.postData)]
             }
 
         default: 

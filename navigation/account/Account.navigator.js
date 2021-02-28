@@ -13,7 +13,6 @@ const Stack = createStackNavigator()
 
 const AccountNavigator = () => {
     const localId = useSelector((state) => state.auth.localId)
-    // localId !== null => current user is not guess => can not access to auth screen
 
     return (
         <Stack.Navigator>

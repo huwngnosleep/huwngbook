@@ -40,11 +40,6 @@ const HomeScreen = (props) => {
         })
     }, [dispatch, loadPosts, setIsLoading])
 
-    useEffect(() => {
-        const unsubscribe = props.navigation.addListener('focus', loadPosts)
-        return unsubscribe
-    }, [loadPosts, props])
-
     if (error) {
         return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Text>{error}</Text>

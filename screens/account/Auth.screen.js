@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux'
 import AlertText from '../../components/AlertText'
 import CustomTextInput from '../../components/CustomTextInput'
 import * as authActions from '../../store/actions/auth.actions'
+import * as userActions from '../../store/actions/user.actions'
 
 const AuthScreen = (props) => {
     const [isSignIn, setIsSignIn] = useState(true)
@@ -27,15 +28,15 @@ const AuthScreen = (props) => {
         setError(null)
         try {
             if (isSignIn === true) {
-                await dispatch(authActions.signIn(email, password))
-                if(isSignIn) {
-                    props.navigation.navigate('Profile')
-                }
+                await dispatch(authActions.signIn(email, password)).then((id) => {
+                    dispatch(userActions.setUser(id))
+                })
+                props.navigation.navigate('Profile')
             } else {
-                await dispatch(authActions.signUp(email, password))
-                if(!isSignIn) {
-                    props.navigation.navigate('Create User', {alertText: 'Signed up successfully!'})
-                }
+                await dispatch(authActions.signUp(email, password)).then((id) => {
+                    dispatch(userActions.setUser(id))
+                })
+                props.navigation.navigate('Create User', {alertText: 'Signed up successfully!'})
             }
         } catch (error) {
             setError(error.message)
@@ -55,10 +56,10 @@ const AuthScreen = (props) => {
                 <ScrollView>
                     <CustomTextInput 
                         label="Email"
+                        placeholder="example@gmail.com"
                         keyboardType='email-address'
                         value={email}
                         autoCapitalize='none'
-                        placeholder="example@gmail.com"
                         onChangeText={(text) => {
                             setEmail(text)
                             setError(null)
@@ -67,11 +68,11 @@ const AuthScreen = (props) => {
                     <CustomTextInput 
                         style={styles.input}
                         label="Password"
+                        placeholder="At least 6 characters"
                         keyboardType='default'
                         value={password}
                         secureTextEntry
                         autoCapitalize='none'
-                        placeholder="Don't let anyone know"
                         onChangeText={(text) => {
                             setPassword(text)
                             setError(null)
@@ -96,7 +97,7 @@ const AuthScreen = (props) => {
                             onPress={() => {
                                 setIsSignIn((isSignIn) => !isSignIn)
                                 setError(null)
-                            }} 
+                            }}
                         />
                     </View>
                 </View>

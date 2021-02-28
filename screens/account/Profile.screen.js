@@ -20,7 +20,7 @@ import PostStatus from '../../components/PostStatus'
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
 const ProfileScreen = (props) => {
-    let user = useSelector((state) => state.auth.user)
+    let user = useSelector((state) => state.user.currentUser)
 
     const dispatch = useDispatch()
     
@@ -46,17 +46,16 @@ const ProfileScreen = (props) => {
             <View style={styles.container}>
                 <View style={styles.textSummary}>
                     <Text style={styles.title}>Friends</Text>
-                    {user.friends ? <Text>{user.friends.length} friends</Text> : null}
+                    {user.friends && user.friends.length > 0 ? <Text>{user.friends.length} friends</Text> : null}
                 </View>
-                {user.friends ?
+                {/* {user.friends && user.friends.length > 0?
                     <FlatList 
                         data={user.friends}
                         renderItem={(itemData) => <FriendCard style={styles.friendCard} />}
                         numColumns={3}
                     />
                     : 
-                    <Text>You have no friend yet!</Text>
-                }
+                    <Text>You have no friend yet!</Text> */}
                 <View style={styles.actions}>
                     <Button 
                         title="See all friends"
@@ -72,7 +71,7 @@ const ProfileScreen = (props) => {
                 </View>
             </View>
             <View style={styles.container}>
-                {user.posts ? null : <Text>Create your first post!</Text>}
+                {user.posts && user.posts.length > 0 ? null : <Text>Create your first post!</Text>}
                 {user.posts && user.posts.map((item) => 
                     <Post
                         mainText={item.owner}

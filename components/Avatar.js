@@ -7,7 +7,7 @@ import {
 import { useSelector } from 'react-redux'
 
 const Avatar = (props) => {
-    const avatar = useSelector((state) => state.auth.user.avatar)
+    const avatar = useSelector((state) => state.user.currentUser.avatar)
 
     return(
         <View style={{...styles.imageContainer, ...props.style}}>

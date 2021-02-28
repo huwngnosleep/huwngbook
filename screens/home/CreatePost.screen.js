@@ -17,15 +17,17 @@ import InfoBar from '../../components/InfoBar'
 const CreatePostScreen = (props) => {
     const [textInput, setTextInput] = useState('')
 
+    let currentUserName = useSelector((state) => state.auth.user.name)
+
     const dispatch = useDispatch()
 
     const submitHandler = useCallback(async () => {
-        dispatch(postActions.createPost(
-            'User Name',
-            new Date().toDateString(),
-            "http://dummyimage.com/200x200.bmp/ff4444/ffffff",
+        dispatch(postActions.createPost({
+            currentUserName,
+            date: new Date().toDateString(),
+            imageUri: "http://dummyimage.com/200x200.bmp/ff4444/ffffff",
             textInput,
-        ))
+        }))
         props.navigation.goBack()
     }, [dispatch, textInput])
 
