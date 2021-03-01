@@ -10,11 +10,11 @@ import FriendCard from '../../components/FriendCard'
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
 const FriendsScreen = (props) => {
-    const friendsList = useSelector((state) => state.auth.user.friends)
+    const friendsList = useSelector((state) => state.user.currentUser.friends)
     return(
         <View style={styles.screen}>
             <FlatList 
-                styles={styles.list}
+                contentContainerStyle={styles.list}
                 numColumns={2}
                 data={friendsList}
                 renderItem={(dataItem) => <FriendCard style={styles.friendCard}/>}
@@ -29,11 +29,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     list: {
+        alignSelf: 'center',
         flex: 1,
     },
     friendCard: {
-        width: DeviceDimensions.deviceWidth / 2,
-        height: DeviceDimensions.deviceWidth / 2,
+        width: DeviceDimensions.deviceWidth / 3,
+        height: DeviceDimensions.deviceWidth / 3,
     },
 })
 

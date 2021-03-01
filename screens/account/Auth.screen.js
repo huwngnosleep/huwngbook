@@ -55,10 +55,8 @@ const AuthScreen = (props) => {
             <View style={styles.authContainer}>
                 <ScrollView>
                     <CustomTextInput 
-                        label="Email"
-                        placeholder="example@gmail.com"
+                        placeholder="Email"
                         keyboardType='email-address'
-                        value={email}
                         autoCapitalize='none'
                         onChangeText={(text) => {
                             setEmail(text)
@@ -67,10 +65,8 @@ const AuthScreen = (props) => {
                     />
                     <CustomTextInput 
                         style={styles.input}
-                        label="Password"
-                        placeholder="At least 6 characters"
+                        placeholder="Password"
                         keyboardType='default'
-                        value={password}
                         secureTextEntry
                         autoCapitalize='none'
                         onChangeText={(text) => {

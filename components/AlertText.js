@@ -8,7 +8,7 @@ import {
 const AlertText = (props) => {
     return(
         <View >
-            <Text style={styles.alertText}>{props.alertText}</Text>
+            <Text style={{...styles.alertText, ...props.style}}>{props.alertText}</Text>
         </View>
     )
 }

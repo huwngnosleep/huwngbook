@@ -1,17 +1,17 @@
 import React from 'react'
-import { 
-    StyleSheet, 
-    View, 
-    Text,
+import {
+    StyleSheet,
+    View,
+    Text, 
     TextInput,
 } from 'react-native'
 
 const CustomTextInput = (props) => {
 
-    return(
+    return (
         <View style={styles.container}>
-            <Text style={styles.label}>{props.label}</Text>
-            <TextInput 
+            <TextInput
+                placeholderTextColor='grey'
                 style={styles.input}
                 {...props}
             />
@@ -22,16 +22,15 @@ const CustomTextInput = (props) => {
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
-    },
-    label: {
-        fontSize: 24,
-        marginVertical: 8,
+        height: 40,
+        marginBottom: 20,
     },
     input: {
         paddingHorizontal: 2,
         paddingVertical: 5,
         borderBottomColor: '#ccc',
         borderBottomWidth: 1,
+        fontSize: 22,
     },
 })
 
