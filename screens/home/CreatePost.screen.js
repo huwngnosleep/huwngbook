@@ -17,7 +17,7 @@ import InfoBar from '../../components/InfoBar'
 const CreatePostScreen = (props) => {
     const [textInput, setTextInput] = useState('')
 
-    let currentUserName = useSelector((state) => state.auth.user.name)
+    let currentUserName = useSelector((state) => state.user.currentUser.name)
 
     const dispatch = useDispatch()
 
@@ -45,14 +45,12 @@ const CreatePostScreen = (props) => {
         })
     })
 
-    const user = useSelector((state) => state.auth.user)
-
     return(
         <View 
             style={styles.container}
         >
             <View style={styles.header}>
-                <InfoBar mainText={user.name} customText={new Date().toDateString()}/>
+                <InfoBar mainText={currentUserName} customText={new Date().toDateString()}/>
             </View>
             <View style={styles.textInputContainer}>
                 <TextInput

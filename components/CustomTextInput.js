@@ -10,7 +10,9 @@ const CustomTextInput = (props) => {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.label}>{props.label}</Text>
             <TextInput
+                textAlignVertical={'top'}
                 placeholderTextColor='grey'
                 style={styles.input}
                 {...props}
@@ -23,14 +25,18 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         height: 40,
-        marginBottom: 20,
+        marginBottom: 30,
+    },
+    label: {
+        fontSize: 22,
     },
     input: {
         paddingHorizontal: 2,
         paddingVertical: 5,
         borderBottomColor: '#ccc',
         borderBottomWidth: 1,
-        fontSize: 22,
+        fontSize: 16,
+        textAlign: 'right',
     },
 })
 

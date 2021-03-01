@@ -13,12 +13,12 @@ const ProfileDetail = (props) => {
         <View style={styles.container} >
             <View style={styles.iconContainer}>
                 <Icon 
-                    name="ios-add"
-                    color="#333"
-                    size={25}
+                    name="remove"
+                    color="grey"
+                    size={20}
                 />
             </View>
-            <Text styles={styles.detail}>{props.content}</Text>
+            <Text style={styles.detail}>{props.title}{props.content}</Text>
         </View>
     )
 }
@@ -27,16 +27,15 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-around',
-        width: DeviceDimensions.deviceWidth * 0.95,
-        marginBottom: 5,
+        width: '100%',
+        alignSelf: 'center',
+        marginBottom: 10,
     },
     iconContainer: {
-        width: '30%',
     },
     detail: {
-        width: '70%',
-        fontSize: 20,
+        fontSize: 18,
+        color: 'grey',
     },
 })
 

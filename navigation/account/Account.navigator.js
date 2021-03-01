@@ -8,6 +8,7 @@ import CreatePostScreen from '../../screens/home/CreatePost.screen';
 import AuthScreen from '../../screens/account/Auth.screen';
 import CreateUserScreen from '../../screens/account/CreateUser.screen';
 import { useSelector } from 'react-redux';
+import EditProfileScreen from '../../screens/account/EditProfile.screen';
 
 const Stack = createStackNavigator()
 
@@ -20,6 +21,7 @@ const AccountNavigator = () => {
             {localId === null ? <Stack.Screen name="Authentication" component={AuthScreen} /> : null}
             <Stack.Screen name="Create User" component={CreateUserScreen} />
             <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen name="Edit Profile" component={EditProfileScreen} />
             <Stack.Screen name="Create Post" component={CreatePostScreen} />
             <Stack.Screen name="Friends" component={FriendsScreen} />
         </Stack.Navigator>

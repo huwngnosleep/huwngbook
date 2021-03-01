@@ -1,11 +1,15 @@
-import { CREATE_USER, SET_USER, SIGN_USER_OUT } from "../actions/user.actions"
+import { EDIT_USER, SET_USER, SIGN_USER_OUT } from "../actions/user.actions"
 
 const initialState = {
     currentUser: {
         name: 'Guess',
+        userName: '@guess',
         avatar: 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png',
         bio: 'Bio',
-        birthday: '',
+        birthday: 'YYYY/MM/DD',
+        address: 'Viet Nam',
+        phoneNumber: '0123456789',
+        email: 'guess@gmail.com',
         detailInfo: ['Detail', 'Detail', 'Detail'],
         posts: [],
         friends: [1,2,3,4,5,6,7,8,9],
@@ -21,10 +25,11 @@ export default (state = initialState, action) => {
                     ...action.userData
                 },
             }
-        case CREATE_USER:
+        case EDIT_USER:
             return {
                 ...state,
                 currentUser: {
+                    ...state.currentUser,
                     ...action.userData
                 },
             }

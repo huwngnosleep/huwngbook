@@ -9,7 +9,7 @@ import {
 import { StackActions } from '@react-navigation/native';
 
 import { useDispatch, useSelector } from 'react-redux'
-import { createUser } from '../../store/actions/user.actions'
+import { editUser } from '../../store/actions/user.actions'
 
 import AlertText from '../../components/AlertText'
 import CustomTextInput from '../../components/CustomTextInput'
@@ -36,7 +36,7 @@ const CreateUserScreen = (props) => {
     const currentUserId = useSelector((state) => state.auth.localId)
 
     const submitHandler = useCallback(() => {
-        dispatch(createUser(currentUserId, {
+        dispatch(editUser(currentUserId, {
             name,
             userName,
             avatar: 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png',
@@ -92,7 +92,7 @@ const CreateUserScreen = (props) => {
                     placeholder="User name"
                     autoCapitalize='none'
                     onChangeText={(text) => {
-                        setUserName(text, inputValidation())
+                        setUserName('@' + text, inputValidation())
                     }}
                 />
                 <CustomTextInput 
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 0,
         color: 'grey',
-        fontSize: 22,
+        fontSize: 20,
     }
 })
 

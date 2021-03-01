@@ -16,8 +16,10 @@ import FriendCard from '../../components/FriendCard'
 import ProfileDetail from '../../components/ProfileDetail'
 import Post from '../../components/Post'
 import PostStatus from '../../components/PostStatus'
+import Icon from "react-native-vector-icons/Ionicons";
 
 import DeviceDimensions from '../../constants/DeviceDimensions'
+
 
 const ProfileScreen = (props) => {
     let user = useSelector((state) => state.user.currentUser)
@@ -41,21 +43,37 @@ const ProfileScreen = (props) => {
                 </View>
             </View>
             <View style={styles.detail}>
-                {user.detailInfo ? user.detailInfo.map((item) => <ProfileDetail content={item}/>) : null}
+                <View style={styles.detailItem}>
+                    <ProfileDetail title="" content={user.userName}/>
+                    <ProfileDetail title="Lives in: " content={user.address}/>
+                    <ProfileDetail title="Birth Day: " content={user.birthday}/>
+                    <ProfileDetail title="Phone number: " content={user.phoneNumber}/>
+                    <ProfileDetail title="Email: " content={user.email}/>
+                </View>
+                <View style={styles.detailItem}>
+                    <Icon
+                        onPress={() => {
+                            props.navigation.navigate('Edit Profile')
+                        }}
+                        style={styles.editInfoIcon} 
+                        name="create-outline"
+                        size={30}
+                    />
+                </View>
             </View>
             <View style={styles.container}>
                 <View style={styles.textSummary}>
                     <Text style={styles.title}>Friends</Text>
                     {user.friends && user.friends.length > 0 ? <Text>{user.friends.length} friends</Text> : null}
                 </View>
-                {/* {user.friends && user.friends.length > 0?
+                {user.friends && user.friends.length > 0?
                     <FlatList 
                         data={user.friends}
                         renderItem={(itemData) => <FriendCard style={styles.friendCard} />}
                         numColumns={3}
                     />
                     : 
-                    <Text>You have no friend yet!</Text> */}
+                    <Text>You have no friend yet!</Text>}
                 <View style={styles.actions}>
                     <Button 
                         title="See all friends"
@@ -101,6 +119,15 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         marginVertical: 10,
     },
+    detail: {
+        width: '90%',
+        alignSelf: 'center',
+    },
+    editInfoIcon: {
+        position: 'absolute',
+        right: 0,
+        bottom: 0,
+    },
     avatar: {
         height: DeviceDimensions.deviceWidth / 4,
         width: DeviceDimensions.deviceWidth / 4,
@@ -112,9 +139,10 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 26,
         fontWeight: 'bold',
+        marginBottom: 10,
     },
     bio: {
-        fontSize: 16,
+        fontSize: 14,
     },
     container: {
         marginVertical: 5,
