@@ -8,25 +8,27 @@ import {
     TextInput,
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import * as postActions from '../../store/actions/posts.actions'
+import { createPost } from '../../store/actions/user.actions'
 
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import ActionButton from '../../components/ActionButton'
 import InfoBar from '../../components/InfoBar'
+import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
 
 const CreatePostScreen = (props) => {
     const [textInput, setTextInput] = useState('')
 
-    let currentUserName = useSelector((state) => state.user.currentUser.name)
+    const currentUser = useSelector((state) => state.user.currentUser)
+    const localId = useSelector((state) => state.auth.localId)
 
     const dispatch = useDispatch()
 
     const submitHandler = useCallback(async () => {
-        dispatch(postActions.createPost({
-            currentUserName,
+        dispatch(createPost(localId, {
+            owner: currentUser.name,
             date: new Date().toDateString(),
             imageUri: "http://dummyimage.com/200x200.bmp/ff4444/ffffff",
-            textInput,
+            content: textInput,
         }))
         props.navigation.goBack()
     }, [dispatch, textInput])
@@ -34,7 +36,7 @@ const CreatePostScreen = (props) => {
     useEffect(() => {
         props.navigation.setOptions({
             headerRight: () => (
-                <View style={styles.headerRightButton}>
+                <View style={{...HeaderRightButtonStyle}}>
                     <Button 
                         disabled={textInput === '' ? true : false}
                         title="Post"
@@ -50,7 +52,7 @@ const CreatePostScreen = (props) => {
             style={styles.container}
         >
             <View style={styles.header}>
-                <InfoBar mainText={currentUserName} customText={new Date().toDateString()}/>
+                <InfoBar mainText={currentUser.name} customText={new Date().toDateString()}/>
             </View>
             <View style={styles.textInputContainer}>
                 <TextInput
@@ -73,9 +75,6 @@ const CreatePostScreen = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    headerRightButton: {
-        marginRight: 10,
     },
     header: {
         width: '90%',

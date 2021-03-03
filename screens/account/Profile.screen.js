@@ -9,7 +9,6 @@ import {
     FlatList,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import * as postActions from '../../store/actions/posts.actions'
 
 import Avatar from '../../components/Avatar'
 import FriendCard from '../../components/FriendCard'
@@ -19,23 +18,20 @@ import PostStatus from '../../components/PostStatus'
 import Icon from "react-native-vector-icons/Ionicons";
 
 import DeviceDimensions from '../../constants/DeviceDimensions'
-
+import PostModel from '../../models/post.model'
 
 const ProfileScreen = (props) => {
     let user = useSelector((state) => state.user.currentUser)
-
-    const dispatch = useDispatch()
-    
-    useEffect(() => {
-        dispatch(postActions.setPosts())
-    }, [dispatch])
 
     return(
         <ScrollView style={styles.screen} >
             <View>
                 <Avatar style={styles.backgroundImg}/>
                 <View style={styles.introContainer}>
-                    <Avatar style={styles.avatar}/>
+                    <Avatar 
+                        style={styles.avatar}
+                        onPress={() => {props.navigation.navigate('Edit Image')}}
+                    />
                     <View style={styles.intro}>
                         <Text style={styles.name}>{user.name}</Text>
                         <Text style={styles.bio}>{user.bio}</Text>

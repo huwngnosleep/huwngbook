@@ -1,7 +1,77 @@
+import PostModel from "../../models/post.model"
+
+export const EDIT_IMAGE = 'EDIT_IMAGE'
 export const EDIT_USER = 'EDIT_USER'
 export const SET_USER = 'SET_USER'
 export const SIGN_USER_OUT = 'SIGN_USER_OUT'
+export const SET_POSTS = 'SET_POSTS'
+export const CREATE_POST = 'CREATE_POST'
 
+export const setPosts = () => {
+    return async (dispatch) => {
+        const response = await fetch('https://huwngbook-default-rtdb.firebaseio.com/posts.json')
+
+        const resData = await response.json()
+
+        const loadedPosts = []
+
+        for(const key in resData) {
+            loadedPosts.unshift(new PostModel(
+                resData[key].id,
+                resData[key].owner,
+                resData[key].date,
+                resData[key].imageUri,
+                resData[key].content
+            ))
+        }
+    
+        dispatch({
+            type: SET_POSTS,
+            posts: [...loadedPosts],
+        })
+    }
+}
+
+export const createPost = (localId, postData) => {
+
+    return async (dispatch) => {
+        const response = await fetch(`https://huwngbook-default-rtdb.firebaseio.com/users/${localId}/posts.json`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: '',
+                ...postData,
+            })
+        })
+
+        const resData = await response.json()
+
+        fetch(`https://huwngbook-default-rtdb.firebaseio.com/users/${localId}/posts/${resData.name}.json`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: resData.name,
+            })
+        })
+
+        dispatch({
+            type: CREATE_POST,
+            postData: {
+                id: resData.name,
+                ...postData,
+            },
+        })
+    }
+}
+export const editImage = (imageUri) => {
+    return async (dispatch) => {
+        
+    }
+}
 export const signUserOut = () => {
     return (dispatch) => {
 
@@ -29,10 +99,23 @@ export const setUser = (id) => {
         
         const resData = await response.json()
 
+        const loadedPosts = []
+
+        for(const key in resData.posts) {
+            loadedPosts.unshift(new PostModel(
+                resData.posts[key].id,
+                resData.posts[key].owner,
+                resData.posts[key].date,
+                resData.posts[key].imageUri,
+                resData.posts[key].content
+            ))
+        }
+
         dispatch({
             type: SET_USER,
             userData: {
-                ...resData
+                ...resData,
+                posts: loadedPosts,
             }
         })
     }

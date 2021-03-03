@@ -8,7 +8,7 @@ import {
     ActivityIndicator
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import * as postActions from '../../store/actions/posts.actions'
+import { setPosts } from '../../store/actions/user.actions'
 
 import Post from '../../components/Post'
 import PostStatus from '../../components/PostStatus'
@@ -17,8 +17,7 @@ const HomeScreen = (props) => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
     const [isRefreshing, setIsRefreshing] = useState(false)
-
-    const posts = useSelector((state) => state.post.posts)
+    const posts = useSelector((state) => state.user.posts)
     
     const dispatch = useDispatch()
     
@@ -26,7 +25,7 @@ const HomeScreen = (props) => {
         setError(null)
         setIsRefreshing(true)
         try {
-            await dispatch(postActions.setPosts())
+            await dispatch(setPosts())
         } catch (error) {
             setError(error.message)
         }
@@ -39,6 +38,13 @@ const HomeScreen = (props) => {
             setIsLoading(false)
         })
     }, [dispatch, loadPosts, setIsLoading])
+
+    useEffect(() => {
+        const willFocusSubscript = props.navigation.addListener('willFocus', loadPosts)
+        return () => {
+           willFocusSubscript.remove()
+        }
+    }, [loadPosts, props])
 
     if (error) {
         return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

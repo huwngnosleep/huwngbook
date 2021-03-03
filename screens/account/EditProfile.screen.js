@@ -6,15 +6,13 @@ import {
     Text,
     Button,
 } from 'react-native'
-import { StackActions } from '@react-navigation/native';
 
 import { useDispatch, useSelector } from 'react-redux'
 import { editUser } from '../../store/actions/user.actions'
 
-import AlertText from '../../components/AlertText'
 import CustomTextInput from '../../components/CustomTextInput'
 import DeviceDimensions from '../../constants/DeviceDimensions'
-import EditProfileItemContainer from '../../components/EditProfileItemContainer';
+import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
 
 
 const EditUserInfoScreen = (props) => {
@@ -47,7 +45,7 @@ const EditUserInfoScreen = (props) => {
     useEffect(() => {
         props.navigation.setOptions({
             headerRight: () => (
-                <View style={styles.headerRightButton}>
+                <View style={{...HeaderRightButtonStyle}}>
                     <Button 
                         title="Save"
                         onPress={submitHandler}
@@ -58,7 +56,6 @@ const EditUserInfoScreen = (props) => {
     })
 
     return(
-        <View style={styles.screen}>
             <ScrollView contentContainerStyle={styles.container}>
                 <CustomTextInput 
                     label="Full Name"
@@ -88,7 +85,6 @@ const EditUserInfoScreen = (props) => {
                 />
                 <CustomTextInput 
                     label="Phone Number"
-                    editable={false}
                     placeholder={currentUser.phoneNumber}
                     onChangeText={(text) => setPhoneNumber(text)}
                 />
@@ -99,25 +95,16 @@ const EditUserInfoScreen = (props) => {
                     onChangeText={(text) => setEmail(text)}
                 />
             </ScrollView>
-        </View>
     )
 }
 
 const styles = StyleSheet.create({
-    screen: {
+    container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
-    },
-    container: {
         width: DeviceDimensions.deviceWidth * 0.8,
-        height: '90%',
         alignSelf: 'center',
-        justifyContent: 'center',
         marginTop: 20,
-    },
-    headerRightButton: {
-        marginRight: 10,
     },
 })
 

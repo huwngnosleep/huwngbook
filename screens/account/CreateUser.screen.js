@@ -16,6 +16,7 @@ import CustomTextInput from '../../components/CustomTextInput'
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
 import DatePicker from 'react-native-datepicker'
+import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle';
 
 const CreateUserScreen = (props) => {
     const [alertText, setAlertText] = useState(props.route.params.alertText)
@@ -66,7 +67,7 @@ const CreateUserScreen = (props) => {
     useEffect(() => {
         props.navigation.setOptions({
             headerRight: () => (
-                <View style={styles.headerRightButton}>
+                <View style={{...HeaderRightButtonStyle}}>
                     <Button 
                         disabled={isInputValid ? false : true}
                         title="Create"
@@ -154,9 +155,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
         marginTop: 20,
-    },
-    headerRightButton: {
-        marginRight: 10,
     },
     alertText: {
         top: -40,
