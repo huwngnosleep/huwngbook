@@ -2,11 +2,14 @@ import {
     EDIT_USER, 
     SET_USER, 
     SIGN_USER_OUT,
-    SET_POSTS,
-    CREATE_POST,
     EDIT_PROFILE_IMAGE,
-    DELETE_POST
-} from "../actions/user.actions"
+} from "../actions/user/user.actions"
+import {
+    SET_POSTS,
+    CREATE_POST, 
+    DELETE_POST,
+} from "../actions/user/post.actions"
+
 
 const initialState = {
     currentUser: {

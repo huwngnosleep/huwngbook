@@ -8,7 +8,7 @@ import {
     TextInput,
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { createPost } from '../../store/actions/user.actions'
+import { createPost } from '../../store/actions/user/post.actions'
 
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import ActionButton from '../../components/ActionButton'

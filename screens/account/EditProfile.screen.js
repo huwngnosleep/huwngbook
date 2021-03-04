@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { editUser } from '../../store/actions/user.actions'
+import { editUser } from '../../store/actions/user/user.actions'
 
 import CustomTextInput from '../../components/CustomTextInput'
 import DeviceDimensions from '../../constants/DeviceDimensions'

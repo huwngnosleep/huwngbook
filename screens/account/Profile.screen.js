@@ -18,7 +18,6 @@ import PostStatus from '../../components/PostStatus'
 import Icon from "react-native-vector-icons/Ionicons";
 
 import DeviceDimensions from '../../constants/DeviceDimensions'
-import PostModel from '../../models/post.model'
 
 const ProfileScreen = ({navigation}) => {
     const user = useSelector((state) => state.user.currentUser)

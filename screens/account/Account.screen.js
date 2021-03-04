@@ -1,12 +1,12 @@
 import React from 'react'
-import { StyleSheet, View, Text, Button } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import AccountItem from '../../components/AccountItem'
 import InfoBar from '../../components/InfoBar'
 import Icon from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from 'react-redux';
 
-import { signOut } from '../../store/actions/auth.actions'
-import { signUserOut } from '../../store/actions/user.actions'
+import { signOut } from '../../store/actions/auth/auth.actions'
+import { signUserOut } from '../../store/actions/user/user.actions'
 
 const AccountScreen = ({navigation}) => {
     const localId = useSelector((state) => state.auth.localId)

@@ -9,7 +9,7 @@ import {
 import { StackActions } from '@react-navigation/native';
 
 import { useDispatch, useSelector } from 'react-redux'
-import { editUser } from '../../store/actions/user.actions'
+import { editUser } from '../../store/actions/user/user.actions'
 
 import AlertText from '../../components/AlertText'
 import CustomTextInput from '../../components/CustomTextInput'

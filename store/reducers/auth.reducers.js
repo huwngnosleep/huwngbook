@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_OUT, SIGN_UP } from "../actions/auth.actions";
+import { SIGN_IN, SIGN_OUT, SIGN_UP } from "../actions/auth/auth.actions";
 
 const initialState = {
     // idToken: used for editing user's features

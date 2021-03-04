@@ -13,7 +13,7 @@ import ActionButton from './ActionButton';
 import CustomImage from './CustomImage';
 import InfoBar from './InfoBar';
 
-import * as userActions from '../store/actions/user.actions'
+import * as userActions from '../store/actions/user/user.actions'
 import { useDispatch } from 'react-redux';
 
 const PostDropdownMenu = ({ postId, localId }) => {

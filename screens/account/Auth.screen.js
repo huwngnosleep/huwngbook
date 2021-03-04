@@ -9,10 +9,11 @@ import {
     TouchableOpacity,
 } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { signIn, signUp } from '../../store/actions/auth/auth.actions'
+import { setUser } from '../../store/actions/user/user.actions'
+
 import AlertText from '../../components/AlertText'
 import CustomTextInput from '../../components/CustomTextInput'
-import * as authActions from '../../store/actions/auth.actions'
-import * as userActions from '../../store/actions/user.actions'
 
 const AuthScreen = ({navigation}) => {
     const [isSignIn, setIsSignIn] = useState(true)
@@ -28,13 +29,13 @@ const AuthScreen = ({navigation}) => {
         setError(null)
         try {
             if (isSignIn === true) {
-                await dispatch(authActions.signIn(email, password)).then((id) => {
-                    dispatch(userActions.setUser(id))
+                await dispatch(signIn(email, password)).then((id) => {
+                    dispatch(setUser(id))
                 })
                 navigation.navigate('Profile')
             } else {
-                await dispatch(authActions.signUp(email, password)).then((id) => {
-                    dispatch(userActions.setUser(id))
+                await dispatch(signUp(email, password)).then((id) => {
+                    dispatch(setUser(id))
                 })
                 navigation.navigate('Create User', {alertText: 'Signed up successfully!'})
             }

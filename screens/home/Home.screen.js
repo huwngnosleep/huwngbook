@@ -8,7 +8,7 @@ import {
     ActivityIndicator
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { setPosts } from '../../store/actions/user.actions'
+import { setPosts } from '../../store/actions/user/post.actions'
 
 import Post from '../../components/Post'
 import PostStatus from '../../components/PostStatus'
