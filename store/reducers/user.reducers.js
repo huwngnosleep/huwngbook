@@ -3,7 +3,9 @@ import {
     SET_USER, 
     SIGN_USER_OUT,
     SET_POSTS,
-    CREATE_POST
+    CREATE_POST,
+    EDIT_PROFILE_IMAGE,
+    DELETE_POST
 } from "../actions/user.actions"
 
 const initialState = {
@@ -24,6 +26,22 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case DELETE_POST:
+            return {
+                ...state,
+                currentUser: {
+                    ...state.currentUser,
+                    posts: state.currentUser.posts.filter((post) => post.id !== action.postId)
+                }
+            }
+        case EDIT_PROFILE_IMAGE:
+            return {
+                ...state,
+                currentUser: {
+                    ...state.currentUser,
+                    avatar: action.imageData,
+                }
+            }
         case SET_POSTS: 
             return {
                 ...state,

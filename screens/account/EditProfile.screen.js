@@ -15,7 +15,7 @@ import DeviceDimensions from '../../constants/DeviceDimensions'
 import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
 
 
-const EditUserInfoScreen = (props) => {
+const EditUserInfoScreen = ({navigation}) => {
     const currentUser = useSelector((state) => state.user.currentUser)
     const currentLocalId = useSelector((state) => state.auth.localId)
 
@@ -39,11 +39,11 @@ const EditUserInfoScreen = (props) => {
             phoneNumber,
             email,
         }))
-        props.navigation.goBack()
+        navigation.goBack()
     }, [dispatch, name, userName, bio, address, birthday, phoneNumber, email])
 
     useEffect(() => {
-        props.navigation.setOptions({
+        navigation.setOptions({
             headerRight: () => (
                 <View style={{...HeaderRightButtonStyle}}>
                     <Button 

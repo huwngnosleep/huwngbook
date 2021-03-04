@@ -10,7 +10,7 @@ import {
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
 
-const AppImagePicker = (props) => {
+const AppImagePicker = ({style}) => {
     const [image, setImage] = useState()
 
     const verifyPermissions = async (type) => {
@@ -60,7 +60,7 @@ const AppImagePicker = (props) => {
 
     }
     return(
-        <View style={{...styles.container, ...props.style}}>
+        <View style={{...styles.container, ...style}}>
             <View style={styles.imageContainer}>
                 <Image style={styles.image} source={{uri: image}}/>
             </View>

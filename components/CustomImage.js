@@ -7,11 +7,11 @@ import {
 import DeviceDimensions from '../constants/DeviceDimensions'
 
 
-const CustomImage = (props) => {
+const CustomImage = ({style, imageUri}) => {
     return(
-        <View style={{...styles.imageContainer, ...props.style}}>
+        <View style={{...styles.imageContainer, ...style}}>
             <Image 
-                source={{uri: props.imageUri}}
+                source={{uri: imageUri}}
                 style={styles.image}
             />
         </View>

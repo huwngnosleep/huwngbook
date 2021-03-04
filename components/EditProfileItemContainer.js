@@ -6,14 +6,14 @@ import {
     Button,
 } from 'react-native'
 
-const EditProfileItemContainer = (props) => {
+const EditProfileItemContainer = ({label, children}) => {
     return(
         <View style={styles.container}>
             <View style={styles.headerContainer}>
-                <Text style={styles.label}>{props.label}</Text>
+                <Text style={styles.label}>{label}</Text>
                 <Text style={styles.edit}>Edit</Text>
             </View>
-            {props.children}
+            {children}
         </View>
     )
 }

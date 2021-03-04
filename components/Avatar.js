@@ -7,13 +7,13 @@ import {
 } from 'react-native'
 import { useSelector } from 'react-redux'
 
-const Avatar = (props) => {
+const Avatar = ({style, onPress}) => {
     const avatar = useSelector((state) => state.user.currentUser.avatar)
 
     return(
         <TouchableOpacity
-            style={{...styles.imageContainer, ...props.style}}
-            onPress={props.onPress}
+            style={{...styles.imageContainer, ...style}}
+            onPress={onPress}
             activeOpacity={0.7}
         >
             <Image 

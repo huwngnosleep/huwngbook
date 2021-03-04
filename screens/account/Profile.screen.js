@@ -20,8 +20,9 @@ import Icon from "react-native-vector-icons/Ionicons";
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import PostModel from '../../models/post.model'
 
-const ProfileScreen = (props) => {
-    let user = useSelector((state) => state.user.currentUser)
+const ProfileScreen = ({navigation}) => {
+    const user = useSelector((state) => state.user.currentUser)
+    const localId = useSelector((state) => state.auth.localId)
 
     return(
         <ScrollView style={styles.screen} >
@@ -30,7 +31,7 @@ const ProfileScreen = (props) => {
                 <View style={styles.introContainer}>
                     <Avatar 
                         style={styles.avatar}
-                        onPress={() => {props.navigation.navigate('Edit Image')}}
+                        onPress={() => {navigation.navigate('Edit Image')}}
                     />
                     <View style={styles.intro}>
                         <Text style={styles.name}>{user.name}</Text>
@@ -49,7 +50,7 @@ const ProfileScreen = (props) => {
                 <View style={styles.detailItem}>
                     <Icon
                         onPress={() => {
-                            props.navigation.navigate('Edit Profile')
+                            navigation.navigate('Edit Profile')
                         }}
                         style={styles.editInfoIcon} 
                         name="create-outline"
@@ -74,12 +75,12 @@ const ProfileScreen = (props) => {
                     <Button 
                         title="See all friends"
                         color="grey"
-                        onPress={() => {props.navigation.navigate('Friends')}}
+                        onPress={() => {navigation.navigate('Friends')}}
                     />
                 </View>
             </View>
             <View style={styles.container}>
-                <PostStatus onPress={() => {props.navigation.navigate('Create Post')}}/>
+                <PostStatus onPress={() => {navigation.navigate('Create Post')}}/>
                 <View style={styles.textSummary}>
                     <Text style={styles.title}>Post</Text>
                 </View>
@@ -88,6 +89,8 @@ const ProfileScreen = (props) => {
                 {user.posts && user.posts.length > 0 ? null : <Text>Create your first post!</Text>}
                 {user.posts && user.posts.map((item) => 
                     <Post
+                        localId={localId}
+                        postId={item.id}
                         mainText={item.owner}
                         customText={item.date}
                         imageUri={item.imageUri}

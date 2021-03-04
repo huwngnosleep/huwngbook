@@ -7,20 +7,20 @@ import {
 } from 'react-native'
 import Icon from "react-native-vector-icons/Ionicons"
 
-const ActionButton = (props) => {
+const ActionButton = ({style, onPress, iconName, action}) => {
     return(
         <TouchableOpacity 
-            onPress={props.onPress}
+            onPress={onPress}
             activeOpacity={0.5}    
-            style={{...styles.container, ...props.style}} 
+            style={{...styles.container, ...style}} 
         >
             <Icon 
                 style={styles.actionItem}
-                name={props.iconName}
+                name={iconName}
                 color="#333"
                 size={25}
             />
-            <Text style={styles.actionItem}>{props.action}</Text>
+            <Text style={styles.actionItem}>{action}</Text>
         </TouchableOpacity>
     )
 }

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from '../../store/actions/auth.actions'
 import { signUserOut } from '../../store/actions/user.actions'
 
-const AccountScreen = (props) => {
+const AccountScreen = ({navigation}) => {
     const localId = useSelector((state) => state.auth.localId)
     const user = useSelector((state) => state.user.currentUser)
     
@@ -17,7 +17,7 @@ const AccountScreen = (props) => {
     return(
         <View style={styles.screen} >
             <View style={styles.goToProfile}>
-                <InfoBar mainText={user.name} customText="View your profile" onPress={() => {props.navigation.navigate('Profile')}}/>
+                <InfoBar mainText={user.name} customText="View your profile" onPress={() => {navigation.navigate('Profile')}}/>
                 <Icon 
                     name="chevron-forward"
                     size={25}
@@ -51,7 +51,7 @@ const AccountScreen = (props) => {
                             dispatch(signOut())
                             dispatch(signUserOut())
                         } else {
-                            props.navigation.navigate('Authentication')
+                            navigation.navigate('Authentication')
                         }
                     }}
                 />

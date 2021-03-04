@@ -1,11 +1,13 @@
 import PostModel from "../../models/post.model"
+import * as firebase from 'firebase';
 
-export const EDIT_IMAGE = 'EDIT_IMAGE'
+export const EDIT_PROFILE_IMAGE = 'EDIT_PROFILE_IMAGE'
 export const EDIT_USER = 'EDIT_USER'
 export const SET_USER = 'SET_USER'
 export const SIGN_USER_OUT = 'SIGN_USER_OUT'
 export const SET_POSTS = 'SET_POSTS'
 export const CREATE_POST = 'CREATE_POST'
+export const DELETE_POST = 'DELETE_POST'
 
 export const setPosts = () => {
     return async (dispatch) => {
@@ -15,19 +17,31 @@ export const setPosts = () => {
 
         const loadedPosts = []
 
-        for(const key in resData) {
-            loadedPosts.unshift(new PostModel(
-                resData[key].id,
-                resData[key].owner,
-                resData[key].date,
-                resData[key].imageUri,
-                resData[key].content
-            ))
-        }
+        // for(const key in resData) {
+        //     loadedPosts.unshift(new PostModel(
+        //         resData[key].id,
+        //         resData[key].owner,
+        //         resData[key].date,
+        //         resData[key].imageUri,
+        //         resData[key].content
+        //     ))
+        // }
     
         dispatch({
             type: SET_POSTS,
             posts: [...loadedPosts],
+        })
+    }
+}
+
+export const deletePost = (localId, postId) => {
+    return (dispatch) => {
+        fetch(`https://huwngbook-default-rtdb.firebaseio.com/users/${localId}/posts/${postId}.json`, {
+                method: 'DELETE'
+        })
+        dispatch({
+            type: DELETE_POST,
+            postId,
         })
     }
 }
@@ -67,9 +81,17 @@ export const createPost = (localId, postData) => {
         })
     }
 }
-export const editImage = (imageUri) => {
+export const editProfileImage = (imageUri, localId) => {
     return async (dispatch) => {
-        
+        const response = await fetch(imageUri)
+        const blob = await response.blob()
+        var ref = firebase.storage().ref().child(`${localId}/avatar`)
+        ref.put(blob)
+
+        dispatch({
+            type: EDIT_PROFILE_IMAGE,
+            imageData: imageUri,
+        })
     }
 }
 export const signUserOut = () => {

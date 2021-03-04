@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { 
     Image,
     StyleSheet, 
     Text, 
     View, 
+    Modal,
     TouchableOpacity,
 } from 'react-native'
 import Icon from "react-native-vector-icons/Ionicons";
@@ -12,16 +13,47 @@ import ActionButton from './ActionButton';
 import CustomImage from './CustomImage';
 import InfoBar from './InfoBar';
 
-const Post = (props) => {
+import * as userActions from '../store/actions/user.actions'
+import { useDispatch } from 'react-redux';
+
+const PostDropdownMenu = ({ postId, localId }) => {
+    
+    const dispatch = useDispatch()
+
+    return(
+        <View
+            style={styles.postDropdownMenu}
+        >
+            <ActionButton 
+                style={styles.dropdownButton} 
+                iconName="pencil" 
+                action="Edit"
+                onPress={() => {console.log('edit')}}
+            />
+            <ActionButton 
+                style={styles.dropdownButton} 
+                iconName="trash" 
+                action="Delete"
+                onPress={() => {dispatch(userActions.deletePost(localId, postId))}}
+            />
+        </View>
+    )
+}
+
+const Post = ({localId, postId, mainText, customText, content, imageUri}) => {
+    const [isDropdownVisible, setDropdownVisible] = useState(false)
+
     return(
         <View style={styles.container}>
             <View style={styles.topRow}>
-                <InfoBar mainText={props.mainText} customText={props.customText}/>
+                {isDropdownVisible ? <PostDropdownMenu localId={localId} postId={postId}/> : null}
+                <InfoBar mainText={mainText} customText={customText}/>
                 <TouchableOpacity
-                    activeOpacity={0.7}
+                    activeOpacity={0.5}
                     onPress={() => {}}
                 >
                     <Icon 
+                        onPress={() => setDropdownVisible((prevState) => !prevState)}
                         name="ellipsis-horizontal"
                         color="#333"
                         size={25}
@@ -29,9 +61,9 @@ const Post = (props) => {
                 </TouchableOpacity>
             </View>
             <View>
-                <Text style={styles.content}>{props.content}</Text>
+                <Text style={styles.content}>{content}</Text>
             </View>
-            <CustomImage imageUri={props.imageUri}/>
+            <CustomImage imageUri={imageUri}/>
             <View style={styles.actionsContainer}>
                 <ActionButton style={styles.action} iconName="heart-outline" action="Like"/>
                 <ActionButton style={styles.action} iconName="chatbox-ellipses-outline" action="Comment"/>
@@ -52,6 +84,21 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         marginBottom: 10,
+    },
+    postDropdownMenu: {
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        position: 'absolute',
+        top: 20,
+        right: 0,
+    },
+    dropdownButton: {
+        width: '100%',
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderBottomWidth: 1,
+        borderBottomColor: 'grey',
+        justifyContent: 'flex-start',
     },
     content: {
         

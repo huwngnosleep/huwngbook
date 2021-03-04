@@ -5,30 +5,32 @@ import {
     Text,
     Button,
 } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import AppImagePicker from '../../components/AppImagePicker'
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
-import { editImage } from '../../store/actions/user.actions'
+import { editProfileImage } from '../../store/actions/user.actions'
 
 
-const EditImageScreen = (props) => {
+const EditImageScreen = ({navigation}) => {
     const [image, setImage] = useState()
+
+    const localId = useSelector((state) => state.auth.localId)
 
     const dispatch = useDispatch()
 
     const submitHandler = useCallback(() => {
-        console.log(image)
-        dispatch(editImage(image))
+        dispatch(editProfileImage(image, localId))
+        navigation.goBack()
     }, [dispatch, image])
 
     useEffect(() => {
-        props.navigation.setOptions({
+        navigation.setOptions({
             headerRight: () => (
                 <View style={{...HeaderRightButtonStyle}}>
                     <Button 
                         title="Save"
-                        onPress={() => {}}
+                        onPress={submitHandler}
                     />
                 </View>
             )

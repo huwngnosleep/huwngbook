@@ -8,7 +8,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import DeviceDimensions from '../constants/DeviceDimensions';
 
 
-const ProfileDetail = (props) => {
+const ProfileDetail = ({title, content}) => {
     return(
         <View style={styles.container} >
             <View style={styles.iconContainer}>
@@ -18,7 +18,7 @@ const ProfileDetail = (props) => {
                     size={20}
                 />
             </View>
-            <Text style={styles.detail}>{props.title}{props.content}</Text>
+            <Text style={styles.detail}>{title}{content}</Text>
         </View>
     )
 }

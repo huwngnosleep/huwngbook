@@ -5,10 +5,10 @@ import {
     Text,
 } from 'react-native'
 
-const AlertText = (props) => {
+const AlertText = ({style, alertText}) => {
     return(
         <View >
-            <Text style={{...styles.alertText, ...props.style}}>{props.alertText}</Text>
+            <Text style={{...styles.alertText, ...style}}>{alertText}</Text>
         </View>
     )
 }

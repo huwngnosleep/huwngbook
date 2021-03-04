@@ -8,15 +8,15 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import ActionButton from './ActionButton';
 
-const AccountItem = (props) => {
+const AccountItem = ({onPress, iconName, action, haveRightArrow}) => {
     return(
         <View style={styles.container} activeOpacity={1}>
             <ActionButton 
-                onPress={props.onPress}
-                iconName={props.iconName} 
-                action={props.action}
+                onPress={onPress}
+                iconName={iconName} 
+                action={action}
             />
-            {props.haveRightArrow ? <Icon 
+            {haveRightArrow ? <Icon 
                 name="chevron-down"
                 color="#333"
                 size={25}

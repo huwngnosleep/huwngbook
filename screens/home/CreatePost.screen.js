@@ -15,7 +15,7 @@ import ActionButton from '../../components/ActionButton'
 import InfoBar from '../../components/InfoBar'
 import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
 
-const CreatePostScreen = (props) => {
+const CreatePostScreen = ({navigation}) => {
     const [textInput, setTextInput] = useState('')
 
     const currentUser = useSelector((state) => state.user.currentUser)
@@ -30,11 +30,11 @@ const CreatePostScreen = (props) => {
             imageUri: "http://dummyimage.com/200x200.bmp/ff4444/ffffff",
             content: textInput,
         }))
-        props.navigation.goBack()
+        navigation.goBack()
     }, [dispatch, textInput])
 
     useEffect(() => {
-        props.navigation.setOptions({
+        navigation.setOptions({
             headerRight: () => (
                 <View style={{...HeaderRightButtonStyle}}>
                     <Button 

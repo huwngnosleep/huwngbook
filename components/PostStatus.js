@@ -11,12 +11,12 @@ import Avatar from './Avatar'
 import DeviceDimensions from '../constants/DeviceDimensions'
 
 
-const PostStatus = (props) => {
+const PostStatus = ({onPress}) => {
     return(
         <TouchableOpacity 
             activeOpacity={0.5}
             style={styles.container}
-            onPress={props.onPress}
+            onPress={onPress}
         >
             <Avatar style={styles.avatar} />
             <View style={styles.textContainer}>

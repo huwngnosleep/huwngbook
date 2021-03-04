@@ -14,7 +14,7 @@ import CustomTextInput from '../../components/CustomTextInput'
 import * as authActions from '../../store/actions/auth.actions'
 import * as userActions from '../../store/actions/user.actions'
 
-const AuthScreen = (props) => {
+const AuthScreen = ({navigation}) => {
     const [isSignIn, setIsSignIn] = useState(true)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -31,12 +31,12 @@ const AuthScreen = (props) => {
                 await dispatch(authActions.signIn(email, password)).then((id) => {
                     dispatch(userActions.setUser(id))
                 })
-                props.navigation.navigate('Profile')
+                navigation.navigate('Profile')
             } else {
                 await dispatch(authActions.signUp(email, password)).then((id) => {
                     dispatch(userActions.setUser(id))
                 })
-                props.navigation.navigate('Create User', {alertText: 'Signed up successfully!'})
+                navigation.navigate('Create User', {alertText: 'Signed up successfully!'})
             }
         } catch (error) {
             setError(error.message)

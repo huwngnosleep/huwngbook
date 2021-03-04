@@ -13,7 +13,7 @@ import { setPosts } from '../../store/actions/user.actions'
 import Post from '../../components/Post'
 import PostStatus from '../../components/PostStatus'
 
-const HomeScreen = (props) => {
+const HomeScreen = ({navigation}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
     const [isRefreshing, setIsRefreshing] = useState(false)
@@ -40,11 +40,11 @@ const HomeScreen = (props) => {
     }, [dispatch, loadPosts, setIsLoading])
 
     useEffect(() => {
-        const willFocusSubscript = props.navigation.addListener('willFocus', loadPosts)
+        const willFocusSubscript = navigation.addListener('willFocus', loadPosts)
         return () => {
            willFocusSubscript.remove()
         }
-    }, [loadPosts, props])
+    }, [loadPosts, navigation])
 
     if (error) {
         return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -62,7 +62,7 @@ const HomeScreen = (props) => {
     return(
         <View 
             style={styles.screen} >
-            <PostStatus onPress={() => {props.navigation.navigate('Create Post')}}/>
+            <PostStatus onPress={() => {navigation.navigate('Create Post')}}/>
             <FlatList 
                 onRefresh={loadPosts}
                 refreshing={isRefreshing}

@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 import FriendCard from '../../components/FriendCard'
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
-const FriendsScreen = (props) => {
+const FriendsScreen = () => {
     const friendsList = useSelector((state) => state.user.currentUser.friends)
     return(
         <View style={styles.screen}>

@@ -7,9 +7,9 @@ import {
     TouchableOpacity,
 } from 'react-native'
 
-const FriendCard = (props) => {
+const FriendCard = ({style}) => {
     return(
-        <TouchableOpacity style={{...styles.container, ...props.style}} >
+        <TouchableOpacity style={{...styles.container, ...style}} >
             <View style={styles.imageContainer}>
                 <Image 
                     source={{uri: 'https://via.placeholder.com/150'}}

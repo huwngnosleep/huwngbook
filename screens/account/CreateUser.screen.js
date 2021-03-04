@@ -18,8 +18,8 @@ import DeviceDimensions from '../../constants/DeviceDimensions'
 import DatePicker from 'react-native-datepicker'
 import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle';
 
-const CreateUserScreen = (props) => {
-    const [alertText, setAlertText] = useState(props.route.params.alertText)
+const CreateUserScreen = ({route, navigation}) => {
+    const [alertText, setAlertText] = useState(route.params.alertText)
     setTimeout(() => {
         setAlertText('')
     }, 3000)
@@ -45,7 +45,7 @@ const CreateUserScreen = (props) => {
             phoneNumber,
             gender,
         }))
-        props.navigation.dispatch(
+        navigation.dispatch(
             StackActions.pop()
         )
     }, [dispatch, name, userName, birthday, phoneNumber, gender])
@@ -65,7 +65,7 @@ const CreateUserScreen = (props) => {
     }
 
     useEffect(() => {
-        props.navigation.setOptions({
+        navigation.setOptions({
             headerRight: () => (
                 <View style={{...HeaderRightButtonStyle}}>
                     <Button 
