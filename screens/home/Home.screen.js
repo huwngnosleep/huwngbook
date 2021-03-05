@@ -40,10 +40,8 @@ const HomeScreen = ({navigation}) => {
     }, [dispatch, loadPosts, setIsLoading])
 
     useEffect(() => {
-        const willFocusSubscript = navigation.addListener('willFocus', loadPosts)
-        return () => {
-           willFocusSubscript.remove()
-        }
+        const focusSubscript = navigation.addListener('focus', loadPosts)
+        return focusSubscript
     }, [loadPosts, navigation])
 
     if (error) {
@@ -69,10 +67,7 @@ const HomeScreen = ({navigation}) => {
                 data={posts}
                 renderItem={(itemData) => 
                     <Post 
-                        mainText={itemData.item.owner}
-                        customText={itemData.item.date}
-                        imageUri={itemData.item.imageUri}
-                        content={itemData.item.content}
+                        postData={itemData.item}
                     />
                 }
             />

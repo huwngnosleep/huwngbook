@@ -4,7 +4,7 @@ import {
     StyleSheet, 
     Text, 
     View, 
-    Modal,
+    Alert,
     TouchableOpacity,
 } from 'react-native'
 import Icon from "react-native-vector-icons/Ionicons";
@@ -16,38 +16,75 @@ import InfoBar from './InfoBar';
 import { deletePost } from '../store/actions/user/post.actions'
 import { useDispatch } from 'react-redux';
 
-const PostDropdownMenu = ({ postId, localId }) => {
+const PostDropdownMenu = ({ currentPostData, navigation, localId, editable }) => {
     
     const dispatch = useDispatch()
-
+    if(editable) {
+        return(
+            <View
+                style={styles.postDropdownMenu}
+            >
+                <ActionButton 
+                    style={styles.dropdownButton} 
+                    iconName="pencil" 
+                    action="Edit"
+                    onPress={() => {navigation.navigate('Edit Post', {currentPostData})}}
+                />
+                <ActionButton 
+                    style={styles.dropdownButton} 
+                    iconName="trash" 
+                    action="Delete"
+                    onPress={() => {
+                        Alert.alert(
+                            'Wait!!!',
+                            'Are you sure?',
+                            [
+                                {
+                                    text: 'Cancel',
+                                },{
+                                    text: 'Delete', 
+                                    style: 'destructive',
+                                    onPress: () => {dispatch(deletePost(localId, currentPostData.id))}
+                                }
+                            ]
+                        )
+                    }}
+                />
+            </View>
+        )
+    }
     return(
         <View
-            style={styles.postDropdownMenu}
-        >
-            <ActionButton 
-                style={styles.dropdownButton} 
-                iconName="pencil" 
-                action="Edit"
-                onPress={() => {console.log('edit')}}
-            />
-            <ActionButton 
-                style={styles.dropdownButton} 
-                iconName="trash" 
-                action="Delete"
-                onPress={() => {dispatch(deletePost(localId, postId))}}
-            />
-        </View>
+                style={styles.postDropdownMenu}
+            >
+                <ActionButton 
+                    style={styles.dropdownButton} 
+                    iconName="bookmark" 
+                    action="Save"
+                    onPress={() => {}}
+                />
+            </View>
     )
 }
 
-const Post = ({localId, postId, mainText, customText, content, imageUri}) => {
+const Post = ({navigation, localId, postData, editable}) => {
     const [isDropdownVisible, setDropdownVisible] = useState(false)
 
     return(
         <View style={styles.container}>
             <View style={styles.topRow}>
-                {isDropdownVisible ? <PostDropdownMenu localId={localId} postId={postId}/> : null}
-                <InfoBar mainText={mainText} customText={customText}/>
+                {isDropdownVisible ? 
+                    <PostDropdownMenu 
+                        // passing currentPostData for editing later
+                        editable={editable}
+                        currentPostData={{...postData}}
+                        navigation={navigation} 
+                        localId={localId} 
+                    /> 
+                    : 
+                    null
+                }
+                <InfoBar mainText={postData.owner} customText={postData.date}/>
                 <TouchableOpacity
                     activeOpacity={0.5}
                     onPress={() => {}}
@@ -61,9 +98,9 @@ const Post = ({localId, postId, mainText, customText, content, imageUri}) => {
                 </TouchableOpacity>
             </View>
             <View>
-                <Text style={styles.content}>{content}</Text>
+                <Text style={styles.content}>{postData.content}</Text>
             </View>
-            <CustomImage imageUri={imageUri}/>
+            <CustomImage imageUri={postData.imageUri}/>
             <View style={styles.actionsContainer}>
                 <ActionButton style={styles.action} iconName="heart-outline" action="Like"/>
                 <ActionButton style={styles.action} iconName="chatbox-ellipses-outline" action="Comment"/>

@@ -4,7 +4,27 @@ import PostModel from "../../../models/post.model"
 export const SET_POSTS = 'SET_POSTS'
 export const CREATE_POST = 'CREATE_POST'
 export const DELETE_POST = 'DELETE_POST'
+export const EDIT_POST = 'EDIT_POST'
 
+export const editPost = (localId, postId, content) => {
+    return (dispatch) => {
+        fetch(`${DatabaseUrl}/users/${localId}/posts/${postId}.json`,  {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                content,
+            })
+        })
+
+        dispatch({
+            type: EDIT_POST,
+            postId,
+            newContent: content,
+        })
+    }
+}
 export const setPosts = () => {
     return async (dispatch) => {
         const response = await fetch(`${DatabaseUrl}/posts.json`)

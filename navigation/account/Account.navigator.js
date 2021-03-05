@@ -1,15 +1,17 @@
-import * as React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import * as React from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
 
-import AccountScreen from '../../screens/account/Account.screen';
-import ProfileScreen from '../../screens/account/Profile.screen';
-import FriendsScreen from '../../screens/account/Friends.screen';
-import CreatePostScreen from '../../screens/home/CreatePost.screen';
-import AuthScreen from '../../screens/account/Auth.screen';
-import CreateUserScreen from '../../screens/account/CreateUser.screen';
-import { useSelector } from 'react-redux';
-import EditProfileScreen from '../../screens/account/EditProfile.screen';
-import EditImageScreen from '../../screens/account/EditImage.screen';
+import AccountScreen from '../../screens/account/Account.screen'
+import ProfileScreen from '../../screens/account/Profile.screen'
+import FriendsScreen from '../../screens/account/Friends.screen'
+import CreatePostScreen from '../../screens/home/CreatePost.screen'
+import AuthScreen from '../../screens/account/Auth.screen'
+import CreateUserScreen from '../../screens/account/CreateUser.screen'
+import EditProfileScreen from '../../screens/account/EditProfile.screen'
+import EditImageScreen from '../../screens/account/EditImage.screen'
+import EditPostScreen from '../../screens/home/EditPost.screen'
+
+import { useSelector } from 'react-redux'
 
 const Stack = createStackNavigator()
 
@@ -25,6 +27,7 @@ const AccountNavigator = () => {
             <Stack.Screen name="Edit Profile" component={EditProfileScreen} />
             <Stack.Screen name="Create Post" component={CreatePostScreen} />
             <Stack.Screen name="Friends" component={FriendsScreen} />
+            <Stack.Screen name="Edit Post" component={EditPostScreen} />
             <Stack.Screen name="Edit Image" component={EditImageScreen} />
         </Stack.Navigator>
     )

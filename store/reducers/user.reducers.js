@@ -8,6 +8,7 @@ import {
     SET_POSTS,
     CREATE_POST, 
     DELETE_POST,
+    EDIT_POST,
 } from "../actions/user/post.actions"
 
 
@@ -29,6 +30,20 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case EDIT_POST:
+            const editedPost = state.currentUser.posts.find((post) => post.id === action.postId)
+            const postsIndex = state.posts.indexOf(editedPost)
+            const currentUserPostsIndex = state.currentUser.posts.indexOf(editedPost)
+            editedPost.content = action.newContent
+            state.posts[postsIndex] = editedPost
+            state.currentUser.posts[currentUserPostsIndex] = editedPost
+            return {
+                posts: state.posts,
+                currentUser: {
+                    ...state.currentUser,
+                    posts: state.currentUser.posts,
+                }
+            }
         case DELETE_POST:
             return {
                 ...state,
@@ -51,12 +66,16 @@ export default (state = initialState, action) => {
                 posts: action.posts,
             }
         case CREATE_POST:
+            const currentPosts = state.posts
+            const currentUserPosts = state.currentUser.posts
+            currentPosts.unshift(action.postData)
+            currentUserPosts.unshift(action.postData)
             return {
                 ...state,
-                posts: state.posts.unshift(action.postData),
+                posts: currentPosts,
                 currentUser: {
                     ...state.currentUser,
-                    posts: state.currentUser.posts.unshift(action.postData)
+                    posts: currentUserPosts
                 }
             }
 

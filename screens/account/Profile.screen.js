@@ -86,14 +86,13 @@ const ProfileScreen = ({navigation}) => {
             </View>
             <View style={styles.container}>
                 {currentUser.posts && currentUser.posts.length > 0 ? null : <Text>Create your first post!</Text>}
-                {currentUser.posts && currentUser.posts.map((item) => 
+                {currentUser.posts.map((item) => 
                     <Post
+                        editable
+                        navigation={navigation}
+                        key={item.id}
                         localId={localId}
-                        postId={item.id}
-                        mainText={item.owner}
-                        customText={item.date}
-                        imageUri={item.imageUri}
-                        content={item.content}
+                        postData={item}
                     />
                 )}
             </View>
