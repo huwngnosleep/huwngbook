@@ -20,7 +20,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
 const ProfileScreen = ({navigation}) => {
-    const user = useSelector((state) => state.user.currentUser)
+    const currentUser = useSelector((state) => state.user.currentUser)
     const localId = useSelector((state) => state.auth.localId)
 
     return(
@@ -33,18 +33,18 @@ const ProfileScreen = ({navigation}) => {
                         onPress={() => {navigation.navigate('Edit Image')}}
                     />
                     <View style={styles.intro}>
-                        <Text style={styles.name}>{user.name}</Text>
-                        <Text style={styles.bio}>{user.bio}</Text>
+                        <Text style={styles.name}>{currentUser.name}</Text>
+                        <Text style={styles.bio}>{currentUser.bio}</Text>
                     </View>
                 </View>
             </View>
             <View style={styles.detail}>
                 <View style={styles.detailItem}>
-                    <ProfileDetail title="" content={user.userName}/>
-                    <ProfileDetail title="Lives in: " content={user.address}/>
-                    <ProfileDetail title="Birth Day: " content={user.birthday}/>
-                    <ProfileDetail title="Phone number: " content={user.phoneNumber}/>
-                    <ProfileDetail title="Email: " content={user.email}/>
+                    <ProfileDetail title="" content={currentUser.userName}/>
+                    <ProfileDetail title="Lives in: " content={currentUser.address}/>
+                    <ProfileDetail title="Birth Day: " content={currentUser.birthday}/>
+                    <ProfileDetail title="Phone number: " content={currentUser.phoneNumber}/>
+                    <ProfileDetail title="Email: " content={currentUser.email}/>
                 </View>
                 <View style={styles.detailItem}>
                     <Icon
@@ -60,11 +60,11 @@ const ProfileScreen = ({navigation}) => {
             <View style={styles.container}>
                 <View style={styles.textSummary}>
                     <Text style={styles.title}>Friends</Text>
-                    {user.friends && user.friends.length > 0 ? <Text>{user.friends.length} friends</Text> : null}
+                    {currentUser.friends && currentUser.friends.length > 0 ? <Text>{currentUser.friends.length} friends</Text> : null}
                 </View>
-                {user.friends && user.friends.length > 0?
+                {currentUser.friends && currentUser.friends.length > 0?
                     <FlatList 
-                        data={user.friends}
+                        data={currentUser.friends}
                         renderItem={(itemData) => <FriendCard style={styles.friendCard} />}
                         numColumns={3}
                     />
@@ -85,8 +85,8 @@ const ProfileScreen = ({navigation}) => {
                 </View>
             </View>
             <View style={styles.container}>
-                {user.posts && user.posts.length > 0 ? null : <Text>Create your first post!</Text>}
-                {user.posts && user.posts.map((item) => 
+                {currentUser.posts && currentUser.posts.length > 0 ? null : <Text>Create your first post!</Text>}
+                {currentUser.posts && currentUser.posts.map((item) => 
                     <Post
                         localId={localId}
                         postId={item.id}

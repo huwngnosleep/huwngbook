@@ -1,4 +1,6 @@
 import * as firebase from 'firebase';
+import DatabaseUrl from '../../../constants/DatabaseUrl';
+import PostModel from '../../../models/post.model';
 
 export const EDIT_PROFILE_IMAGE = 'EDIT_PROFILE_IMAGE'
 export const EDIT_USER = 'EDIT_USER'
@@ -43,12 +45,15 @@ export const signUserOut = () => {
 
 export const setUser = (id) => {
     return async (dispatch) => {
-        const response = await fetch(`https://huwngbook-default-rtdb.firebaseio.com/users/${id}.json`)
+        const response = await fetch(`${DatabaseUrl}/users/${id}.json`)
         
         const resData = await response.json()
 
+        console.log(resData)
+
         const loadedPosts = []
 
+        // map posts form from hash table to array for rendering
         for(const key in resData.posts) {
             loadedPosts.unshift(new PostModel(
                 resData.posts[key].id,
@@ -71,7 +76,7 @@ export const setUser = (id) => {
 
 export const editUser = (id, userData) => {
     return (dispatch) => {
-        fetch(`https://huwngbook-default-rtdb.firebaseio.com/users/${id}.json`, {
+        fetch(`${DatabaseUrl}/users/${id}.json`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

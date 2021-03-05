@@ -1,3 +1,4 @@
+import DatabaseUrl from "../../../constants/DatabaseUrl"
 import PostModel from "../../../models/post.model"
 
 export const SET_POSTS = 'SET_POSTS'
@@ -6,7 +7,7 @@ export const DELETE_POST = 'DELETE_POST'
 
 export const setPosts = () => {
     return async (dispatch) => {
-        const response = await fetch('https://huwngbook-default-rtdb.firebaseio.com/posts.json')
+        const response = await fetch(`${DatabaseUrl}/posts.json`)
 
         const resData = await response.json()
 
@@ -31,8 +32,8 @@ export const setPosts = () => {
 
 export const deletePost = (localId, postId) => {
     return (dispatch) => {
-        fetch(`https://huwngbook-default-rtdb.firebaseio.com/users/${localId}/posts/${postId}.json`, {
-                method: 'DELETE'
+        fetch(`${DatabaseUrl}/users/${localId}/posts/${postId}.json`, {
+            method: 'DELETE'
         })
         dispatch({
             type: DELETE_POST,
@@ -42,9 +43,8 @@ export const deletePost = (localId, postId) => {
 }
 
 export const createPost = (localId, postData) => {
-
     return async (dispatch) => {
-        const response = await fetch(`https://huwngbook-default-rtdb.firebaseio.com/users/${localId}/posts.json`, {
+        const response = await fetch(`${DatabaseUrl}/users/${localId}/posts.json`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -57,7 +57,8 @@ export const createPost = (localId, postData) => {
 
         const resData = await response.json()
 
-        fetch(`https://huwngbook-default-rtdb.firebaseio.com/users/${localId}/posts/${resData.name}.json`, {
+        // after creating the new post, i'll give it an id for editing later
+        fetch(`${DatabaseUrl}/users/${localId}/posts/${resData.name}.json`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

@@ -1,3 +1,4 @@
+import DatabaseUrl from '../../../constants/DatabaseUrl'
 import ENV from '../../../env'
 
 export const SIGN_IN = 'SIGN_IN'
@@ -38,7 +39,7 @@ export const signUp = (email, password) => {
         }
         
         // after signing up, i will create new user in database
-        fetch(`https://huwngbook-default-rtdb.firebaseio.com/users/${resData.localId}.json`, {
+        fetch(`${DatabaseUrl}/users/${resData.localId}.json`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

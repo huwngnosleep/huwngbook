@@ -1,0 +1,1 @@
+export default 'https://huwngbook-default-rtdb.firebaseio.com'

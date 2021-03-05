@@ -51,14 +51,12 @@ export default (state = initialState, action) => {
                 posts: action.posts,
             }
         case CREATE_POST:
-            const currentUserPosts = state.currentUser.posts
-            currentUserPosts.unshift(action.postData)
             return {
                 ...state,
-                posts: [...state.posts.unshift(action.postData)],
+                posts: state.posts.unshift(action.postData),
                 currentUser: {
                     ...state.currentUser,
-                    posts: currentUserPosts
+                    posts: state.currentUser.posts.unshift(action.postData)
                 }
             }
 
@@ -80,9 +78,7 @@ export default (state = initialState, action) => {
         case SET_USER: 
             return {
                 ...state,
-                currentUser: {
-                    ...action.userData                                                           
-                },
+                currentUser: action.userData
             }
     
         default:

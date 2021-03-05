@@ -6,10 +6,11 @@ import {
     Button,
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import { editProfileImage } from '../../store/actions/user/user.actions'
+
 import AppImagePicker from '../../components/AppImagePicker'
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
-import { editProfileImage } from '../../store/actions/user/user.actions'
 
 
 const EditImageScreen = ({navigation}) => {

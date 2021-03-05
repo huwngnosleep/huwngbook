@@ -10,13 +10,14 @@ import FriendCard from '../../components/FriendCard'
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
 const FriendsScreen = () => {
-    const friendsList = useSelector((state) => state.user.currentUser.friends)
+    const friends = useSelector((state) => state.user.currentUser.friends)
+    
     return(
         <View style={styles.screen}>
             <FlatList 
                 contentContainerStyle={styles.list}
                 numColumns={2}
-                data={friendsList}
+                data={friends}
                 renderItem={(dataItem) => <FriendCard style={styles.friendCard}/>}
             />
         </View>

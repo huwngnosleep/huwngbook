@@ -10,14 +10,14 @@ import { signUserOut } from '../../store/actions/user/user.actions'
 
 const AccountScreen = ({navigation}) => {
     const localId = useSelector((state) => state.auth.localId)
-    const user = useSelector((state) => state.user.currentUser)
+    const currentUser = useSelector((state) => state.user.currentUser)
     
     const dispatch = useDispatch()
 
     return(
         <View style={styles.screen} >
             <View style={styles.goToProfile}>
-                <InfoBar mainText={user.name} customText="View your profile" onPress={() => {navigation.navigate('Profile')}}/>
+                <InfoBar mainText={currentUser.name} customText="View your profile" onPress={() => {navigation.navigate('Profile')}}/>
                 <Icon 
                     name="chevron-forward"
                     size={25}

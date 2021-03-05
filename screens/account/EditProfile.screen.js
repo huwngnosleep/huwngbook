@@ -17,7 +17,7 @@ import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
 
 const EditUserInfoScreen = ({navigation}) => {
     const currentUser = useSelector((state) => state.user.currentUser)
-    const currentLocalId = useSelector((state) => state.auth.localId)
+    const localId = useSelector((state) => state.auth.localId)
 
     const [name, setName] = useState(currentUser.name)
     const [userName, setUserName] = useState(currentUser.userName)
@@ -30,7 +30,7 @@ const EditUserInfoScreen = ({navigation}) => {
     const dispatch = useDispatch()
 
     const submitHandler = useCallback(() => {
-        dispatch(editUser(currentLocalId, {
+        dispatch(editUser(localId, {
             name,
             userName,
             bio,

@@ -13,7 +13,7 @@ import ActionButton from './ActionButton';
 import CustomImage from './CustomImage';
 import InfoBar from './InfoBar';
 
-import * as userActions from '../store/actions/user/user.actions'
+import { deletePost } from '../store/actions/user/post.actions'
 import { useDispatch } from 'react-redux';
 
 const PostDropdownMenu = ({ postId, localId }) => {
@@ -34,7 +34,7 @@ const PostDropdownMenu = ({ postId, localId }) => {
                 style={styles.dropdownButton} 
                 iconName="trash" 
                 action="Delete"
-                onPress={() => {dispatch(userActions.deletePost(localId, postId))}}
+                onPress={() => {dispatch(deletePost(localId, postId))}}
             />
         </View>
     )

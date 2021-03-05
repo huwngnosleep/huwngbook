@@ -14,7 +14,6 @@ import { editUser } from '../../store/actions/user/user.actions'
 import AlertText from '../../components/AlertText'
 import CustomTextInput from '../../components/CustomTextInput'
 import DeviceDimensions from '../../constants/DeviceDimensions'
-
 import DatePicker from 'react-native-datepicker'
 import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle';
 
