@@ -1,9 +1,11 @@
 export default class PostModel {
-    constructor(id, owner, date, imageUri, content) {
-        this.id = id
-        this.owner = owner
-        this.date = date
-        this.imageUri = imageUri
-        this.content = content
+    constructor(postData) {
+        this.id = postData.id
+        this.owner = postData.owner
+        this.ownerId = postData.ownerId
+        this.ownerAvatar = postData.ownerAvatar
+        this.date = postData.date
+        this.imageUri = postData.imageUri
+        this.content = postData.content
     }
 }

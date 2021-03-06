@@ -65,13 +65,15 @@ export const setUser = (id) => {
 
         // map posts form from hash table to array for rendering
         for(const key in resData.posts) {
-            loadedPosts.unshift(new PostModel(
-                resData.posts[key].id,
-                resData.posts[key].owner,
-                resData.posts[key].date,
-                resData.posts[key].imageUri,
-                resData.posts[key].content
-            ))
+            loadedPosts.unshift(new PostModel({
+                id: resData.posts[key].id,
+                owner: resData.posts[key].owner,
+                ownerId: resData.posts[key].ownerId,
+                ownerAvatar: resData.posts[key].ownerAvatar,
+                date: resData.posts[key].date,
+                imageUri: resData.posts[key].imageUri,
+                content: resData.posts[key].content
+            }))
         }
 
         dispatch({

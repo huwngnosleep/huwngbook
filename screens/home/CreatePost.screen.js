@@ -26,6 +26,8 @@ const CreatePostScreen = ({navigation}) => {
     const submitHandler = useCallback(async () => {
         dispatch(createPost(localId, {
             owner: currentUser.name,
+            ownerAvatar: currentUser.avatar,
+            ownerId: localId,
             date: new Date().toDateString(),
             imageUri: "http://dummyimage.com/200x200.bmp/ff4444/ffffff",
             content: textInput,

@@ -8,10 +8,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import DeviceDimensions from '../constants/DeviceDimensions'
 import Avatar from './Avatar'
 
-const InfoBar = ({onPress, style, mainText, customText}) => {
+const InfoBar = ({onPress, style, mainText, customText, avatarUri}) => {
+    
     return(
         <TouchableOpacity onPress={onPress} style={{...styles.container, ...style}}>
-            <Avatar />
+            <Avatar imageUri={avatarUri} />
             <View>
                 <Text numberOfLines={1} style={styles.mainText}>{mainText}</Text>
                 <Text style={styles.customText}>{customText}</Text>

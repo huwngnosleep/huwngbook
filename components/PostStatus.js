@@ -12,6 +12,7 @@ import DeviceDimensions from '../constants/DeviceDimensions'
 
 
 const PostStatus = ({onPress}) => {
+
     return(
         <TouchableOpacity 
             activeOpacity={0.5}

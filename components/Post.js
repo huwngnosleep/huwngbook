@@ -84,7 +84,7 @@ const Post = ({navigation, localId, postData, editable}) => {
                     : 
                     null
                 }
-                <InfoBar mainText={postData.owner} customText={postData.date}/>
+                <InfoBar avatarUri={postData.ownerAvatar} mainText={postData.owner} customText={postData.date}/>
                 <TouchableOpacity
                     activeOpacity={0.5}
                     onPress={() => {}}
