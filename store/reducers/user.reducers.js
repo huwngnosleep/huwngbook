@@ -5,7 +5,7 @@ import {
     EDIT_PROFILE_IMAGE,
 } from "../actions/user/user.actions"
 import {
-    SET_POSTS,
+    SET_NEWS_FEED,
     CREATE_POST, 
     DELETE_POST,
     EDIT_POST,
@@ -25,20 +25,20 @@ const initialState = {
         posts: [],
         friends: [1,2,3,4,5,6,7,8,9],
     },
-    posts: [],
+    newsFeed: [],
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case EDIT_POST:
             const editedPost = state.currentUser.posts.find((post) => post.id === action.postId)
-            const postsIndex = state.posts.indexOf(editedPost)
+            const newsFeedIndex = state.newsFeed.indexOf(editedPost)
             const currentUserPostsIndex = state.currentUser.posts.indexOf(editedPost)
             editedPost.content = action.newContent
-            state.posts[postsIndex] = editedPost
+            state.newsFeed[newsFeedIndex] = editedPost
             state.currentUser.posts[currentUserPostsIndex] = editedPost
             return {
-                posts: state.posts,
+                newsFeed: state.newsFeed,
                 currentUser: {
                     ...state.currentUser,
                     posts: state.currentUser.posts,
@@ -46,7 +46,7 @@ export default (state = initialState, action) => {
             }
         case DELETE_POST:
             return {
-                ...state,
+                newsFeed: state.newsFeed.filter((post) => post.id !== action.postId),
                 currentUser: {
                     ...state.currentUser,
                     posts: state.currentUser.posts.filter((post) => post.id !== action.postId)
@@ -60,19 +60,19 @@ export default (state = initialState, action) => {
                     avatar: action.imageUri,
                 }
             }
-        case SET_POSTS: 
+        case SET_NEWS_FEED: 
             return {
                 ...state,
-                posts: action.posts,
+                newsFeed: action.posts,
             }
         case CREATE_POST:
-            const currentPosts = state.posts
+            const currentNewsFeed = state.newsFeed
             const currentUserPosts = state.currentUser.posts
-            currentPosts.unshift(action.postData)
+            currentNewsFeed.unshift(action.postData)
             currentUserPosts.unshift(action.postData)
             return {
                 ...state,
-                posts: currentPosts,
+                newsFeed: currentNewsFeed,
                 currentUser: {
                     ...state.currentUser,
                     posts: currentUserPosts

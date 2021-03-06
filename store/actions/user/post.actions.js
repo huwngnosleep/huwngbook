@@ -1,7 +1,7 @@
 import DatabaseUrl from "../../../constants/DatabaseUrl"
 import PostModel from "../../../models/post.model"
 
-export const SET_POSTS = 'SET_POSTS'
+export const SET_NEWS_FEED = 'SET_NEWS_FEED'
 export const CREATE_POST = 'CREATE_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const EDIT_POST = 'EDIT_POST'
@@ -25,27 +25,49 @@ export const editPost = (localId, postId, content) => {
         })
     }
 }
-export const setPosts = () => {
+export const setNewsFeed = (localId) => {
     return async (dispatch) => {
-        const response = await fetch(`${DatabaseUrl}/posts.json`)
-
-        const resData = await response.json()
+        const currentUserPostResponse = await fetch(`${DatabaseUrl}/users/${localId}/posts.json`)
+        const currentUserPostResData = await currentUserPostResponse.json()
 
         const loadedPosts = []
-
-        for(const key in resData) {
+        
+        for(const key in currentUserPostResData) {
             loadedPosts.unshift(new PostModel(
-                resData[key].id,
-                resData[key].owner,
-                resData[key].date,
-                resData[key].imageUri,
-                resData[key].content
+                currentUserPostResData[key].id,
+                currentUserPostResData[key].owner,
+                currentUserPostResData[key].date,
+                currentUserPostResData[key].imageUri,
+                currentUserPostResData[key].content
             ))
         }
-    
+        
+        const friendsListResponse = await fetch(`${DatabaseUrl}/users/${localId}/friends.json`)
+        const friendsListResData = await friendsListResponse.json()
+
+        const loadedFriendsPosts = []
+
+        for(const key in friendsListResData) {
+            const eachFriendPost = await fetch(`${DatabaseUrl}/users/${friendsListResData[key]}/posts.json`)
+            const eachFriendPostResData = await eachFriendPost.json()
+
+            for(const post in eachFriendPostResData) {
+                loadedFriendsPosts.unshift(new PostModel(
+                    eachFriendPostResData[post].id,
+                    eachFriendPostResData[post].owner,
+                    eachFriendPostResData[post].date,
+                    eachFriendPostResData[post].imageUri,
+                    eachFriendPostResData[post].content
+                ))
+            }
+        }
+
+        const totalLoadedPosts = loadedFriendsPosts.concat(loadedPosts)
+        totalLoadedPosts.sort((post1, post2) => Date.parse(post1.date) - Date.parse(post2.date))
+
         dispatch({
-            type: SET_POSTS,
-            posts: [...loadedPosts],
+            type: SET_NEWS_FEED,
+            posts: totalLoadedPosts,
         })
     }
 }

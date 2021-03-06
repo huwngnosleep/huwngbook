@@ -59,6 +59,7 @@ const AuthScreen = ({navigation}) => {
                         placeholder="Email"
                         keyboardType='email-address'
                         autoCapitalize='none'
+                        value={email}
                         onChangeText={(text) => {
                             setEmail(text)
                             setError(null)
@@ -70,6 +71,7 @@ const AuthScreen = ({navigation}) => {
                         keyboardType='default'
                         secureTextEntry
                         autoCapitalize='none'
+                        value={password}
                         onChangeText={(text) => {
                             setPassword(text)
                             setError(null)

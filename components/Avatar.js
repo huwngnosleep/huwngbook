@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import { useSelector } from 'react-redux'
 
-const Avatar = ({style, onPress}) => {
+const Avatar = ({style, onPress, imageUri}) => {
     const avatar = useSelector((state) => state.user.currentUser.avatar)
 
     return(

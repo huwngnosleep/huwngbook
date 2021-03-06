@@ -8,7 +8,7 @@ import {
     ActivityIndicator
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { setPosts } from '../../store/actions/user/post.actions'
+import { setNewsFeed } from '../../store/actions/user/post.actions'
 
 import Post from '../../components/Post'
 import PostStatus from '../../components/PostStatus'
@@ -17,37 +17,39 @@ const HomeScreen = ({navigation}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
     const [isRefreshing, setIsRefreshing] = useState(false)
-    const posts = useSelector((state) => state.user.posts)
+
+    const newsFeed = useSelector((state) => state.user.newsFeed)
+    const localId = useSelector((state) => state.auth.localId)
     
     const dispatch = useDispatch()
     
-    const loadPosts = useCallback(async () => {
+    const loadNewsFeed = useCallback(async () => {
         setError(null)
         setIsRefreshing(true)
         try {
-            await dispatch(setPosts())
+            await dispatch(setNewsFeed(localId))
         } catch (error) {
             setError(error.message)
         }
         setIsRefreshing(false)
-    }, [dispatch, setError, setIsRefreshing])
+    }, [dispatch, setError, setIsRefreshing, localId])
 
     useEffect(() => {
         setIsLoading(true)
-        loadPosts().then(() => {
+        loadNewsFeed(localId).then(() => {
             setIsLoading(false)
         })
-    }, [dispatch, loadPosts, setIsLoading])
+    }, [dispatch, loadNewsFeed, setIsLoading, localId])
 
     useEffect(() => {
-        const focusSubscript = navigation.addListener('focus', loadPosts)
+        const focusSubscript = navigation.addListener('focus', loadNewsFeed)
         return focusSubscript
-    }, [loadPosts, navigation])
+    }, [loadNewsFeed, navigation])
 
     if (error) {
         return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Text>{error}</Text>
-            <Button onPress={loadPosts} title='Reload' />
+            <Button onPress={loadNewsFeed} title='Reload' />
         </View>
     }
 
@@ -62,9 +64,9 @@ const HomeScreen = ({navigation}) => {
             style={styles.screen} >
             <PostStatus onPress={() => {navigation.navigate('Create Post')}}/>
             <FlatList 
-                onRefresh={loadPosts}
+                onRefresh={loadNewsFeed}
                 refreshing={isRefreshing}
-                data={posts}
+                data={newsFeed}
                 renderItem={(itemData) => 
                     <Post 
                         postData={itemData.item}
