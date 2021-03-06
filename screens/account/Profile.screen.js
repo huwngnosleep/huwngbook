@@ -58,6 +58,7 @@ const ProfileScreen = ({navigation}) => {
                 </View>
             </View>
             <View style={styles.container}>
+                <PostStatus onPress={() => {navigation.navigate('Create Post')}}/>
                 <View style={styles.textSummary}>
                     <Text style={styles.title}>Friends</Text>
                     {currentUser.friends && currentUser.friends.length > 0 ? <Text>{currentUser.friends.length} friends</Text> : null}
@@ -79,7 +80,6 @@ const ProfileScreen = ({navigation}) => {
                 </View>
             </View>
             <View style={styles.container}>
-                <PostStatus onPress={() => {navigation.navigate('Create Post')}}/>
                 <View style={styles.textSummary}>
                     <Text style={styles.title}>Post</Text>
                 </View>

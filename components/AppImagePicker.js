@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { 
     StyleSheet, 
     View, 
-    Text,
     Alert,
     Image,
     Button,
@@ -10,8 +9,8 @@ import {
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
 
-const AppImagePicker = ({style}) => {
-    const [image, setImage] = useState()
+const AppImagePicker = ({style, onImageTaken, currentImage}) => {
+    const [image, setImage] = useState(currentImage)
 
     const verifyPermissions = async (type) => {
         let permission
@@ -41,24 +40,26 @@ const AppImagePicker = ({style}) => {
         if (type === 'take') {
             const result = await ImagePicker.launchCameraAsync({
                 allowsEditing: true,
-                aspect: [16, 9],
-                quality: 1,
+                aspect: [4, 3],
+                quality: 0.1,
             })
             setImage(result.uri)
-            props.onImageTaken(result.uri)
+            onImageTaken(result.uri)
         } else {
             const result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 allowsEditing: true,
                 aspect: [4, 3],
-                quality: 1,
+                quality: 0.1,
             })
             if (!result.cancelled) {
                 setImage(result.uri)
+                onImageTaken(result.uri)
             }
         }
 
     }
+
     return(
         <View style={{...styles.container, ...style}}>
             <View style={styles.imageContainer}>

@@ -57,7 +57,7 @@ export default (state = initialState, action) => {
                 ...state,
                 currentUser: {
                     ...state.currentUser,
-                    avatar: action.imageData,
+                    avatar: action.imageUri,
                 }
             }
         case SET_POSTS: 

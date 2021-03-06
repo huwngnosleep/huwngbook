@@ -14,9 +14,11 @@ import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
 
 
 const EditImageScreen = ({navigation}) => {
-    const [image, setImage] = useState()
-
     const localId = useSelector((state) => state.auth.localId)
+    const currentUserImage = useSelector((state) => state.user.currentUser.avatar)
+    
+    const [image, setImage] = useState(currentUserImage)
+
 
     const dispatch = useDispatch()
 
@@ -43,6 +45,7 @@ const EditImageScreen = ({navigation}) => {
             <Text style={styles.title}>Your image here</Text>
             <AppImagePicker 
                 onImageTaken={(imageUri) => setImage(imageUri)}
+                currentImage={image}
                 style={styles.imagePicker}
             />
         </View>

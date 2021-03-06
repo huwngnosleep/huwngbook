@@ -13,12 +13,22 @@ export const editProfileImage = (imageUri, localId) => {
     return async (dispatch) => {
         const response = await fetch(imageUri)
         const blob = await response.blob()
-        var ref = firebase.storage().ref().child(`${localId}/avatar`)
-        ref.put(blob)
+        var ref = firebase.storage().ref().child(`${localId}/avatar`).put(blob)
+        const newImageUri = await ref.snapshot.ref.getDownloadURL()
+
+        fetch(`${DatabaseUrl}/users/${localId}.json`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                avatar: newImageUri
+            })
+        })
 
         dispatch({
             type: EDIT_PROFILE_IMAGE,
-            imageData: imageUri,
+            imageUri,
         })
     }
 }
