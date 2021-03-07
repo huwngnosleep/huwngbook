@@ -69,7 +69,9 @@ const HomeScreen = ({navigation}) => {
                 data={newsFeed}
                 renderItem={(itemData) => 
                     <Post 
+                        editable={false}
                         postData={itemData.item}
+                        navigation={navigation}
                     />
                 }
             />

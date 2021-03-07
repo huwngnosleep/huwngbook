@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { 
     Image,
     StyleSheet, 
@@ -15,11 +15,12 @@ import InfoBar from './InfoBar';
 
 import { deletePost } from '../store/actions/user/post.actions'
 import { useDispatch } from 'react-redux';
+import DatabaseUrl from '../constants/DatabaseUrl';
 
 const PostDropdownMenu = ({ currentPostData, navigation, localId, editable }) => {
     
     const dispatch = useDispatch()
-    if(editable) {
+    if(editable === true) {
         return(
             <View
                 style={styles.postDropdownMenu}
@@ -84,7 +85,15 @@ const Post = ({navigation, localId, postData, editable}) => {
                     : 
                     null
                 }
-                <InfoBar avatarUri={postData.ownerAvatar} mainText={postData.owner} customText={postData.date}/>
+                <InfoBar 
+                    // pass ownerId to render Owner Profile Screen
+                    onPress={() => navigation.navigate('Profile', {
+                        ownerId: postData.ownerId
+                    })}
+                    avatarUri={postData.ownerAvatar} 
+                    mainText={postData.owner} 
+                    customText={postData.date}
+                />
                 <TouchableOpacity
                     activeOpacity={0.5}
                     onPress={() => {}}

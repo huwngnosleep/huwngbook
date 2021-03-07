@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { 
     Image,
     StyleSheet, 
@@ -19,9 +19,17 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
+
+
 const ProfileScreen = ({navigation}) => {
     const currentUser = useSelector((state) => state.user.currentUser)
     const localId = useSelector((state) => state.auth.localId)
+
+    useEffect(() => {
+        navigation.setOptions({
+            title: 'Your Profile'
+        })
+    })
 
     return(
         <ScrollView style={styles.screen} >
@@ -39,23 +47,21 @@ const ProfileScreen = ({navigation}) => {
                 </View>
             </View>
             <View style={styles.detail}>
-                <View style={styles.detailItem}>
+                <View>
                     <ProfileDetail title="" content={currentUser.userName}/>
                     <ProfileDetail title="Lives in: " content={currentUser.address}/>
                     <ProfileDetail title="Birth Day: " content={currentUser.birthday}/>
                     <ProfileDetail title="Phone number: " content={currentUser.phoneNumber}/>
                     <ProfileDetail title="Email: " content={currentUser.email}/>
                 </View>
-                <View style={styles.detailItem}>
-                    <Icon
-                        onPress={() => {
-                            navigation.navigate('Edit Profile')
-                        }}
-                        style={styles.editInfoIcon} 
-                        name="create-outline"
-                        size={30}
+                <Icon
+                    onPress={() => {
+                        navigation.navigate('Edit Profile')
+                    }}
+                    style={styles.editInfoIcon} 
+                    name="create-outline"
+                    size={30}
                     />
-                </View>
             </View>
             <View style={styles.container}>
                 <PostStatus onPress={() => {navigation.navigate('Create Post')}}/>
@@ -88,7 +94,8 @@ const ProfileScreen = ({navigation}) => {
                 {currentUser.posts && currentUser.posts.length > 0 ? null : <Text>Create your first post!</Text>}
                 {currentUser.posts.map((item) => 
                     <Post
-                        editable
+                        // editable props to make user just edit post in his profile screen
+                        editable={true}
                         navigation={navigation}
                         key={item.id}
                         localId={localId}
@@ -117,13 +124,14 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     detail: {
+        marginTop: 20,
         width: '90%',
         alignSelf: 'center',
     },
     editInfoIcon: {
         position: 'absolute',
         right: 0,
-        bottom: 0,
+        top: 0,
     },
     avatar: {
         height: DeviceDimensions.deviceWidth / 4,
