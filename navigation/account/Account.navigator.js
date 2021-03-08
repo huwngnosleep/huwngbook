@@ -20,8 +20,8 @@ const AccountNavigator = () => {
 
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Account" component={AccountScreen} />
             {localId === null ? <Stack.Screen name="Authentication" component={AuthScreen} /> : null}
+            <Stack.Screen name="Account" component={AccountScreen} />
             <Stack.Screen name="Create User" component={CreateUserScreen} />
             <Stack.Screen name="Profile" component={ProfileScreen} />
             <Stack.Screen name="Edit Profile" component={EditProfileScreen} />

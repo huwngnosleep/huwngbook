@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { 
     Image,
     StyleSheet, 
@@ -6,6 +6,7 @@ import {
     View, 
     Alert,
     TouchableOpacity,
+    ActivityIndicator,
 } from 'react-native'
 import Icon from "react-native-vector-icons/Ionicons";
 import DeviceDimensions from '../constants/DeviceDimensions';
@@ -14,7 +15,7 @@ import CustomImage from './CustomImage';
 import InfoBar from './InfoBar';
 
 import { deletePost } from '../store/actions/user/post.actions'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import DatabaseUrl from '../constants/DatabaseUrl';
 
 const PostDropdownMenu = ({ currentPostData, navigation, localId, editable }) => {
@@ -68,8 +69,46 @@ const PostDropdownMenu = ({ currentPostData, navigation, localId, editable }) =>
     )
 }
 
-const Post = ({navigation, localId, postData, editable}) => {
+const Post = ({navigation, localId, postData, editable, disableNavigation}) => {
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState(null)
+
     const [isDropdownVisible, setDropdownVisible] = useState(false)
+
+    const [postOwnerData, setPostOwnerData] = useState({})
+
+    const fetchOwnerData = useCallback(async () => {
+        try {
+            const response = await fetch(`${DatabaseUrl}/users/${postData.ownerId}.json`)
+            const resData = await response.json()
+            for(const key in resData) {
+                postOwnerData[key] = resData[key]
+            }
+        } catch (error) {
+            setError(error.message)
+        }
+    }, [setPostOwnerData, setError])
+
+    useEffect(() => {
+        setIsLoading(true)
+        fetchOwnerData().then(() => {
+            setIsLoading(false)
+        })
+    }, [setError, fetchOwnerData])
+
+    if (error) {
+        return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Text>{error}</Text>
+            <Button onPress={fetchUserData} title='Reload' />
+        </View>
+    }
+
+    if (isLoading) {
+        return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            {/* <ActivityIndicator size='large' color="black" /> */}
+            {null}
+        </View>
+    }
 
     return(
         <View style={styles.container}>
@@ -87,11 +126,16 @@ const Post = ({navigation, localId, postData, editable}) => {
                 }
                 <InfoBar 
                     // pass ownerId to render Owner Profile Screen
-                    onPress={() => navigation.navigate('Profile', {
-                        ownerId: postData.ownerId
-                    })}
-                    avatarUri={postData.ownerAvatar} 
-                    mainText={postData.owner} 
+                    onPress={
+                        disableNavigation === true ?
+                            () => {}
+                            :
+                            () => navigation.navigate('Profile', {
+                                ownerId: postData.ownerId
+                            })
+                    }
+                    avatarUri={postOwnerData.avatar} 
+                    mainText={postOwnerData.name} 
                     customText={postData.date}
                 />
                 <TouchableOpacity

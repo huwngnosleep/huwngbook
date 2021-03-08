@@ -37,6 +37,7 @@ const ProfileScreen = ({navigation}) => {
                 <Avatar style={styles.backgroundImg}/>
                 <View style={styles.introContainer}>
                     <Avatar 
+                        imageUri={currentUser.avatar}
                         style={styles.avatar}
                         onPress={() => {navigation.navigate('Edit Image')}}
                     />
@@ -96,6 +97,7 @@ const ProfileScreen = ({navigation}) => {
                     <Post
                         // editable props to make user just edit post in his profile screen
                         editable={true}
+                        disableNavigation={true}
                         navigation={navigation}
                         key={item.id}
                         localId={localId}

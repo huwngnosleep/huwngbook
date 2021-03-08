@@ -43,8 +43,10 @@ const AppImagePicker = ({style, onImageTaken, currentImage}) => {
                 aspect: [4, 3],
                 quality: 0.1,
             })
-            setImage(result.uri)
-            onImageTaken(result.uri)
+            if (!result.cancelled) {
+                setImage(result.uri)
+                onImageTaken(result.uri)
+            }
         } else {
             const result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,

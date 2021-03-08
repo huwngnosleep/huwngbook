@@ -23,7 +23,7 @@ import DatabaseUrl from '../../constants/DatabaseUrl'
 import PostModel from '../../models/post.model'
 
 const OtherProfileScreen = ({navigation, route}) => {
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
     const [user, setUser] = useState({})
     const [userPosts, setUserPosts] = useState([])
@@ -38,7 +38,7 @@ const OtherProfileScreen = ({navigation, route}) => {
                 user[key] = resData[key]
             }
             navigation.setOptions({
-                title: `${user.name}'s Profile`
+                title: `${resData.name}'s Profile`
             })
         } catch (error) {
             setError(error.message)
@@ -118,6 +118,7 @@ const OtherProfileScreen = ({navigation, route}) => {
                 {userPosts.length > 0 ? null : <Text>This user currently has no post yet!</Text>}
                 {userPosts.map((item) => 
                     <Post
+                        disableNavigation={true}
                         key={item.id}
                         postData={item}
                     />

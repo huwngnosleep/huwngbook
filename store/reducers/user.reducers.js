@@ -23,7 +23,7 @@ const initialState = {
         phoneNumber: '0123456789',
         email: 'guess@gmail.com',
         posts: [],
-        friends: [1,2,3,4,5,6,7,8,9],
+        friends: [],
     },
     newsFeed: [],
 }

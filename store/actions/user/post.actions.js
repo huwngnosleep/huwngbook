@@ -35,9 +35,7 @@ export const setNewsFeed = (localId) => {
         for(const key in currentUserPostResData) {
             loadedPosts.unshift(new PostModel({
                 id: currentUserPostResData[key].id,
-                owner: currentUserPostResData[key].owner,
                 ownerId: currentUserPostResData[key].ownerId,
-                ownerAvatar: currentUserPostResData[key].ownerAvatar,
                 date: currentUserPostResData[key].date,
                 imageUri: currentUserPostResData[key].imageUri,
                 content: currentUserPostResData[key].content
@@ -56,9 +54,7 @@ export const setNewsFeed = (localId) => {
             for(const post in eachFriendPostResData) {
                 loadedFriendsPosts.unshift(new PostModel({
                     id: eachFriendPostResData[post].id,
-                    owner: eachFriendPostResData[post].owner,
                     ownerId: eachFriendPostResData[post].ownerId,
-                    ownerAvatar: eachFriendPostResData[post].ownerAvatar,
                     date: eachFriendPostResData[post].date,
                     imageUri: eachFriendPostResData[post].imageUri,
                     content: eachFriendPostResData[post].content
