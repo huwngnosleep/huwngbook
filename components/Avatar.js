@@ -5,13 +5,10 @@ import {
     View, 
     TouchableOpacity
 } from 'react-native'
-import { useSelector } from 'react-redux'
 
 const Avatar = ({style, onPress, imageUri}) => {
-    
-    const currentUserAvatar = useSelector((state) => state.user.currentUser.avatar)    
     if(!imageUri) {
-        imageUri = currentUserAvatar
+        imageUri = 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png'
     }
 
     return(

@@ -15,11 +15,9 @@ import FriendCard from '../../components/FriendCard'
 import ProfileDetail from '../../components/ProfileDetail'
 import Post from '../../components/Post'
 import PostStatus from '../../components/PostStatus'
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-vector-icons/Ionicons"
 
 import DeviceDimensions from '../../constants/DeviceDimensions'
-
-
 
 const ProfileScreen = ({navigation}) => {
     const currentUser = useSelector((state) => state.user.currentUser)
@@ -34,12 +32,22 @@ const ProfileScreen = ({navigation}) => {
     return(
         <ScrollView style={styles.screen} >
             <View>
-                <Avatar style={styles.backgroundImg}/>
+                <Avatar 
+                    style={styles.backgroundImg}
+                    imageUri={currentUser.coverImage}
+                    onPress={() => {navigation.navigate('Edit Image', {
+                        imageType: 'coverImage',
+                        currentUserImage: currentUser.coverImage,
+                    })}}
+                />
                 <View style={styles.introContainer}>
                     <Avatar 
                         imageUri={currentUser.avatar}
                         style={styles.avatar}
-                        onPress={() => {navigation.navigate('Edit Image')}}
+                        onPress={() => {navigation.navigate('Edit Image', {
+                            imageType: 'avatar',
+                            currentUserImage: currentUser.avatar,
+                        })}}
                     />
                     <View style={styles.intro}>
                         <Text style={styles.name}>{currentUser.name}</Text>
@@ -65,7 +73,7 @@ const ProfileScreen = ({navigation}) => {
                     />
             </View>
             <View style={styles.container}>
-                <PostStatus onPress={() => {navigation.navigate('Create Post')}}/>
+                <PostStatus imageUri={currentUser.avatar} onPress={() => {navigation.navigate('Create Post')}}/>
                 <View style={styles.textSummary}>
                     <Text style={styles.title}>Friends</Text>
                     {currentUser.friends && currentUser.friends.length > 0 ? <Text>{currentUser.friends.length} friends</Text> : null}
@@ -86,13 +94,17 @@ const ProfileScreen = ({navigation}) => {
                     />
                     : 
                     <Text>You have no friend yet!</Text>}
-                <View style={styles.actions}>
-                    <Button 
-                        title="See all friends"
-                        color="grey"
-                        onPress={() => {navigation.navigate('Friends')}}
-                    />
-                </View>
+                {currentUser.friends && currentUser.friends.length > 0 ? 
+                    <View style={styles.actions}>
+                        <Button 
+                            title="See all friends"
+                            color="grey"
+                            onPress={() => {navigation.navigate('Friends')}}
+                        />
+                    </View>
+                    :
+                    null
+                }
             </View>
             <View style={styles.container}>
                 <View style={styles.textSummary}>

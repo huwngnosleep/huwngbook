@@ -17,6 +17,7 @@ const initialState = {
         name: 'Guess',
         userName: '@guess',
         avatar: 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png',
+        coverImage: 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png',
         bio: 'Bio',
         birthday: 'YYYY/MM/DD',
         address: 'Viet Nam',
@@ -53,11 +54,21 @@ export default (state = initialState, action) => {
                 }
             }
         case EDIT_PROFILE_IMAGE:
-            return {
-                ...state,
-                currentUser: {
-                    ...state.currentUser,
-                    avatar: action.imageUri,
+            if(action.imageType === 'avatar') {
+                return {
+                    ...state,
+                    currentUser: {
+                        ...state.currentUser,
+                        avatar: action.imageUri,
+                    }
+                }
+            } else {
+                return {
+                    ...state,
+                    currentUser: {
+                        ...state.currentUser,
+                        coverImage: action.imageUri,
+                    }
                 }
             }
         case SET_NEWS_FEED: 

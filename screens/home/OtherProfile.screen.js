@@ -80,7 +80,7 @@ const OtherProfileScreen = ({navigation, route}) => {
     return(
         <ScrollView style={styles.screen} >
             <View>
-                <Avatar style={styles.backgroundImg}/>
+                <Avatar imageUri={user.coverImage} style={styles.backgroundImg}/>
                 <View style={styles.introContainer}>
                     <Avatar 
                         imageUri={user.avatar}

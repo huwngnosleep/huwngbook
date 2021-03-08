@@ -11,7 +11,7 @@ import Avatar from './Avatar'
 import DeviceDimensions from '../constants/DeviceDimensions'
 
 
-const PostStatus = ({onPress}) => {
+const PostStatus = ({onPress, imageUri}) => {
 
     return(
         <TouchableOpacity 
@@ -19,7 +19,7 @@ const PostStatus = ({onPress}) => {
             style={styles.container}
             onPress={onPress}
         >
-            <Avatar style={styles.avatar} />
+            <Avatar imageUri={imageUri} style={styles.avatar} />
             <View style={styles.textContainer}>
                 <Text style={styles.text}>What's on your mind?</Text>
             </View>

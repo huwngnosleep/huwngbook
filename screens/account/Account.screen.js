@@ -17,7 +17,7 @@ const AccountScreen = ({navigation}) => {
     return(
         <View style={styles.screen} >
             <View style={styles.goToProfile}>
-                <InfoBar mainText={currentUser.name} customText="View your profile" onPress={() => {navigation.navigate('Profile')}}/>
+                <InfoBar imageUri={currentUser.avatar} mainText={currentUser.name} customText="View your profile" onPress={() => {navigation.navigate('Profile')}}/>
                 <Icon 
                     name="chevron-forward"
                     size={25}

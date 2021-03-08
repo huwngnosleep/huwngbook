@@ -128,7 +128,7 @@ const Post = ({navigation, localId, postData, editable, disableNavigation}) => {
                                 userId: postData.ownerId
                             })
                     }
-                    avatarUri={postOwnerData.avatar} 
+                    imageUri={postOwnerData.avatar} 
                     mainText={postOwnerData.name} 
                     customText={postData.date}
                 />

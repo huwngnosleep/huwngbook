@@ -20,6 +20,7 @@ const HomeScreen = ({navigation}) => {
 
     const newsFeed = useSelector((state) => state.user.newsFeed)
     const localId = useSelector((state) => state.auth.localId)
+    const currentUserAvatar = useSelector((state) => state.user.currentUser.avatar)
     
     const dispatch = useDispatch()
     
@@ -62,7 +63,7 @@ const HomeScreen = ({navigation}) => {
     return(
         <View 
             style={styles.screen} >
-            <PostStatus onPress={() => {navigation.navigate('Create Post')}}/>
+            <PostStatus imageUri={currentUserAvatar} onPress={() => {navigation.navigate('Create Post')}}/>
             <FlatList 
                 onRefresh={loadNewsFeed}
                 refreshing={isRefreshing}

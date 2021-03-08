@@ -13,17 +13,16 @@ import DeviceDimensions from '../../constants/DeviceDimensions'
 import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
 
 
-const EditImageScreen = ({navigation}) => {
+const EditImageScreen = ({navigation, route}) => {
     const localId = useSelector((state) => state.auth.localId)
-    const currentUserImage = useSelector((state) => state.user.currentUser.avatar)
+    const { currentUserImage, imageType } = route.params
     
     const [image, setImage] = useState(currentUserImage)
-
 
     const dispatch = useDispatch()
 
     const submitHandler = useCallback(() => {
-        dispatch(editProfileImage(image, localId))
+        dispatch(editProfileImage(imageType, image, localId))
         navigation.goBack()
     }, [dispatch, image])
 

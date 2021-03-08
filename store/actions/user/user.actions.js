@@ -9,27 +9,46 @@ export const SIGN_USER_OUT = 'SIGN_USER_OUT'
 
 
 
-export const editProfileImage = (imageUri, localId) => {
+export const editProfileImage = (imageType, imageUri, localId) => {
     return async (dispatch) => {
-        const response = await fetch(imageUri)
-        const blob = await response.blob()
-        var ref = firebase.storage().ref().child(`${localId}/avatar`).put(blob)
-        const newImageUri = await ref.snapshot.ref.getDownloadURL()
-
-        fetch(`${DatabaseUrl}/users/${localId}.json`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                avatar: newImageUri
+        let newImageUri
+        try {
+            const response = await fetch(imageUri)
+            const blob = await response.blob()
+            var ref = firebase.storage().ref().child(`${localId}/${imageType}`).put(blob)
+            newImageUri = await ref.snapshot.ref.getDownloadURL()
+            
+        } catch (error) {
+            if(imageType === 'avatar') {
+                fetch(`${DatabaseUrl}/users/${localId}.json`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        avatar: newImageUri
+                    })
+                })
+            } else {
+                fetch(`${DatabaseUrl}/users/${localId}.json`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        coverImage: newImageUri
+                    })
+                })
+            }
+    
+            dispatch({
+                type: EDIT_PROFILE_IMAGE,
+                imageType,
+                imageUri,
             })
-        })
+            
+        }
 
-        dispatch({
-            type: EDIT_PROFILE_IMAGE,
-            imageUri,
-        })
     }
 }
 export const signUserOut = () => {
@@ -41,6 +60,7 @@ export const signUserOut = () => {
                 name: 'Guess',
                 userName: '@guess',
                 avatar: 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png',
+                coverImage: 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png',
                 bio: 'Bio',
                 birthday: 'YYYY/MM/DD',
                 address: 'Viet Nam',
@@ -67,9 +87,7 @@ export const setUser = (id) => {
         for(const key in resData.posts) {
             loadedPosts.unshift(new PostModel({
                 id: resData.posts[key].id,
-                owner: resData.posts[key].owner,
                 ownerId: resData.posts[key].ownerId,
-                ownerAvatar: resData.posts[key].ownerAvatar,
                 date: resData.posts[key].date,
                 imageUri: resData.posts[key].imageUri,
                 content: resData.posts[key].content
