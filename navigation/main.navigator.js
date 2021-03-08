@@ -8,7 +8,7 @@ import AccountNavigator from './account/Account.navigator'
 import { useSelector } from 'react-redux'
 
 import AuthScreen from '../screens/account/Auth.screen'
-import CreateUserScreen from '../screens/account/CreateUser.screen';
+import CreateUserScreen from '../screens/account/CreateUser.screen'
 
 const Tab = createBottomTabNavigator()
 

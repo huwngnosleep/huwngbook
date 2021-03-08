@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 import FriendCard from '../../components/FriendCard'
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
-const FriendsScreen = () => {
+const FriendsScreen = ({navigation}) => {
     const friends = useSelector((state) => state.user.currentUser.friends)
     
     return(
@@ -18,7 +18,14 @@ const FriendsScreen = () => {
                 contentContainerStyle={styles.list}
                 numColumns={2}
                 data={friends}
-                renderItem={(dataItem) => <FriendCard style={styles.friendCard}/>}
+                renderItem={(itemData) => 
+                    <FriendCard 
+                        navigation={navigation}
+                        friendId={itemData.item}
+                        key={itemData.item}
+                        style={styles.friendCard}
+                    />
+                }
             />
         </View>
     )

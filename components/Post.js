@@ -97,17 +97,11 @@ const Post = ({navigation, localId, postData, editable, disableNavigation}) => {
     }, [setError, fetchOwnerData])
 
     if (error) {
-        return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text>{error}</Text>
-            <Button onPress={fetchUserData} title='Reload' />
-        </View>
+        return null
     }
 
     if (isLoading) {
-        return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            {/* <ActivityIndicator size='large' color="black" /> */}
-            {null}
-        </View>
+        return null
     }
 
     return(
@@ -130,8 +124,8 @@ const Post = ({navigation, localId, postData, editable, disableNavigation}) => {
                         disableNavigation === true ?
                             () => {}
                             :
-                            () => navigation.navigate('Profile', {
-                                ownerId: postData.ownerId
+                            () => navigation.navigate('Other Profile', {
+                                userId: postData.ownerId
                             })
                     }
                     avatarUri={postOwnerData.avatar} 

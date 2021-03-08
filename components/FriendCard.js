@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { 
     Image,
     StyleSheet, 
@@ -6,18 +6,56 @@ import {
     Text,
     TouchableOpacity,
 } from 'react-native'
+import DatabaseUrl from '../constants/DatabaseUrl'
 
-const FriendCard = ({style}) => {
+const FriendCard = ({style, friendId, navigation}) => {
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState(null)
+    const [friendData] = useState({})
+    const fetchFriendData = useCallback(async () => {
+        try {
+            const response = await fetch(`${DatabaseUrl}/users/${friendId}.json`)
+            const resData = await response.json()
+            for(const key in resData) {
+                friendData[key] = resData[key]
+            }
+            
+        } catch (error) {
+            setError(error.message)
+            console.log(error)
+        }
+    }, [setError])
+
+    useEffect(() => {
+        setIsLoading(true)
+        fetchFriendData().then(() => {
+            setIsLoading(false)
+        })
+    }, [setError, fetchFriendData])
+
+    if (error) {
+        return null
+    }
+
+    if (isLoading) {
+        return null
+    }
+
     return(
-        <TouchableOpacity style={{...styles.container, ...style}} >
+        <TouchableOpacity 
+            style={{...styles.container, ...style}}
+            onPress={() => {
+                navigation.navigate('Other Profile', {userId: friendId})
+            }} 
+        >
             <View style={styles.imageContainer}>
                 <Image 
-                    source={{uri: 'https://via.placeholder.com/150'}}
+                    source={{uri: friendData.avatar}}
                     style={styles.image}
                 />
             </View>
             <View style={styles.nameContainer}>
-                <Text>Friend's name</Text>
+                <Text>{friendData.name}</Text>
             </View>
         </TouchableOpacity>
     )

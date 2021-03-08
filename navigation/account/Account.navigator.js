@@ -12,6 +12,7 @@ import EditImageScreen from '../../screens/account/EditImage.screen'
 import EditPostScreen from '../../screens/home/EditPost.screen'
 
 import { useSelector } from 'react-redux'
+import OtherProfileScreen from '../../screens/home/OtherProfile.screen'
 
 const Stack = createStackNavigator()
 
@@ -27,6 +28,7 @@ const AccountNavigator = () => {
             <Stack.Screen name="Edit Profile" component={EditProfileScreen} />
             <Stack.Screen name="Create Post" component={CreatePostScreen} />
             <Stack.Screen name="Friends" component={FriendsScreen} />
+            <Stack.Screen name="Other Profile" component={OtherProfileScreen} />
             <Stack.Screen name="Edit Post" component={EditPostScreen} />
             <Stack.Screen name="Edit Image" component={EditImageScreen} />
         </Stack.Navigator>

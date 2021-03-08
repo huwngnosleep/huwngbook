@@ -28,7 +28,7 @@ const OtherProfileScreen = ({navigation, route}) => {
     const [user, setUser] = useState({})
     const [userPosts, setUserPosts] = useState([])
 
-    const userId = route.params.ownerId
+    const userId = route.params.userId
 
     const fetchUserData = useCallback(async () => {
         try {

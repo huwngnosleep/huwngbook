@@ -70,11 +70,19 @@ const ProfileScreen = ({navigation}) => {
                     <Text style={styles.title}>Friends</Text>
                     {currentUser.friends && currentUser.friends.length > 0 ? <Text>{currentUser.friends.length} friends</Text> : null}
                 </View>
-                {currentUser.friends && currentUser.friends.length > 0?
+                {currentUser.friends && currentUser.friends.length > 0 ?
                     <FlatList 
+                        scrollEnabled={false}
                         data={currentUser.friends}
-                        renderItem={(itemData) => <FriendCard style={styles.friendCard} />}
                         numColumns={3}
+                        renderItem={(itemData) => 
+                            <FriendCard 
+                                navigation={navigation}
+                                friendId={itemData.item}
+                                key={itemData.item}
+                                style={styles.friendCard}
+                            />
+                        }
                     />
                     : 
                     <Text>You have no friend yet!</Text>}

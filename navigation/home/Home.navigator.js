@@ -11,7 +11,7 @@ const HomeNavigator = () => {
         <Stack.Navigator>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Create Post" component={CreatePostScreen} />
-            <Stack.Screen name="Profile" component={OtherProfileScreen} />
+            <Stack.Screen name="Other Profile" component={OtherProfileScreen} />
         </Stack.Navigator>
     )
 }
