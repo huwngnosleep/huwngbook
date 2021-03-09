@@ -46,6 +46,7 @@ export const signUp = (email, password) => {
             },
             body: JSON.stringify({
                 idToken: resData.idToken,
+                localId: resData.localId,
                 email,
                 password,
                 name: 'New User',

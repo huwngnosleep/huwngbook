@@ -10,14 +10,15 @@ import {
     DELETE_POST,
     EDIT_POST,
 } from "../actions/user/post.actions"
+import DefaultProfileImagePlaceholder from "../../constants/DefaultProfileImagePlaceholder"
 
 
 const initialState = {
     currentUser: {
         name: 'Guess',
         userName: '@guess',
-        avatar: 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png',
-        coverImage: 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png',
+        avatar: DefaultProfileImagePlaceholder,
+        coverImage: DefaultProfileImagePlaceholder,
         bio: 'Bio',
         birthday: 'YYYY/MM/DD',
         address: 'Viet Nam',

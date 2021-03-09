@@ -5,12 +5,10 @@ import {
     View, 
     TouchableOpacity
 } from 'react-native'
+import DefaultProfileImagePlaceholder from '../constants/DefaultProfileImagePlaceholder'
 
-const Avatar = ({style, onPress, imageUri}) => {
-    if(!imageUri) {
-        imageUri = 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png'
-    }
-
+const Avatar = ({style, onPress, imageUri = DefaultProfileImagePlaceholder}) => {
+    
     return(
         <TouchableOpacity
             style={{...styles.imageContainer, ...style}}

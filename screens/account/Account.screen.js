@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Alert } from 'react-native'
 import AccountItem from '../../components/AccountItem'
 import InfoBar from '../../components/InfoBar'
 import Icon from "react-native-vector-icons/Ionicons";
@@ -50,6 +50,9 @@ const AccountScreen = ({navigation}) => {
                         if(localId) {
                             dispatch(signOut())
                             dispatch(signUserOut())
+                            Alert.alert(
+                                'Signed out!'
+                            )
                         } else {
                             navigation.navigate('Authentication')
                         }

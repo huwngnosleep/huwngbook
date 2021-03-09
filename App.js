@@ -11,9 +11,11 @@ export default function App() {
     apiKey: ENV.googleApiKey,
     projectId: 'huwngbook',
     storageBucket: 'huwngbook.appspot.com',
-  };
+  }
   
-  firebase.initializeApp(firebaseConfig);
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig)
+  }
 
   return (
     <Provider store={store}> 

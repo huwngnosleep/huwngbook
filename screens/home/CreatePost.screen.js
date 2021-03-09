@@ -52,7 +52,11 @@ const CreatePostScreen = ({navigation}) => {
             style={styles.container}
         >
             <View style={styles.header}>
-                <InfoBar mainText={currentUser.name} customText={new Date().toDateString()}/>
+                <InfoBar 
+                    imageUri={currentUser.avatar} 
+                    mainText={currentUser.name} 
+                    customText={new Date().toDateString()}
+                />
             </View>
             <View style={styles.textInputContainer}>
                 <TextInput

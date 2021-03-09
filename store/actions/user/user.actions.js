@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
 import DatabaseUrl from '../../../constants/DatabaseUrl';
+import DefaultProfileImagePlaceholder from '../../../constants/DefaultProfileImagePlaceholder';
 import PostModel from '../../../models/post.model';
 
 export const EDIT_PROFILE_IMAGE = 'EDIT_PROFILE_IMAGE'
@@ -59,8 +60,8 @@ export const signUserOut = () => {
             userData: {
                 name: 'Guess',
                 userName: '@guess',
-                avatar: 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png',
-                coverImage: 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png',
+                avatar: DefaultProfileImagePlaceholder,
+                coverImage: DefaultProfileImagePlaceholder,
                 bio: 'Bio',
                 birthday: 'YYYY/MM/DD',
                 address: 'Viet Nam',

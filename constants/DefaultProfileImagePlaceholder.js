@@ -1,0 +1,1 @@
+export default 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png'
