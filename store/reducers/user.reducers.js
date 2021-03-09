@@ -3,6 +3,7 @@ import {
     SET_USER, 
     SIGN_USER_OUT,
     EDIT_PROFILE_IMAGE,
+    FRIEND_REQUEST_RESPONSE,
 } from "../actions/user/user.actions"
 import {
     SET_NEWS_FEED,
@@ -10,28 +11,84 @@ import {
     DELETE_POST,
     EDIT_POST,
 } from "../actions/user/post.actions"
-import DefaultProfileImagePlaceholder from "../../constants/DefaultProfileImagePlaceholder"
+import DatabaseUrl from "../../constants/DatabaseUrl"
+import DefaultGuessUserData from "../../constants/DefaultGuessUserData"
 
 
 const initialState = {
     currentUser: {
-        name: 'Guess',
-        userName: '@guess',
-        avatar: DefaultProfileImagePlaceholder,
-        coverImage: DefaultProfileImagePlaceholder,
-        bio: 'Bio',
-        birthday: 'YYYY/MM/DD',
-        address: 'Viet Nam',
-        phoneNumber: '0123456789',
-        email: 'guess@gmail.com',
-        posts: [],
-        friends: [],
+        ...DefaultGuessUserData
     },
     newsFeed: [],
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case FRIEND_REQUEST_RESPONSE:
+            if(action.responseStatus === 'confirmed') {
+                // check whether current user have any friend
+                const newFriendList = state.currentUser.friends.concat(action.ownerId)
+                const newPendingFriendRequests = state.currentUser.pendingFriendRequests.filter(
+                    (requestOwnerId) => requestOwnerId !== action.ownerId
+                )
+                const updateOnDatabase = async () => {
+                    fetch(`${DatabaseUrl}/users/${action.localId}.json`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            friends: newFriendList,
+                            pendingFriendRequests: newPendingFriendRequests,
+                        })
+                    })
+
+                    let ownerRequestFriendList = await (await fetch(`${DatabaseUrl}/users/${action.ownerId}/friends.json`)).json()
+                    if(!ownerRequestFriendList) {
+                        ownerRequestFriendList = []
+                    }
+                    fetch(`${DatabaseUrl}/users/${action.ownerId}.json`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            friends: ownerRequestFriendList.concat(action.localId),
+                        })
+                    })
+                }
+                updateOnDatabase()
+                
+                return {
+                    ...state,
+                    currentUser: {
+                        ...state.currentUser,
+                        pendingFriendRequests: newPendingFriendRequests,
+                        friends: newFriendList,
+                    }
+                }
+            } else {
+                const newPendingFriendRequests = state.currentUser.pendingFriendRequests.filter(
+                    (requestOwnerId) => requestOwnerId !== action.ownerId
+                )
+                fetch(`${DatabaseUrl}/users/${action.localId}.json`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        pendingFriendRequests: newPendingFriendRequests,
+                    })
+                })
+
+                return {
+                    ...state,
+                    currentUser: {
+                        ...state.currentUser,
+                        pendingFriendRequests: newPendingFriendRequests,
+                    }
+                }
+            }
         case EDIT_POST:
             const editedPost = state.currentUser.posts.find((post) => post.id === action.postId)
             const newsFeedIndex = state.newsFeed.indexOf(editedPost)
@@ -109,7 +166,7 @@ export default (state = initialState, action) => {
         case SET_USER: 
             return {
                 ...state,
-                currentUser: action.userData
+                currentUser: {...action.userData}
             }
     
         default:

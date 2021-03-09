@@ -82,7 +82,7 @@ const ProfileScreen = ({navigation}) => {
                     <FlatList 
                         scrollEnabled={false}
                         data={currentUser.friends}
-                        numColumns={3}
+                        numColumns={3} 
                         renderItem={(itemData) => 
                             <FriendCard 
                                 navigation={navigation}

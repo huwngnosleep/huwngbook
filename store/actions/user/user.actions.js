@@ -1,15 +1,24 @@
-import * as firebase from 'firebase';
-import DatabaseUrl from '../../../constants/DatabaseUrl';
-import DefaultProfileImagePlaceholder from '../../../constants/DefaultProfileImagePlaceholder';
-import PostModel from '../../../models/post.model';
+import * as firebase from 'firebase'
+import DatabaseUrl from '../../../constants/DatabaseUrl'
+import DefaultGuessUserData from '../../../constants/DefaultGuessUserData'
+import PostModel from '../../../models/post.model'
 
 export const EDIT_PROFILE_IMAGE = 'EDIT_PROFILE_IMAGE'
 export const EDIT_USER = 'EDIT_USER'
 export const SET_USER = 'SET_USER'
 export const SIGN_USER_OUT = 'SIGN_USER_OUT'
+export const FRIEND_REQUEST_RESPONSE = 'FRIEND_REQUEST_RESPONSE'
 
-
-
+export const friendRequestResponse = (responseStatus, ownerId, localId) => {
+    return (dispatch) => {
+        dispatch({
+            type: FRIEND_REQUEST_RESPONSE,
+            responseStatus,
+            ownerId,
+            localId,
+        })
+    }
+}
 export const editProfileImage = (imageType, imageUri, localId) => {
     return async (dispatch) => {
         let newImageUri
@@ -58,17 +67,7 @@ export const signUserOut = () => {
         dispatch({
             type: SIGN_USER_OUT,
             userData: {
-                name: 'Guess',
-                userName: '@guess',
-                avatar: DefaultProfileImagePlaceholder,
-                coverImage: DefaultProfileImagePlaceholder,
-                bio: 'Bio',
-                birthday: 'YYYY/MM/DD',
-                address: 'Viet Nam',
-                phoneNumber: '0123456789',
-                email: 'guess@gmail.com',
-                posts: [],
-                friends: [1,2,3,4,5,6,7,8,9],
+                ...DefaultGuessUserData
             },
         })
     }
@@ -98,6 +97,8 @@ export const setUser = (id) => {
         dispatch({
             type: SET_USER,
             userData: {
+                // set default blank friendsList if it's new user, for no error occur with store
+                ...DefaultGuessUserData,
                 ...resData,
                 posts: loadedPosts,
             }

@@ -18,6 +18,7 @@ const SearchBar = ({onPress, style, placeholder, onChangeText, onSubmitEditing, 
                     name="search-outline"
                 />
                 <TextInput 
+                    style={{paddingLeft: 5}}
                     value={value}
                     onSubmitEditing={onSubmitEditing}
                     onChangeText={onChangeText} 

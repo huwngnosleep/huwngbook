@@ -65,7 +65,7 @@ const SearchHeaderBar = ({navigation}) => {
                             })
                         }}
                         value={searchInput}
-                        placeholder="What are you looking for?"
+                        placeholder="Who are you looking for?"
                         onPress={() => {setIsSearchBarVisible((prevState) => !prevState)}}
                     />
                     :
@@ -74,6 +74,11 @@ const SearchHeaderBar = ({navigation}) => {
                             name="search-outline"
                             size={30}
                             onPress={() => {setIsSearchBarVisible((prevState) => !prevState)}}
+                        />
+                        <Icon 
+                            name="people-outline"
+                            size={30}
+                            onPress={() => {navigation.navigate('Friend Requests')}}
                         />
                     </View>
                 }
