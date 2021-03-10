@@ -2,7 +2,6 @@ import React from 'react'
 import { 
     StyleSheet, 
     View, 
-    Text,
     FlatList,
 } from 'react-native'
 import { useSelector } from 'react-redux'

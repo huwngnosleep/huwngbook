@@ -3,7 +3,6 @@ import {
     StyleSheet, 
     View, 
     Text,
-    Button,
     FlatList,
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,6 +13,7 @@ import Avatar from '../../components/User/Avatar'
 import AppColors from '../../constants/AppColors'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import DeviceDimensions from '../../constants/DeviceDimensions'
+import CustomButton from '../../components/UI/CustomButton'
 
 const FriendRequestItem = ({onPress, ownerId, localId}) => {
     const dispatch = useDispatch()
@@ -22,11 +22,9 @@ const FriendRequestItem = ({onPress, ownerId, localId}) => {
     const fetchData = async () => {
         try {
             const name = await (await fetch(`${DatabaseUrl}/users/${ownerId}/name.json`)).json()
-            const userName = await (await fetch(`${DatabaseUrl}/users/${ownerId}/userName.json`)).json()
             const avatar = await (await fetch(`${DatabaseUrl}/users/${ownerId}/avatar.json`)).json()
             setEachUserData({
                 name,
-                userName,
                 avatar
             })
 
@@ -42,18 +40,19 @@ const FriendRequestItem = ({onPress, ownerId, localId}) => {
     return(
         <View style={styles.listItem}>
             <Avatar onPress={onPress} imageUri={eachUserData.avatar} style={{height: 60, width: 60, borderRadius: 30, marginRight: 20,}}/>
-            <View>
-                <Text style={{fontSize: 20, fontWeight: 'bold'}}>{eachUserData.name}</Text>
-                <Text style={{color: AppColors.mainGrey}}>{eachUserData.userName}</Text>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+                <Text style={{fontSize: 20, fontWeight: 'bold', alignSelf: 'center'}}>{eachUserData.name}</Text>
                 <View style={styles.actionsContainer}>
-                    <Button 
+                    <CustomButton
                         title="Confirm"
+                        style={styles.button}
                         onPress={() => {
                             dispatch(friendRequestResponse('confirmed', ownerId, localId))
                         }}
                     />
-                    <Button 
+                    <CustomButton
                         title="Reject"
+                        style={styles.button}
                         onPress={() => {
                             dispatch(friendRequestResponse('rejected', ownerId, localId))
                         }}
@@ -119,7 +118,13 @@ const styles = StyleSheet.create({
     actionsContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
+    },
+    button: {
+        width: DeviceDimensions.deviceWidth / 5,
+        paddingVertical: 3,
+        borderRadius: 5,
+        marginTop: 10,
     },
 })
 

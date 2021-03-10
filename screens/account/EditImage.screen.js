@@ -3,15 +3,14 @@ import {
     StyleSheet, 
     View, 
     Text,
-    Button,
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { editProfileImage } from '../../store/actions/user/user.actions'
 
 import AppImagePicker from '../../components/User/AppImagePicker'
 
-import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
 import Style from '../../constants/Style'
+import CustomButton from '../../components/UI/CustomButton'
 
 
 const EditImageScreen = ({navigation, route}) => {
@@ -30,12 +29,11 @@ const EditImageScreen = ({navigation, route}) => {
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <View style={{...HeaderRightButtonStyle}}>
-                    <Button 
-                        title="Save"
-                        onPress={submitHandler}
-                    />
-                </View>
+                <CustomButton
+                    title="Save"
+                    onPress={submitHandler}
+                    style={Style.headerRightButtonStyle}
+                />
             )
         })
     })

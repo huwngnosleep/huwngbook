@@ -2,12 +2,11 @@ import React from 'react'
 import { 
     StyleSheet, 
     View, 
-    Text,
     TextInput,
-    Button,
 } from 'react-native'
 import Icon from "react-native-vector-icons/Ionicons"
 import AppColors from '../../constants/AppColors'
+import CustomButton from './CustomButton'
 
 const SearchBar = ({onPress, style, placeholder, onChangeText, onSubmitEditing, value}) => {
 
@@ -26,13 +25,11 @@ const SearchBar = ({onPress, style, placeholder, onChangeText, onSubmitEditing, 
                     placeholder={placeholder} 
                 />
             </View>
-            <View style={styles.cancelButton}>
-                <Button 
-                    
-                    onPress={onPress}
-                    title="Cancel"
-                />
-            </View>
+            <CustomButton
+                onPress={onPress}
+                title="Cancel"
+                style={styles.cancelButton}
+            />
         </View>
     )
 }
@@ -50,6 +47,10 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingVertical: 5,
         borderRadius: 50,
+    },
+    cancelButton: {
+        marginLeft: 10,
+        paddingHorizontal: 7,
     },
 })
 

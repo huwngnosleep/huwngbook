@@ -1,7 +1,6 @@
 import React from 'react'
 import { 
     StyleSheet, 
-    View, 
     Text,
     TouchableOpacity,
 } from 'react-native'
@@ -18,7 +17,7 @@ const ActionButton = ({style, onPress, iconName, action}) => {
             <Icon 
                 style={styles.actionItem}
                 name={iconName}
-                color={AppColors.mainGrey}
+                color={AppColors.mainGreyBolder}
                 size={25}
             />
             <Text style={styles.actionItem}>{action}</Text>

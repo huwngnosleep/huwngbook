@@ -4,7 +4,6 @@ import {
     View, 
     Text,
     ScrollView,
-    Button,
     ActivityIndicator,
 } from 'react-native'
 
@@ -17,6 +16,7 @@ import DeviceDimensions from '../../constants/DeviceDimensions'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import PostModel from '../../models/post.model'
 import AppColors from '../../constants/AppColors'
+import CustomButton from '../../components/UI/CustomButton'
 
 const OtherProfileScreen = ({navigation, route}) => {
     const [isLoading, setIsLoading] = useState(false)
@@ -42,9 +42,7 @@ const OtherProfileScreen = ({navigation, route}) => {
         for(const key in user.posts) {
             userPosts.unshift(new PostModel({
                 id: user.posts[key].id,
-                owner: user.posts[key].owner,
                 ownerId: user.posts[key].ownerId,
-                ownerAvatar: user.posts[key].ownerAvatar,
                 date: user.posts[key].date,
                 imageUri: user.posts[key].imageUri,
                 content: user.posts[key].content
@@ -63,13 +61,13 @@ const OtherProfileScreen = ({navigation, route}) => {
     if (error) {
         return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Text>{error}</Text>
-            <Button onPress={fetchUserData} title='Reload' />
+            <CustomButton onPress={fetchUserData} title='Reload' />
         </View>
     }
 
     if (isLoading) {
         return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <ActivityIndicator size='large' color="black" />
+            <ActivityIndicator color={AppColors.mainBlack} />
         </View>
     }
 

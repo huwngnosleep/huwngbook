@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { 
     StyleSheet, 
     View, 
-    Text,
-    Modal,
-    Button,
     TextInput,
     ScrollView,
     Keyboard,
     KeyboardAvoidingView,
+    Alert,
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost } from '../../store/actions/user/post.actions'
@@ -16,8 +14,8 @@ import { createPost } from '../../store/actions/user/post.actions'
 import InfoBar from '../../components//User/InfoBar'
 import AppImagePicker from '../../components/User/AppImagePicker'
 
-import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
 import Style from '../../constants/Style'
+import CustomButton from '../../components/UI/CustomButton'
 
 const CreatePostScreen = ({navigation}) => {
     const [textInput, setTextInput] = useState('')
@@ -41,13 +39,11 @@ const CreatePostScreen = ({navigation}) => {
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <View style={{...HeaderRightButtonStyle}}>
-                    <Button 
-                        disabled={textInput === '' ? true : false}
-                        title="Post"
-                        onPress={submitHandler}
-                    />
-                </View>
+                <CustomButton 
+                    title="Post"
+                    onPress={textInput === '' ? () => Alert.alert("Dont' leave the text blank!") : submitHandler}
+                    style={Style.headerRightButtonStyle}
+                />
             )
         })
     })

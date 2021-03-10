@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react'
 import { 
-    Image,
     StyleSheet, 
     View, 
     Text,
     ScrollView,
-    Button,
     FlatList,
 } from 'react-native'
 import { useSelector } from 'react-redux'
@@ -19,6 +17,7 @@ import PostStatus from '../../components/User/PostStatus'
 import Icon from "react-native-vector-icons/Ionicons"
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import AppColors from '../../constants/AppColors'
+import CustomButton from '../../components/UI/CustomButton'
 
 const ProfileScreen = ({navigation}) => {
     const currentUser = useSelector((state) => state.user.currentUser)
@@ -97,7 +96,7 @@ const ProfileScreen = ({navigation}) => {
                     <Text>You have no friend yet!</Text>}
                 {currentUser.friends && currentUser.friends.length > 0 ? 
                     <View style={styles.actions}>
-                        <Button 
+                        <CustomButton 
                             title="See all friends"
                             color={AppColors.mainGrey}
                             onPress={() => {navigation.navigate('Friends')}}

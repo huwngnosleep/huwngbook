@@ -2,8 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { 
     StyleSheet, 
     View,
-    ScrollView, 
-    Button,
+    ScrollView,
+    Alert, 
 } from 'react-native'
 import { StackActions } from '@react-navigation/native'
 
@@ -15,9 +15,10 @@ import CustomTextInput from '../../components/UI/CustomTextInput'
 
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import DatePicker from 'react-native-datepicker'
-import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
 import DefaultProfileImagePlaceholder from '../../constants/DefaultProfileImagePlaceholder'
 import AppColors from '../../constants/AppColors'
+import CustomButton from '../../components/UI/CustomButton'
+import Style from '../../constants/Style'
 
 const CreateUserScreen = ({route, navigation}) => {
     const [alertText, setAlertText] = useState(route.params.alertText)
@@ -37,21 +38,7 @@ const CreateUserScreen = ({route, navigation}) => {
 
     const currentUserId = useSelector((state) => state.auth.localId)
 
-    const submitHandler = useCallback(() => {
-        dispatch(editUser(currentUserId, {
-            name,
-            userName,
-            avatar: DefaultProfileImagePlaceholder,
-            birthday,
-            phoneNumber,
-            gender,
-        }))
-        navigation.dispatch(
-            StackActions.pop()
-        )
-    }, [dispatch, name, userName, birthday, phoneNumber, gender])
-
-    const inputValidation = () => {
+    const submitHandler = async () => {
 
         if(
             name.trim().length > 0 &&
@@ -59,22 +46,32 @@ const CreateUserScreen = ({route, navigation}) => {
             String(birthday).length > 0 &&
             phoneNumber.length > 0
         ) {
-            return setIsInputValid(true)
+            dispatch(editUser(currentUserId, {
+                name,
+                userName,
+                avatar: DefaultProfileImagePlaceholder,
+                birthday,
+                phoneNumber,
+                gender,
+            }))
+            navigation.dispatch(
+                StackActions.pop()
+            )
+
         } else {
-            return setIsInputValid(false)
+            Alert.alert('Your input is invalid!')
         }
+
     }
 
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <View style={{...HeaderRightButtonStyle}}>
-                    <Button 
-                        disabled={isInputValid ? false : true}
-                        title="Create"
-                        onPress={submitHandler}
-                    />
-                </View>
+                <CustomButton
+                    style={Style.headerRightButtonStyle}
+                    title="Create"
+                    onPress={submitHandler}
+                />
             )
         })
     })
@@ -86,7 +83,7 @@ const CreateUserScreen = ({route, navigation}) => {
                 <CustomTextInput 
                     placeholder="Full name"
                     onChangeText={(text) => {
-                        setName(text, inputValidation())
+                        setName(text)
                         
                     }}
                 />
@@ -94,14 +91,14 @@ const CreateUserScreen = ({route, navigation}) => {
                     placeholder="User name"
                     autoCapitalize='none'
                     onChangeText={(text) => {
-                        setUserName('@' + text, inputValidation())
+                        setUserName('@' + text)
                     }}
                 />
                 <CustomTextInput 
                     placeholder="Phone number"
                     keyboardType="number-pad"
                     onChangeText={(text) => {
-                        setPhoneNumber(String(text), inputValidation())
+                        setPhoneNumber(String(text))
                     }}
                 />
                 <DatePicker

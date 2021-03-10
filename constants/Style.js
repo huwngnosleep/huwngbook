@@ -8,4 +8,8 @@ export default StyleSheet.create({
         alignSelf: 'center',
         marginVertical: 20,
     },
+    headerRightButtonStyle: {
+        marginRight: 10,
+        paddingHorizontal: 5,
+    },
 })

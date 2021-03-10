@@ -27,7 +27,7 @@ const InfoBar = ({onPress, style, mainText, customText, imageUri, children}) => 
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        alignItems: 'flex-end',
+        alignItems: 'center',
     },
     mainText: {
         fontWeight: 'bold',

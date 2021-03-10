@@ -50,6 +50,7 @@ export const signUp = (email, password) => {
                 email,
                 password,
                 name: 'New User',
+                userName: '@',
                 avatar: 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png',
                 bio: 'Bio',
             })

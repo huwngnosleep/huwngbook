@@ -4,11 +4,10 @@ import {
     View, 
     Text,
     FlatList,
-    Button,
     Alert,
-    ActivityIndicator,
 } from 'react-native'
 import { useSelector } from 'react-redux'
+import CustomButton from '../../components/UI/CustomButton'
 
 import InfoBar from '../../components/User/InfoBar'
 
@@ -18,12 +17,11 @@ import DeviceDimensions from '../../constants/DeviceDimensions'
 
 const SearchResultScreen = ({route, navigation}) => {
     const { searchedData } = route.params
-    const [isLoading, setIsLoading] = useState(false)
+    console.log(searchedData)
 
     const localId = useSelector((state) => state.auth.localId)
 
     const addFriendHandler = async (localId, friendLocalId) => {
-        setIsLoading(true)
         try {
             const targetedUserCurrentPending = await (await fetch(`${DatabaseUrl}/users/${friendLocalId}/pendingFriendRequests.json`)).json() || []
             if(targetedUserCurrentPending.indexOf(localId) !== -1) {
@@ -54,16 +52,15 @@ const SearchResultScreen = ({route, navigation}) => {
             Alert.alert(
                 'Friend request sent!',
                 '',
-                [{text: 'Okay', onPress: () => setIsLoading(false)}]
+                [{text: 'Okay'}]
             )
         } catch (error) {
             Alert.alert(
                 'An error occurred!!!',
                 '',
-                [{text: 'Okay', onPress: () => setIsLoading(false)}]
+                [{text: 'Okay'}]
             )
         }
-        setIsLoading(false)
     }
     
     if(searchedData.length === 0) {
@@ -88,20 +85,13 @@ const SearchResultScreen = ({route, navigation}) => {
                             mainText={itemData.item.name}
                             customText={itemData.item.userName}
                         />
-                        {
-                            isLoading ? 
-                                <ActivityIndicator 
-                                    size="small"
-                                />
-                                :
-                                <Button 
-                                    title="Add"
-                                    onPress={() => {
-                                        addFriendHandler(localId, itemData.item.localId)
-                                    }}
-                                />
-                        }
-                        
+                        <CustomButton 
+                            title="Add"
+                            style={styles.addButton}
+                            onPress={() => {
+                                addFriendHandler(localId, itemData.item.localId)
+                            }}
+                        />
                     </View>
                 }
             />
@@ -129,6 +119,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         borderRadius: 50,
         marginBottom: 20,
+    },
+    addButton: {
+        paddingHorizontal: 7,
     },
 })
 

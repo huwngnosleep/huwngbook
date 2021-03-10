@@ -15,7 +15,7 @@ const ProfileDetail = ({title, content}) => {
             <View style={styles.iconContainer}>
                 <Icon 
                     name="remove"
-                    color="grey"
+                    color={AppColors.mainGreyBolder}
                     size={20}
                 />
             </View>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     },
     detail: {
         fontSize: 18,
-        color: AppColors.mainGrey,
+        color: AppColors.mainGreyBolder,
     },
 })
 

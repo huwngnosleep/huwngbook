@@ -3,7 +3,6 @@ import {
     StyleSheet, 
     View,
     ScrollView, 
-    Button,
 } from 'react-native'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,7 +10,8 @@ import { editUser } from '../../store/actions/user/user.actions'
 
 import CustomTextInput from '../../components/UI/CustomTextInput'
 import DeviceDimensions from '../../constants/DeviceDimensions'
-import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
+import CustomButton from '../../components/UI/CustomButton'
+import Style from '../../constants/Style'
 
 
 const EditUserInfoScreen = ({navigation}) => {
@@ -28,10 +28,10 @@ const EditUserInfoScreen = ({navigation}) => {
 
     const dispatch = useDispatch()
 
-    const submitHandler = useCallback(() => {
+    const submitHandler = () => {
         dispatch(editUser(localId, {
             name,
-            userName,
+            userName: '@' + userName,
             bio,
             address,
             birthday,
@@ -39,17 +39,16 @@ const EditUserInfoScreen = ({navigation}) => {
             email,
         }))
         navigation.goBack()
-    }, [dispatch, name, userName, bio, address, birthday, phoneNumber, email])
+    }
 
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <View style={{...HeaderRightButtonStyle}}>
-                    <Button 
-                        title="Save"
-                        onPress={submitHandler}
-                    />
-                </View>
+                <CustomButton 
+                    title="Save"
+                    onPress={submitHandler}
+                    style={Style.headerRightButtonStyle}
+                />
             )
         })
     })

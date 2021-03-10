@@ -2,10 +2,10 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { 
     StyleSheet, 
     View, 
-    Button,
     TextInput,
     ScrollView,
     KeyboardAvoidingView,
+    Alert,
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { editPost } from '../../store/actions/user/post.actions'
@@ -13,7 +13,8 @@ import { editPost } from '../../store/actions/user/post.actions'
 import InfoBar from '../../components/User/InfoBar'
 import CustomImage from '../../components/UI/CustomImage'
 
-import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
+import CustomButton from '../../components/UI/CustomButton'
+import Style from '../../constants/Style'
 
 const EditPostScreen = ({route, navigation}) => {
     const { currentPostData } = route.params
@@ -34,13 +35,11 @@ const EditPostScreen = ({route, navigation}) => {
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <View style={{...HeaderRightButtonStyle}}>
-                    <Button 
-                        disabled={content === '' ? true : false}
-                        title="Save"
-                        onPress={submitHandler}
-                    />
-                </View>
+                <CustomButton 
+                    title="Save"
+                    onPress={content === '' ? () => Alert.alert("Dont' leave the text blank!!!") : submitHandler}
+                    style={Style.headerRightButtonStyle}
+                />
             )
         })
     })

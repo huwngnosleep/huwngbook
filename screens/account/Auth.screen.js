@@ -2,11 +2,9 @@ import React, { useState, useCallback } from 'react'
 import { 
     StyleSheet, 
     View, 
-    Button,
     ScrollView,
     ActivityIndicator,
-    Keyboard,
-    TouchableOpacity,
+    KeyboardAvoidingView,
 } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { signIn, signUp } from '../../store/actions/auth/auth.actions'
@@ -16,18 +14,17 @@ import AlertText from '../../components/UI/AlertText'
 import CustomTextInput from '../../components/UI/CustomTextInput'
 
 import AppColors from '../../constants/AppColors'
+import CustomButton from '../../components/UI/CustomButton'
 
 const AuthScreen = ({navigation}) => {
     const [isSignIn, setIsSignIn] = useState(true)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState()
-    const [isLoading, setIsLoading] = useState(false)
 
     const dispatch = useDispatch()
 
     const authHandler = useCallback(async () => {
-        setIsLoading(true)
         setError(null)
         try {
             if (isSignIn === true) {
@@ -44,17 +41,12 @@ const AuthScreen = ({navigation}) => {
         } catch (error) {
             setError(error.message)
         }
-        setIsLoading(false)
         setEmail('')
         setPassword('')
     }, [dispatch, isSignIn, email, password, error])
 
     return(
-        <TouchableOpacity
-            activeOpacity={1}
-            style={styles.screen}
-            onPress={() => {Keyboard.dismiss()}}
-        >
+        <KeyboardAvoidingView style={styles.screen}>
             <View style={styles.authContainer}>
                 <ScrollView>
                     <CustomTextInput 
@@ -83,17 +75,13 @@ const AuthScreen = ({navigation}) => {
                 {error ? <AlertText alertText={error}/> : null}
                 <View style={styles.buttonsContainer}>
                     <View style={styles.button}>
-                        {isLoading ? 
-                            <ActivityIndicator size="small"/> 
-                            : 
-                            <Button 
-                                title={isSignIn ? 'Sign in' : 'Sign up'} 
-                                onPress={authHandler}
-                            />
-                        }
+                        <CustomButton 
+                            title={isSignIn ? 'Sign in' : 'Sign up'} 
+                            onPress={authHandler}
+                        />
                     </View>
                     <View style={styles.button}>
-                        <Button 
+                        <CustomButton 
                             title={`Switch to ${isSignIn ? 'Sign up' : 'Sign in' }`} 
                             onPress={() => {
                                 setIsSignIn((isSignIn) => !isSignIn)
@@ -103,7 +91,7 @@ const AuthScreen = ({navigation}) => {
                     </View>
                 </View>
             </View>
-        </TouchableOpacity>
+        </KeyboardAvoidingView>
     )
 }
 

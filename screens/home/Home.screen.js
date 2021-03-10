@@ -3,9 +3,9 @@ import {
     StyleSheet, 
     View, 
     Text, 
-    Button,
     FlatList, 
     ActivityIndicator,
+    RefreshControl,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { setNewsFeed } from '../../store/actions/user/post.actions'
@@ -17,6 +17,8 @@ import SearchBar from '../../components/UI/SearchBar'
 import Icon from 'react-native-vector-icons/Ionicons'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import AppColors from '../../constants/AppColors'
+import CustomButton from '../../components/UI/CustomButton'
+import { ScrollView } from 'react-native-gesture-handler'
 
 const SearchHeaderBar = ({navigation}) => {
     const [isSearchBarVisible, setIsSearchBarVisible] = useState(false)
@@ -25,15 +27,22 @@ const SearchHeaderBar = ({navigation}) => {
 
     const onSearchSubmitHandler =  async (input) => {
         try {
+            const submittedInput = input.trim().toLowerCase()
             const response = await fetch(`${DatabaseUrl}/users.json`)
-            const resData = await response.json()
-            for(const key in resData) {
-                const fetchedName = resData[key].name.trim().toLowerCase()
-                const fetchedUserName = resData[key].userName.trim().toLowerCase()
-                if(fetchedName.indexOf(input.toLowerCase()) !== -1) {
-                    setSearchResult(searchResult.push(resData[key])) 
-                } else if(fetchedUserName.indexOf(input.toLowerCase()) !== -1) {
-                    setSearchResult(searchResult.push(resData[key]))
+            const userResData = await response.json()
+            
+            for(const key in userResData) {
+                const fetchedName = userResData[key].name.trim().toLowerCase()
+                const fetchedUserName = userResData[key].userName.trim().toLowerCase()
+
+                if(fetchedName.indexOf(submittedInput) !== -1) {
+
+                    setSearchResult(searchResult.push(userResData[key]))
+
+                } else if(fetchedUserName.indexOf(submittedInput) !== -1) {
+
+                    setSearchResult(searchResult.trim().push(userResData[key]))
+
                 }
             }
             
@@ -53,7 +62,7 @@ const SearchHeaderBar = ({navigation}) => {
     return(
         <View style={{width: '90%', height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
             <View style={{flexDirection: 'row'}}>
-                <Text style={{flex: 1,fontSize: 26, color: AppColors.mainGrey, fontWeight: 'bold'}}>HuwngBook</Text>
+                <Text style={{flex: 1,fontSize: 26, color: AppColors.mainGreyBolder, fontWeight: 'bold'}}>HuwngBook</Text>
                 {isSearchBarVisible ?
                     <SearchBar
                         onChangeText={(text) => setSearchInput(text)}
@@ -121,42 +130,45 @@ const HomeScreen = ({navigation}) => {
     if (error) {
         return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Text>{error}</Text>
-            <Button onPress={loadNewsFeed} title='Reload' />
+            <CustomButton onPress={loadNewsFeed} title='Reload' />
         </View>
     }
 
     if (isLoading) {
         return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <ActivityIndicator size='large'/>
+            <ActivityIndicator color={AppColors.mainBlack}/>
         </View>
     }
     
     return(
-        <View 
-            style={styles.screen} >
-            <SearchHeaderBar navigation={navigation}/>
-            <PostStatus imageUri={currentUserAvatar} onPress={() => {navigation.navigate('Create Post')}}/>
-            <FlatList 
+        <ScrollView 
+            contentContainerStyle={styles.screen} 
+        >
+            <RefreshControl 
                 onRefresh={loadNewsFeed}
                 refreshing={isRefreshing}
-                data={newsFeed}
-                renderItem={(itemData) => 
-                    <Post 
-                        editable={false}
-                        postData={itemData.item}
-                        navigation={navigation}
-                    />
-                }
             />
-        </View>
+            <SearchHeaderBar navigation={navigation}/>
+            <PostStatus imageUri={currentUserAvatar} onPress={() => {navigation.navigate('Create Post')}}/>
+            {
+                newsFeed.length > 0 ?
+                    newsFeed.map((item) =>
+                        <Post 
+                            editable={false}
+                            postData={item}
+                            navigation={navigation}
+                        />
+                    )
+                    :
+                    <Text>Let's add friend or create a new post!</Text>
+            }
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     screen: {
-        flex: 1,
         alignItems: 'center',
-        margin: 10,
     },
     
 })
