@@ -7,6 +7,7 @@ import {
     Button,
 } from 'react-native'
 import Icon from "react-native-vector-icons/Ionicons"
+import AppColors from '../../constants/AppColors'
 
 const SearchBar = ({onPress, style, placeholder, onChangeText, onSubmitEditing, value}) => {
 
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     searchBar: {
         flex: 1,
         flexDirection: 'row',
-        backgroundColor: '#ccc',
+        backgroundColor: AppColors.mainGrey,
         paddingLeft: 10,
         paddingVertical: 5,
         borderRadius: 50,

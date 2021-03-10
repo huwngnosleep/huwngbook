@@ -5,6 +5,7 @@ import {
     Text, 
     TextInput,
 } from 'react-native'
+import AppColors from '../../constants/AppColors'
 
 const CustomTextInput = (props) => {
 
@@ -12,8 +13,8 @@ const CustomTextInput = (props) => {
         <View style={styles.container}>
             <Text style={styles.label}>{props.label}</Text>
             <TextInput
-                textAlignVertical={'top'}
-                placeholderTextColor='grey'
+                textAlignVertical='top'
+                placeholderTextColor={AppColors.mainGrey}
                 style={styles.input}
                 {...props}
             />
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
     input: {
         paddingHorizontal: 2,
         paddingVertical: 5,
-        borderBottomColor: '#ccc',
+        borderBottomColor: AppColors.mainGrey,
         borderBottomWidth: 1,
         fontSize: 16,
         textAlign: 'right',

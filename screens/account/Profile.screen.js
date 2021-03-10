@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { 
     Image,
     StyleSheet, 
@@ -8,16 +8,17 @@ import {
     Button,
     FlatList,
 } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-import Avatar from '../../components/Avatar'
-import FriendCard from '../../components/FriendCard'
-import ProfileDetail from '../../components/ProfileDetail'
-import Post from '../../components/Post'
-import PostStatus from '../../components/PostStatus'
+import Avatar from '../../components/User/Avatar'
+import FriendCard from '../../components/User/FriendCard'
+import ProfileDetail from '../../components/User/ProfileDetail'
+import Post from '../../components/User/Post'
+import PostStatus from '../../components/User/PostStatus'
+
 import Icon from "react-native-vector-icons/Ionicons"
-
 import DeviceDimensions from '../../constants/DeviceDimensions'
+import AppColors from '../../constants/AppColors'
 
 const ProfileScreen = ({navigation}) => {
     const currentUser = useSelector((state) => state.user.currentUser)
@@ -98,7 +99,7 @@ const ProfileScreen = ({navigation}) => {
                     <View style={styles.actions}>
                         <Button 
                             title="See all friends"
-                            color="grey"
+                            color={AppColors.mainGrey}
                             onPress={() => {navigation.navigate('Friends')}}
                         />
                     </View>

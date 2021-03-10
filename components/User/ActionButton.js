@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
 } from 'react-native'
 import Icon from "react-native-vector-icons/Ionicons"
+import AppColors from '../../constants/AppColors'
 
 const ActionButton = ({style, onPress, iconName, action}) => {
     return(
@@ -17,7 +18,7 @@ const ActionButton = ({style, onPress, iconName, action}) => {
             <Icon 
                 style={styles.actionItem}
                 name={iconName}
-                color="#333"
+                color={AppColors.mainGrey}
                 size={25}
             />
             <Text style={styles.actionItem}>{action}</Text>

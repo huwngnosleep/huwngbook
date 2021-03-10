@@ -2,8 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { 
     StyleSheet, 
     View, 
-    Text,
-    Modal,
     Button,
     TextInput,
     ScrollView,
@@ -12,10 +10,10 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { editPost } from '../../store/actions/user/post.actions'
 
-import DeviceDimensions from '../../constants/DeviceDimensions'
-import InfoBar from '../../components/InfoBar'
+import InfoBar from '../../components/User/InfoBar'
+import CustomImage from '../../components/UI/CustomImage'
+
 import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
-import CustomImage from '../../components/CustomImage'
 
 const EditPostScreen = ({route, navigation}) => {
     const { currentPostData } = route.params

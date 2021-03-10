@@ -1,26 +1,22 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { 
-    Image,
     StyleSheet, 
     View, 
     Text,
     ScrollView,
     Button,
-    FlatList,
     ActivityIndicator,
 } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
 
-import Avatar from '../../components/Avatar'
-import FriendCard from '../../components/FriendCard'
-import ProfileDetail from '../../components/ProfileDetail'
-import Post from '../../components/Post'
-import PostStatus from '../../components/PostStatus'
+import Avatar from '../../components/User/Avatar'
+import ProfileDetail from '../../components/User/ProfileDetail'
+import Post from '../../components/User/Post'
 import Icon from "react-native-vector-icons/Ionicons";
 
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import PostModel from '../../models/post.model'
+import AppColors from '../../constants/AppColors'
 
 const OtherProfileScreen = ({navigation, route}) => {
     const [isLoading, setIsLoading] = useState(false)
@@ -199,7 +195,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         width: '90%',
         borderBottomWidth: 1,
-        borderBottomColor: 'grey',
+        borderBottomColor: AppColors.mainGrey,
     },
 })
 

@@ -6,7 +6,9 @@ import {
     Text,
     TouchableOpacity,
 } from 'react-native'
-import DatabaseUrl from '../constants/DatabaseUrl'
+
+import AppColors from '../../constants/AppColors'
+import DatabaseUrl from '../../constants/DatabaseUrl'
 
 const FriendCard = ({style, friendId, navigation}) => {
     const [isLoading, setIsLoading] = useState(false)
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
     container: {
         maxHeight: 150,
         maxWidth: 150,
-        backgroundColor: 'white',
+        backgroundColor: AppColors.mainWhite,
         margin: 10,
         alignItems: 'center',
     },
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: '20%',
         width: '100%',
-        backgroundColor: 'white',
+        backgroundColor: AppColors.mainWhite,
     },
 
 })

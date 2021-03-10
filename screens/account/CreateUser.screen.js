@@ -3,19 +3,21 @@ import {
     StyleSheet, 
     View,
     ScrollView, 
-    Text,
     Button,
 } from 'react-native'
-import { StackActions } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { editUser } from '../../store/actions/user/user.actions'
 
-import AlertText from '../../components/AlertText'
-import CustomTextInput from '../../components/CustomTextInput'
+import AlertText from '../../components/UI/AlertText'
+import CustomTextInput from '../../components/UI/CustomTextInput'
+
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import DatePicker from 'react-native-datepicker'
-import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle';
+import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
+import DefaultProfileImagePlaceholder from '../../constants/DefaultProfileImagePlaceholder'
+import AppColors from '../../constants/AppColors'
 
 const CreateUserScreen = ({route, navigation}) => {
     const [alertText, setAlertText] = useState(route.params.alertText)
@@ -39,7 +41,7 @@ const CreateUserScreen = ({route, navigation}) => {
         dispatch(editUser(currentUserId, {
             name,
             userName,
-            avatar: 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png',
+            avatar: DefaultProfileImagePlaceholder,
             birthday,
             phoneNumber,
             gender,
@@ -121,13 +123,13 @@ const CreateUserScreen = ({route, navigation}) => {
                         },
                         dateText: {
                             ...styles.dataPickerText,
-                            color: 'black',
+                            color: AppColors.mainBlack,
                         },
                         btnTextCancel: {
-                            color: 'red',
+                            color: AppColors.mainRed,
                         },
                         btnTextConfirm: {
-                            color: 'blue',
+                            color: AppColors.mainBlue,
                         },
                         dateInput: {
                             borderTopWidth: 0,
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
     dataPickerText: {
         position: 'absolute',
         left: 0,
-        color: 'grey',
+        color: AppColors.mainGrey,
         fontSize: 20,
     }
 })

@@ -2,10 +2,9 @@ import React from 'react'
 import { 
     Image,
     StyleSheet, 
-    View, 
     TouchableOpacity
 } from 'react-native'
-import DefaultProfileImagePlaceholder from '../constants/DefaultProfileImagePlaceholder'
+import DefaultProfileImagePlaceholder from '../../constants/DefaultProfileImagePlaceholder'
 
 const Avatar = ({style, onPress, imageUri = DefaultProfileImagePlaceholder}) => {
     

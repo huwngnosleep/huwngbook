@@ -4,6 +4,7 @@ import {
     View, 
     Text,
 } from 'react-native'
+import AppColors from '../../constants/AppColors'
 
 const AlertText = ({style, alertText}) => {
     return(
@@ -15,7 +16,7 @@ const AlertText = ({style, alertText}) => {
 
 const styles = StyleSheet.create({
     alertText: {
-        color: 'red',
+        color: AppColors.mainRed,
         fontSize: 16,
         marginTop: 10,
     },

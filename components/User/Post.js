@@ -6,17 +6,18 @@ import {
     View, 
     Alert,
     TouchableOpacity,
-    ActivityIndicator,
 } from 'react-native'
-import Icon from "react-native-vector-icons/Ionicons";
-import DeviceDimensions from '../constants/DeviceDimensions';
-import ActionButton from './ActionButton';
-import CustomImage from './CustomImage';
-import InfoBar from './InfoBar';
+import { deletePost } from '../../store/actions/user/post.actions'
+import { useDispatch } from 'react-redux'
 
-import { deletePost } from '../store/actions/user/post.actions'
-import { useDispatch, useSelector } from 'react-redux';
-import DatabaseUrl from '../constants/DatabaseUrl';
+import ActionButton from './ActionButton'
+import CustomImage from '../UI/CustomImage'
+import InfoBar from './InfoBar'
+
+import Icon from "react-native-vector-icons/Ionicons"
+import DeviceDimensions from '../../constants/DeviceDimensions'
+import DatabaseUrl from '../../constants/DatabaseUrl'
+import AppColors from '../../constants/AppColors'
 
 const PostDropdownMenu = ({ currentPostData, navigation, localId, editable }) => {
     
@@ -139,7 +140,7 @@ const Post = ({navigation, localId, postData, editable, disableNavigation}) => {
                     <Icon 
                         onPress={() => setDropdownVisible((prevState) => !prevState)}
                         name="ellipsis-horizontal"
-                        color="#333"
+                        color={AppColors.mainBlack}
                         size={25}
                     />
                 </TouchableOpacity>
@@ -160,7 +161,7 @@ const styles = StyleSheet.create({
     container: {
         width: DeviceDimensions.deviceWidth * 0.9,
         marginBottom: 20,
-        borderBottomColor: '#ccc',
+        borderBottomColor: AppColors.mainGrey,
         borderBottomWidth: 1,
     },
     topRow: {
@@ -181,7 +182,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 5,
         borderBottomWidth: 1,
-        borderBottomColor: 'grey',
+        borderBottomColor: AppColors.mainGrey,
         justifyContent: 'flex-start',
     },
     content: {

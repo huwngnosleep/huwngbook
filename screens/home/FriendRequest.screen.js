@@ -1,17 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { 
     StyleSheet, 
     View, 
     Text,
     Button,
     FlatList,
-    ActivityIndicator,
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import Avatar from '../../components/Avatar'
+import { friendRequestResponse } from '../../store/actions/user/user.actions'
+
+import Avatar from '../../components/User/Avatar'
+
+import AppColors from '../../constants/AppColors'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import DeviceDimensions from '../../constants/DeviceDimensions'
-import { friendRequestResponse } from '../../store/actions/user/user.actions'
 
 const FriendRequestItem = ({onPress, ownerId, localId}) => {
     const dispatch = useDispatch()
@@ -42,7 +44,7 @@ const FriendRequestItem = ({onPress, ownerId, localId}) => {
             <Avatar onPress={onPress} imageUri={eachUserData.avatar} style={{height: 60, width: 60, borderRadius: 30, marginRight: 20,}}/>
             <View>
                 <Text style={{fontSize: 20, fontWeight: 'bold'}}>{eachUserData.name}</Text>
-                <Text style={{color: 'grey'}}>{eachUserData.userName}</Text>
+                <Text style={{color: AppColors.mainGrey}}>{eachUserData.userName}</Text>
                 <View style={styles.actionsContainer}>
                     <Button 
                         title="Confirm"
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
         width: DeviceDimensions.deviceWidth * 0.8,        
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#ccc',
+        backgroundColor: AppColors.mainGrey,
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 50,

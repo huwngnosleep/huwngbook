@@ -8,8 +8,11 @@ import {
     Alert,
     ActivityIndicator,
 } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
-import InfoBar from '../../components/InfoBar'
+import { useSelector } from 'react-redux'
+
+import InfoBar from '../../components/User/InfoBar'
+
+import AppColors from '../../constants/AppColors'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
@@ -121,7 +124,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#ccc',
+        backgroundColor: AppColors.mainGrey,
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 50,

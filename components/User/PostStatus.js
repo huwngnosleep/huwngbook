@@ -8,7 +8,9 @@ import {
 import Icon from "react-native-vector-icons/Ionicons"
 
 import Avatar from './Avatar'
-import DeviceDimensions from '../constants/DeviceDimensions'
+
+import DeviceDimensions from '../../constants/DeviceDimensions'
+import AppColors from '../../constants/AppColors'
 
 
 const PostStatus = ({onPress, imageUri}) => {
@@ -25,7 +27,7 @@ const PostStatus = ({onPress, imageUri}) => {
             </View>
             <Icon 
                 name="add-outline"
-                color="black"
+                color={AppColors.mainBlack}
                 size={30}
             />
             
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         paddingBottom: 20,
         borderBottomWidth: 1,
-        borderBottomColor: 'grey',
+        borderBottomColor: AppColors.mainGrey,
         marginVertical: 15,
     },
     avatar: {
@@ -55,12 +57,12 @@ const styles = StyleSheet.create({
         paddingVertical: 7,
         paddingHorizontal: 20,
         borderWidth: 1,
-        borderColor: 'grey',
+        borderColor: AppColors.mainGrey,
         borderRadius: 20,
     },
     text: {
         fontSize: 18,
-        color: 'grey',
+        color: AppColors.mainGrey,
     },
 
 

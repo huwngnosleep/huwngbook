@@ -2,10 +2,9 @@ import React from 'react'
 import { 
     StyleSheet, 
     View, 
-    Text,
-    TouchableOpacity,
 } from 'react-native'
 import Icon from "react-native-vector-icons/Ionicons";
+import AppColors from '../../constants/AppColors';
 import ActionButton from './ActionButton';
 
 const AccountItem = ({onPress, iconName, action, haveRightArrow}) => {
@@ -18,7 +17,7 @@ const AccountItem = ({onPress, iconName, action, haveRightArrow}) => {
             />
             {haveRightArrow ? <Icon 
                 name="chevron-down"
-                color="#333"
+                color={AppColors.mainBlack}
                 size={25}
             /> : null}
         </View>

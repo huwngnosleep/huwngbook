@@ -12,13 +12,11 @@ import {
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost } from '../../store/actions/user/post.actions'
-import * as firebase from 'firebase'
 
-import DeviceDimensions from '../../constants/DeviceDimensions'
-import ActionButton from '../../components/ActionButton'
-import InfoBar from '../../components/InfoBar'
+import InfoBar from '../../components//User/InfoBar'
+import AppImagePicker from '../../components/User/AppImagePicker'
+
 import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
-import AppImagePicker from '../../components/AppImagePicker'
 import Style from '../../constants/Style'
 
 const CreatePostScreen = ({navigation}) => {

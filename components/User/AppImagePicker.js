@@ -40,7 +40,7 @@ const AppImagePicker = ({style, onImageTaken, currentImage}) => {
         if (type === 'take') {
             const result = await ImagePicker.launchCameraAsync({
                 allowsEditing: true,
-                aspect: [4, 3],
+                aspect: [9, 6],
                 quality: 0.1,
             })
             if (!result.cancelled) {
@@ -51,7 +51,7 @@ const AppImagePicker = ({style, onImageTaken, currentImage}) => {
             const result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 allowsEditing: true,
-                aspect: [4, 3],
+                aspect: [9, 6],
                 quality: 0.1,
             })
             if (!result.cancelled) {

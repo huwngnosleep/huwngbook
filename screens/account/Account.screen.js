@@ -1,12 +1,14 @@
 import React from 'react'
 import { StyleSheet, View, Alert } from 'react-native'
-import AccountItem from '../../components/AccountItem'
-import InfoBar from '../../components/InfoBar'
-import Icon from "react-native-vector-icons/Ionicons";
-import { useDispatch, useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux'
 import { signOut } from '../../store/actions/auth/auth.actions'
 import { signUserOut } from '../../store/actions/user/user.actions'
+
+import AccountItem from '../../components/User/AccountItem'
+import InfoBar from '../../components/User/InfoBar'
+
+import Icon from "react-native-vector-icons/Ionicons"
+import AppColors from '../../constants/AppColors'
 
 const AccountScreen = ({navigation}) => {
     const localId = useSelector((state) => state.auth.localId)
@@ -21,7 +23,7 @@ const AccountScreen = ({navigation}) => {
                 <Icon 
                     name="chevron-forward"
                     size={25}
-                    color="#333"
+                    color={AppColors.mainBlack}
                 />
             </View>
             <View style={styles.actions}>

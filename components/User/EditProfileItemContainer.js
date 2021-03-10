@@ -3,8 +3,9 @@ import {
     StyleSheet, 
     View, 
     Text,
-    Button,
 } from 'react-native'
+
+import AppColors from '../../constants/AppColors'
 
 const EditProfileItemContainer = ({label, children}) => {
     return(
@@ -21,7 +22,7 @@ const EditProfileItemContainer = ({label, children}) => {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        borderBottomColor: 'grey',
+        borderBottomColor: AppColors.mainGrey,
         borderBottomWidth: 1,
         alignItems: 'center',
         justifyContent: 'center',
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
     },
     edit: {
-        color: 'blue',
+        color: AppColors.mainBlue,
         fontSize: 16,
     },
 })

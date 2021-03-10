@@ -6,7 +6,9 @@ import {
     FlatList,
 } from 'react-native'
 import { useSelector } from 'react-redux'
-import FriendCard from '../../components/FriendCard'
+
+import FriendCard from '../../components/User/FriendCard'
+
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
 const FriendsScreen = ({navigation}) => {

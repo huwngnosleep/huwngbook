@@ -4,7 +4,7 @@ import {
     View, 
     Image,
 } from 'react-native'
-import DeviceDimensions from '../constants/DeviceDimensions'
+import DeviceDimensions from '../../constants/DeviceDimensions'
 
 
 const CustomImage = ({style, imageUri}) => {

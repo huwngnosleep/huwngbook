@@ -5,8 +5,10 @@ import {
     Text,
 } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import DeviceDimensions from '../constants/DeviceDimensions'
+
 import Avatar from './Avatar'
+
+import DeviceDimensions from '../../constants/DeviceDimensions'
 
 const InfoBar = ({onPress, style, mainText, customText, imageUri, children}) => {
     

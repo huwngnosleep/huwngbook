@@ -12,8 +12,10 @@ import { useDispatch } from 'react-redux'
 import { signIn, signUp } from '../../store/actions/auth/auth.actions'
 import { setUser } from '../../store/actions/user/user.actions'
 
-import AlertText from '../../components/AlertText'
-import CustomTextInput from '../../components/CustomTextInput'
+import AlertText from '../../components/UI/AlertText'
+import CustomTextInput from '../../components/UI/CustomTextInput'
+
+import AppColors from '../../constants/AppColors'
 
 const AuthScreen = ({navigation}) => {
     const [isSignIn, setIsSignIn] = useState(true)
@@ -82,7 +84,7 @@ const AuthScreen = ({navigation}) => {
                 <View style={styles.buttonsContainer}>
                     <View style={styles.button}>
                         {isLoading ? 
-                            <ActivityIndicator size="small" color="black"/> 
+                            <ActivityIndicator size="small"/> 
                             : 
                             <Button 
                                 title={isSignIn ? 'Sign in' : 'Sign up'} 
@@ -126,7 +128,7 @@ const styles = StyleSheet.create({
     input: {
         paddingHorizontal: 2,
         paddingVertical: 5,
-        borderBottomColor: '#ccc',
+        borderBottomColor: AppColors.mainGrey,
         borderBottomWidth: 1,
     },
     buttonsContainer: {

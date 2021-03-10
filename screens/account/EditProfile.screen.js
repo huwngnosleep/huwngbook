@@ -3,14 +3,13 @@ import {
     StyleSheet, 
     View,
     ScrollView, 
-    Text,
     Button,
 } from 'react-native'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { editUser } from '../../store/actions/user/user.actions'
 
-import CustomTextInput from '../../components/CustomTextInput'
+import CustomTextInput from '../../components/UI/CustomTextInput'
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
 

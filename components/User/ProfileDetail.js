@@ -4,7 +4,9 @@ import {
     View, 
     Text,
 } from 'react-native'
-import Icon from "react-native-vector-icons/Ionicons";
+
+import Icon from "react-native-vector-icons/Ionicons"
+import AppColors from '../../constants/AppColors'
 
 
 const ProfileDetail = ({title, content}) => {
@@ -34,7 +36,7 @@ const styles = StyleSheet.create({
     },
     detail: {
         fontSize: 18,
-        color: 'grey',
+        color: AppColors.mainGrey,
     },
 })
 

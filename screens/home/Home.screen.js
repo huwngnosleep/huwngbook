@@ -10,11 +10,13 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import { setNewsFeed } from '../../store/actions/user/post.actions'
 
-import Post from '../../components/Post'
-import PostStatus from '../../components/PostStatus'
-import SearchBar from '../../components/SearchBar'
+import Post from '../../components/User/Post'
+import PostStatus from '../../components/User/PostStatus'
+import SearchBar from '../../components/UI/SearchBar'
+
 import Icon from 'react-native-vector-icons/Ionicons'
 import DatabaseUrl from '../../constants/DatabaseUrl'
+import AppColors from '../../constants/AppColors'
 
 const SearchHeaderBar = ({navigation}) => {
     const [isSearchBarVisible, setIsSearchBarVisible] = useState(false)
@@ -51,7 +53,7 @@ const SearchHeaderBar = ({navigation}) => {
     return(
         <View style={{width: '90%', height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
             <View style={{flexDirection: 'row'}}>
-                <Text style={{flex: 1,fontSize: 26, color: 'grey', fontWeight: 'bold'}}>HuwngBook</Text>
+                <Text style={{flex: 1,fontSize: 26, color: AppColors.mainGrey, fontWeight: 'bold'}}>HuwngBook</Text>
                 {isSearchBarVisible ?
                     <SearchBar
                         onChangeText={(text) => setSearchInput(text)}
@@ -125,7 +127,7 @@ const HomeScreen = ({navigation}) => {
 
     if (isLoading) {
         return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <ActivityIndicator size='large' color="black" />
+            <ActivityIndicator size='large'/>
         </View>
     }
     
