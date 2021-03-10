@@ -6,6 +6,7 @@ import {
     FlatList, 
     ActivityIndicator,
     RefreshControl,
+    ScrollView
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { setNewsFeed } from '../../store/actions/user/post.actions'
@@ -18,13 +19,16 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import AppColors from '../../constants/AppColors'
 import CustomButton from '../../components/UI/CustomButton'
-import { ScrollView } from 'react-native-gesture-handler'
+import { Badge } from 'react-native-elements'
+
 
 const SearchHeaderBar = ({navigation}) => {
     const [isSearchBarVisible, setIsSearchBarVisible] = useState(false)
     const [searchInput, setSearchInput] = useState('')
     const [searchResult, setSearchResult] = useState([])
 
+    const pendingFriendRequests = useSelector((state) => state.user.currentUser.pendingFriendRequests)
+    
     const onSearchSubmitHandler =  async (input) => {
         try {
             const submittedInput = input.trim().toLowerCase()
@@ -59,6 +63,7 @@ const SearchHeaderBar = ({navigation}) => {
         return focusSubs
     }, [setSearchInput, setSearchResult])
 
+
     return(
         <View style={{width: '90%', height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
             <View style={{flexDirection: 'row'}}>
@@ -86,11 +91,19 @@ const SearchHeaderBar = ({navigation}) => {
                             size={30}
                             onPress={() => {setIsSearchBarVisible((prevState) => !prevState)}}
                         />
-                        <Icon 
-                            name="people-outline"
-                            size={30}
-                            onPress={() => {navigation.navigate('Friend Requests')}}
-                        />
+                        <View>
+                            <Icon 
+                                name="people-outline"
+                                size={30}
+                                onPress={() => {navigation.navigate('Friend Requests')}}
+                                />
+                            {
+                                pendingFriendRequests.length > 0 ?
+                                    <Badge value="" status="error" containerStyle={styles.badgeStyle} />
+                                    :
+                                    null
+                            }
+                        </View>
                     </View>
                 }
             </View>
@@ -102,7 +115,7 @@ const HomeScreen = ({navigation}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
     const [isRefreshing, setIsRefreshing] = useState(false)
-
+    
     const newsFeed = useSelector((state) => state.user.newsFeed)
     const localId = useSelector((state) => state.auth.localId)
     const currentUserAvatar = useSelector((state) => state.user.currentUser.avatar)
@@ -119,13 +132,14 @@ const HomeScreen = ({navigation}) => {
         }
         setIsRefreshing(false)
     }, [dispatch, setError, setIsRefreshing, localId])
-
+    
     useEffect(() => {
         setIsLoading(true)
         loadNewsFeed(localId).then(() => {
             setIsLoading(false)
         })
     }, [dispatch, loadNewsFeed, setIsLoading, localId])
+    
 
     if (error) {
         return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -154,6 +168,7 @@ const HomeScreen = ({navigation}) => {
                 newsFeed.length > 0 ?
                     newsFeed.map((item) =>
                         <Post 
+                            key={item.id}
                             editable={false}
                             postData={item}
                             navigation={navigation}
@@ -170,7 +185,11 @@ const styles = StyleSheet.create({
     screen: {
         alignItems: 'center',
     },
-    
+    badgeStyle: {
+        position: 'absolute',
+        top: -4,
+        right: -4,
+    },
 })
 
 export default HomeScreen

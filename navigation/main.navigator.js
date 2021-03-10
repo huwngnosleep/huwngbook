@@ -25,7 +25,6 @@ const MainNavigator = () => {
                         tabBarLabel: 'Home',
                         tabBarIcon: ({focused}) => {
                             const iconName = focused ? 'newspaper' : 'newspaper-outline'
-
                             return(
                                 <Icon
                                     size={25}
@@ -39,10 +38,9 @@ const MainNavigator = () => {
                     name="Account" 
                     component={AccountNavigator} 
                     options={() => ({
-                        tabBarLabel: 'Home',
+                        tabBarLabel: 'Profile',
                         tabBarIcon: ({focused}) => {
                             const iconName = focused ? 'person' : 'person-outline'
-
                             return(
                                 <Icon
                                     size={25}

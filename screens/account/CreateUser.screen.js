@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { 
     StyleSheet, 
     View,
@@ -26,13 +26,10 @@ const CreateUserScreen = ({route, navigation}) => {
         setAlertText('')
     }, 3000)
 
-    const [isInputValid, setIsInputValid] = useState(false)
-
     const [name, setName] = useState('')
     const [userName, setUserName] = useState('')
     const [birthday, setBirthday] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
-    const [gender, setGender] = useState()
 
     const dispatch = useDispatch()
 
@@ -44,7 +41,8 @@ const CreateUserScreen = ({route, navigation}) => {
             name.trim().length > 0 &&
             userName.length > 0 &&
             String(birthday).length > 0 &&
-            phoneNumber.length > 0
+            phoneNumber.length > 0 &&
+            Number(phoneNumber)
         ) {
             dispatch(editUser(currentUserId, {
                 name,
@@ -52,7 +50,6 @@ const CreateUserScreen = ({route, navigation}) => {
                 avatar: DefaultProfileImagePlaceholder,
                 birthday,
                 phoneNumber,
-                gender,
             }))
             navigation.dispatch(
                 StackActions.pop()

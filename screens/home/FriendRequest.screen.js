@@ -9,11 +9,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { friendRequestResponse } from '../../store/actions/user/user.actions'
 
 import Avatar from '../../components/User/Avatar'
+import CustomButton from '../../components/UI/CustomButton'
 
 import AppColors from '../../constants/AppColors'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import DeviceDimensions from '../../constants/DeviceDimensions'
-import CustomButton from '../../components/UI/CustomButton'
 
 const FriendRequestItem = ({onPress, ownerId, localId}) => {
     const dispatch = useDispatch()
@@ -35,6 +35,7 @@ const FriendRequestItem = ({onPress, ownerId, localId}) => {
 
     useEffect(() => {
         fetchData()
+        return fetchData
     })
 
     return(
@@ -65,10 +66,10 @@ const FriendRequestItem = ({onPress, ownerId, localId}) => {
 }
 
 const FriendRequestScreen = ({navigation}) => {
-    const requestsData = useSelector((state) => state.user.currentUser.pendingFriendRequests)
+    const pendingFriendRequests = useSelector((state) => state.user.currentUser.pendingFriendRequests)
     const localId = useSelector((state) => state.user.currentUser.localId)
 
-    if(requestsData.length === 0) {
+    if(pendingFriendRequests.length === 0) {
         return <View style={{alignItems: 'center', flex: 1,}}>
             <Text style={{marginTop: 20}}>You have no friend request yet!</Text>
         </View>
@@ -78,17 +79,16 @@ const FriendRequestScreen = ({navigation}) => {
         <View style={styles.screen}>
             <FlatList
                 contentContainerStyle={styles.list}
-                data={requestsData}
-                keyExtractor={(item) => item.localId}
+                data={pendingFriendRequests}
+                keyExtractor={(item) => item}
                 renderItem={(itemData) => 
-                        <FriendRequestItem 
-                            onPress={() => {navigation.navigate('Other Profile', {
-                                userId: itemData.item
-                            })}}
-                            localId={localId}
-                            ownerId={itemData.item}
-                        />
-                     
+                    <FriendRequestItem 
+                        onPress={() => {navigation.navigate('Other Profile', {
+                            userId: itemData.item
+                        })}}
+                        localId={localId}
+                        ownerId={itemData.item}
+                    />
                 }
             />
         </View>

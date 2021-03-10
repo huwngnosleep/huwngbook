@@ -16,7 +16,7 @@ const CustomButton = ({style, onPress, title, color}) => {
         setActive(false)
         setTimeout(() => {
            setActive(true) 
-        }, 3000);
+        }, 3000)
     }
 
     // set style here to use color props more easily

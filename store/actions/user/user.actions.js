@@ -81,8 +81,6 @@ export const setUser = (id) => {
         
         const resData = await response.json()
 
-        console.log(resData)
-
         const loadedPosts = []
 
         // map posts form from hash table to array for rendering

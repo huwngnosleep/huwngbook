@@ -27,7 +27,7 @@ const EditImageScreen = ({navigation, route}) => {
     }, [dispatch, image])
 
     useEffect(() => {
-        navigation.setOptions({
+        return navigation.setOptions({
             headerRight: () => (
                 <CustomButton
                     title="Save"

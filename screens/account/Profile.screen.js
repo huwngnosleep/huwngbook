@@ -24,7 +24,7 @@ const ProfileScreen = ({navigation}) => {
     const localId = useSelector((state) => state.auth.localId)
 
     useEffect(() => {
-        navigation.setOptions({
+        return navigation.setOptions({
             title: 'Your Profile'
         })
     })
@@ -78,32 +78,32 @@ const ProfileScreen = ({navigation}) => {
                     <Text style={styles.title}>Friends</Text>
                     {currentUser.friends && currentUser.friends.length > 0 ? <Text>{currentUser.friends.length} friends</Text> : null}
                 </View>
-                {currentUser.friends && currentUser.friends.length > 0 ?
-                    <FlatList 
-                        scrollEnabled={false}
-                        data={currentUser.friends}
-                        numColumns={3} 
-                        renderItem={(itemData) => 
-                            <FriendCard 
-                                navigation={navigation}
-                                friendId={itemData.item}
-                                key={itemData.item}
-                                style={styles.friendCard}
+                <View style={{flexDirection: 'row', alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}}>
+                    {
+                        currentUser.friends && currentUser.friends.length > 0 ?
+                            currentUser.friends.splice(0, 3).map((item) => 
+                                <FriendCard 
+                                    navigation={navigation}
+                                    friendId={item}
+                                    key={item}
+                                    style={styles.friendCard}
+                                />
+                            )
+                            : 
+                            <Text>You have no friend yet!</Text>
+                    }
+                </View>
+                {
+                    currentUser.friends && currentUser.friends.length > 0 ? 
+                        <View style={styles.actions}>
+                            <CustomButton 
+                                title="See all friends"
+                                color={AppColors.mainGrey}
+                                onPress={() => {navigation.navigate('Friends')}}
                             />
-                        }
-                    />
-                    : 
-                    <Text>You have no friend yet!</Text>}
-                {currentUser.friends && currentUser.friends.length > 0 ? 
-                    <View style={styles.actions}>
-                        <CustomButton 
-                            title="See all friends"
-                            color={AppColors.mainGrey}
-                            onPress={() => {navigation.navigate('Friends')}}
-                        />
-                    </View>
-                    :
-                    null
+                        </View>
+                        :
+                        null
                 }
             </View>
             <View style={styles.container}>
