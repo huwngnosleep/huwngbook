@@ -8,6 +8,11 @@ import DeviceDimensions from '../constants/DeviceDimensions'
 
 
 const CustomImage = ({style, imageUri}) => {
+
+    if(!imageUri) {
+        return null
+    }
+
     return(
         <View style={{...styles.imageContainer, ...style}}>
             <Image 
@@ -22,7 +27,7 @@ const styles = StyleSheet.create({
     imageContainer: {
         overflow: 'hidden',
         width: '100%',
-        maxHeight: DeviceDimensions.deviceHeight / 2,
+        maxHeight: DeviceDimensions.deviceHeight * 0.6,
         marginTop: 10,
     },
     image: {

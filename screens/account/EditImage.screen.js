@@ -11,6 +11,7 @@ import { editProfileImage } from '../../store/actions/user/user.actions'
 import AppImagePicker from '../../components/AppImagePicker'
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
+import Style from '../../constants/Style'
 
 
 const EditImageScreen = ({navigation, route}) => {
@@ -45,7 +46,7 @@ const EditImageScreen = ({navigation, route}) => {
             <AppImagePicker 
                 onImageTaken={(imageUri) => setImage(imageUri)}
                 currentImage={image}
-                style={styles.imagePicker}
+                style={Style.imagePicker}
             />
         </View>
     )
@@ -60,10 +61,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         marginBottom: 10,
-    },
-    imagePicker: {
-        height: DeviceDimensions.deviceWidth * 0.8,
-        width: DeviceDimensions.deviceWidth * 0.8,
     },
 })
 

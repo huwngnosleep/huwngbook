@@ -144,8 +144,8 @@ const Post = ({navigation, localId, postData, editable, disableNavigation}) => {
                     />
                 </TouchableOpacity>
             </View>
-            <View>
-                <Text style={styles.content}>{postData.content}</Text>
+            <View style={styles.content}>
+                <Text>{postData.content}</Text>
             </View>
             <CustomImage imageUri={postData.imageUri}/>
             <View style={styles.actionsContainer}>
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     content: {
-        
+        paddingVertical: 10,
     },
     actionsContainer: {
         flexDirection: 'row',

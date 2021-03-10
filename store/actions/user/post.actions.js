@@ -1,3 +1,4 @@
+import * as firebase from 'firebase'
 import DatabaseUrl from "../../../constants/DatabaseUrl"
 import PostModel from "../../../models/post.model"
 
@@ -96,8 +97,21 @@ export const createPost = (localId, postData) => {
                 ...postData,
             })
         })
-
+        
         const resData = await response.json()
+        
+        let imageDownloadUrl
+
+        try {
+            const response = await fetch(postData.imageUri)
+            const blob = await response.blob()
+            await firebase.storage().ref().child(`${localId}/posts/${resData.name}`).put(blob)
+            var storageRef = firebase.storage().ref().child(`${localId}/posts/${resData.name}`).put(blob)
+            imageDownloadUrl = await storageRef.snapshot.ref.getDownloadURL()
+        } catch (error) {
+            console.log(error)
+        }
+
 
         // after creating the new post, i'll give it an id for editing later
         fetch(`${DatabaseUrl}/users/${localId}/posts/${resData.name}.json`, {
@@ -107,6 +121,7 @@ export const createPost = (localId, postData) => {
             },
             body: JSON.stringify({
                 id: resData.name,
+                imageUri: imageDownloadUrl,
             })
         })
 
@@ -115,7 +130,11 @@ export const createPost = (localId, postData) => {
             postData: {
                 id: resData.name,
                 ...postData,
+                imageUri: imageDownloadUrl,
             },
         })
+        
+            
+
     }
 }

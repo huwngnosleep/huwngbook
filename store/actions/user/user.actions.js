@@ -25,39 +25,41 @@ export const editProfileImage = (imageType, imageUri, localId) => {
         try {
             const response = await fetch(imageUri)
             const blob = await response.blob()
+            await firebase.storage().ref().child(`${localId}/${imageType}`).put(blob)
             var ref = firebase.storage().ref().child(`${localId}/${imageType}`).put(blob)
             newImageUri = await ref.snapshot.ref.getDownloadURL()
             
         } catch (error) {
-            if(imageType === 'avatar') {
-                fetch(`${DatabaseUrl}/users/${localId}.json`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        avatar: newImageUri
-                    })
-                })
-            } else {
-                fetch(`${DatabaseUrl}/users/${localId}.json`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        coverImage: newImageUri
-                    })
-                })
-            }
-    
-            dispatch({
-                type: EDIT_PROFILE_IMAGE,
-                imageType,
-                imageUri,
-            })
+            console.log(error)
             
         }
+        if(imageType === 'avatar') {
+            fetch(`${DatabaseUrl}/users/${localId}.json`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    avatar: newImageUri
+                })
+            })
+        } else {
+            fetch(`${DatabaseUrl}/users/${localId}.json`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    coverImage: newImageUri
+                })
+            })
+        }
+
+        dispatch({
+            type: EDIT_PROFILE_IMAGE,
+            imageType,
+            imageUri,
+        })
 
     }
 }

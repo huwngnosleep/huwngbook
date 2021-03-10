@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import { 
     StyleSheet, 
     View, 
@@ -6,32 +6,39 @@ import {
     Modal,
     Button,
     TextInput,
+    ScrollView,
+    Keyboard,
+    KeyboardAvoidingView,
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost } from '../../store/actions/user/post.actions'
+import * as firebase from 'firebase'
 
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import ActionButton from '../../components/ActionButton'
 import InfoBar from '../../components/InfoBar'
 import HeaderRightButtonStyle from '../../constants/HeaderRightButtonStyle'
+import AppImagePicker from '../../components/AppImagePicker'
+import Style from '../../constants/Style'
 
 const CreatePostScreen = ({navigation}) => {
     const [textInput, setTextInput] = useState('')
+    const [image, setImage] = useState('')
 
     const currentUser = useSelector((state) => state.user.currentUser)
     const localId = useSelector((state) => state.auth.localId)
 
     const dispatch = useDispatch()
 
-    const submitHandler = useCallback(async () => {
+    const submitHandler = async () => {
         dispatch(createPost(localId, {
             ownerId: localId,
             date: new Date().toDateString(),
-            imageUri: "http://dummyimage.com/200x200.bmp/ff4444/ffffff",
+            imageUri: image,
             content: textInput,
         }))
         navigation.goBack()
-    }, [dispatch, textInput])
+    }
 
     useEffect(() => {
         navigation.setOptions({
@@ -48,31 +55,34 @@ const CreatePostScreen = ({navigation}) => {
     })
 
     return(
-        <View 
-            style={styles.container}
-        >
-            <View style={styles.header}>
-                <InfoBar 
-                    imageUri={currentUser.avatar} 
-                    mainText={currentUser.name} 
-                    customText={new Date().toDateString()}
-                />
-            </View>
-            <View style={styles.textInputContainer}>
-                <TextInput
-                    style={styles.textInput}
-                    multiline={true}
-                    placeholder="   What's on your mind?"
-                    onChangeText={(text) => {setTextInput(text)}}
-                    value={textInput}
-                />
-            </View>
-            <View style={styles.footer}>
-                <ActionButton iconName="images" action="Images"/>
-                <ActionButton iconName="pricetags" action="Friends"/>
-                <ActionButton iconName="happy" action="Feeling"/>
-            </View>
-        </View>
+        <KeyboardAvoidingView style={styles.container}>
+            <ScrollView 
+                
+                onPress={() => {Keyboard.dismiss()}}
+            >
+                <View style={styles.header}>
+                    <InfoBar 
+                        imageUri={currentUser.avatar} 
+                        mainText={currentUser.name} 
+                        customText={new Date().toDateString()}
+                    />
+                </View>
+                <View style={styles.textInputContainer}>
+                    <TextInput
+                        style={styles.textInput}
+                        multiline={true}
+                        placeholder=" What's on your mind?"
+                        onChangeText={(text) => {setTextInput(text)}}
+                        value={textInput}
+                    />
+                    <AppImagePicker
+                        onImageTaken={(imageUri) => setImage(imageUri)}
+                        currentImage={image}
+                        style={{...Style.imagePicker}}
+                    />
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -87,21 +97,10 @@ const styles = StyleSheet.create({
     },
     textInputContainer: {
         width: '90%',
-        height: DeviceDimensions.deviceHeight / 3,
         alignSelf: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: 'black',
-        marginBottom: 10,
     },
     textInput: {
         fontSize: 18,
-    },
-    footer: {
-        width: '90%',
-        flexDirection: 'row',
-        alignSelf: 'center',
-        alignItems: 'center',
-        justifyContent: 'space-around',
     },
 })
 
