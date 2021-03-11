@@ -4,13 +4,18 @@ import {
     View, 
     Alert,
     Image,
-    Button,
 } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
+import ActionButton from './ActionButton'
+import CustomButton from '../UI/CustomButton'
 
-const AppImagePicker = ({style, onImageTaken, currentImage}) => {
+const AppImagePicker = ({style, onImageTaken, currentImage, canToggle}) => {
     const [image, setImage] = useState(currentImage)
+
+    if(canToggle === true) {
+        var [isImagePickerVisible, setIsImagePickerVisible] = useState(false)
+    }
 
     const verifyPermissions = async (type) => {
         let permission
@@ -62,17 +67,35 @@ const AppImagePicker = ({style, onImageTaken, currentImage}) => {
 
     }
 
+    if(isImagePickerVisible === false && canToggle === true) {
+        return(
+            <ActionButton 
+                onPress={() => {setIsImagePickerVisible((true))}}
+                iconName="images" 
+                action="Add image"
+                style={{marginVertical: 20}}
+            />
+        )
+    }
+
     return(
         <View style={{...styles.container, ...style}}>
-            <View style={styles.imageContainer}>
-                <Image style={styles.image} source={{uri: image}}/>
-            </View>
+            {
+                image.length > 0 ? 
+                    <View style={styles.imageContainer}>
+                        <Image style={styles.image} source={{uri: image}}/>
+                    </View>
+                    :
+                    null
+            }
             <View style={styles.buttonsContainer}>
-                <Button 
+                <CustomButton 
+                    style={styles.button}
                     title="Take new photo"
                     onPress={() => getImageHandler('take')}
                 />
-                <Button 
+                <CustomButton 
+                    style={styles.button}
                     title="Choose from library"
                     onPress={() => getImageHandler('choose')}
                 />
@@ -97,7 +120,11 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
+        marginVertical: 10,
+    },
+    button: {
+        width: '45%',
     },
 
 })

@@ -16,7 +16,7 @@ const ProfileDetail = ({title, content}) => {
                 <Icon 
                     name="remove"
                     color={AppColors.mainGreyBolder}
-                    size={20}
+                    size={15}
                 />
             </View>
             <Text style={styles.detail}>{title}{content}</Text>

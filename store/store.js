@@ -6,7 +6,7 @@ import ReduxThunk from 'redux-thunk'
 
 import rootReducer from './root-reducer'
 
-const middleWares = [ReduxThunk]
+const middleWares = [ReduxThunk, logger]
 
 const store = createStore(rootReducer, applyMiddleware(...middleWares))
 

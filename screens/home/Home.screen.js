@@ -20,6 +20,7 @@ import DatabaseUrl from '../../constants/DatabaseUrl'
 import AppColors from '../../constants/AppColors'
 import CustomButton from '../../components/UI/CustomButton'
 import { Badge } from 'react-native-elements'
+import AppTitle from '../../components/UI/AppTitle'
 
 
 const SearchHeaderBar = ({navigation}) => {
@@ -67,7 +68,7 @@ const SearchHeaderBar = ({navigation}) => {
     return(
         <View style={{width: '90%', height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
             <View style={{flexDirection: 'row'}}>
-                <Text style={{flex: 1,fontSize: 26, color: AppColors.mainGreyBolder, fontWeight: 'bold'}}>HuwngBook</Text>
+                <AppTitle />
                 {isSearchBarVisible ?
                     <SearchBar
                         onChangeText={(text) => setSearchInput(text)}

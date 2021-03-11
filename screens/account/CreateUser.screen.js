@@ -88,7 +88,7 @@ const CreateUserScreen = ({route, navigation}) => {
                     placeholder="User name"
                     autoCapitalize='none'
                     onChangeText={(text) => {
-                        setUserName('@' + text)
+                        setUserName(text)
                     }}
                 />
                 <CustomTextInput 

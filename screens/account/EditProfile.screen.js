@@ -31,7 +31,7 @@ const EditUserInfoScreen = ({navigation}) => {
     const submitHandler = () => {
         dispatch(editUser(localId, {
             name,
-            userName: '@' + userName,
+            userName,
             bio,
             address,
             birthday,

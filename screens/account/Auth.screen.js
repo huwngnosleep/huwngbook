@@ -3,7 +3,7 @@ import {
     StyleSheet, 
     View, 
     ScrollView,
-    ActivityIndicator,
+    Text,
     KeyboardAvoidingView,
 } from 'react-native'
 import { useDispatch } from 'react-redux'
@@ -15,6 +15,7 @@ import CustomTextInput from '../../components/UI/CustomTextInput'
 
 import AppColors from '../../constants/AppColors'
 import CustomButton from '../../components/UI/CustomButton'
+import AppTitle from '../../components/UI/AppTitle'
 
 const AuthScreen = ({navigation}) => {
     const [isSignIn, setIsSignIn] = useState(true)
@@ -49,6 +50,7 @@ const AuthScreen = ({navigation}) => {
         <KeyboardAvoidingView style={styles.screen}>
             <View style={styles.authContainer}>
                 <ScrollView>
+                    <AppTitle />
                     <CustomTextInput 
                         placeholder="Email"
                         keyboardType='email-address'

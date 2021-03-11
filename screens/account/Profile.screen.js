@@ -4,7 +4,6 @@ import {
     View, 
     Text,
     ScrollView,
-    FlatList,
 } from 'react-native'
 import { useSelector } from 'react-redux'
 
@@ -57,7 +56,7 @@ const ProfileScreen = ({navigation}) => {
             </View>
             <View style={styles.detail}>
                 <View>
-                    <ProfileDetail title="" content={currentUser.userName}/>
+                    <ProfileDetail title="User name: " content={'@' + currentUser.userName}/>
                     <ProfileDetail title="Lives in: " content={currentUser.address}/>
                     <ProfileDetail title="Birth Day: " content={currentUser.birthday}/>
                     <ProfileDetail title="Phone number: " content={currentUser.phoneNumber}/>
@@ -76,12 +75,12 @@ const ProfileScreen = ({navigation}) => {
                 <PostStatus imageUri={currentUser.avatar} onPress={() => {navigation.navigate('Create Post')}}/>
                 <View style={styles.textSummary}>
                     <Text style={styles.title}>Friends</Text>
-                    {currentUser.friends && currentUser.friends.length > 0 ? <Text>{currentUser.friends.length} friends</Text> : null}
+                    {currentUser.friends.length > 0 ? <Text>{currentUser.friends.length} friends</Text> : null}
                 </View>
                 <View style={{flexDirection: 'row', alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}}>
                     {
-                        currentUser.friends && currentUser.friends.length > 0 ?
-                            currentUser.friends.splice(0, 3).map((item) => 
+                        currentUser.friends.length > 0 ?
+                            [...currentUser.friends].splice(0, 3).map((item) => 
                                 <FriendCard 
                                     navigation={navigation}
                                     friendId={item}
@@ -94,14 +93,13 @@ const ProfileScreen = ({navigation}) => {
                     }
                 </View>
                 {
-                    currentUser.friends && currentUser.friends.length > 0 ? 
-                        <View style={styles.actions}>
-                            <CustomButton 
-                                title="See all friends"
-                                color={AppColors.mainGrey}
-                                onPress={() => {navigation.navigate('Friends')}}
-                            />
-                        </View>
+                    currentUser.friends.length > 0 ? 
+                        <CustomButton 
+                            style={styles.actions}
+                            title="See all friends"
+                            color={AppColors.mainGrey}
+                            onPress={() => {navigation.navigate('Friends')}}
+                        />
                         :
                         null
                 }
@@ -110,20 +108,22 @@ const ProfileScreen = ({navigation}) => {
                 <View style={styles.textSummary}>
                     <Text style={styles.title}>Post</Text>
                 </View>
-            </View>
-            <View style={styles.container}>
-                {currentUser.posts && currentUser.posts.length > 0 ? null : <Text>Create your first post!</Text>}
-                {currentUser.posts.map((item) => 
-                    <Post
-                        // editable props to make user just edit post in his profile screen
-                        editable={true}
-                        disableNavigation={true}
-                        navigation={navigation}
-                        key={item.id}
-                        localId={localId}
-                        postData={item}
-                    />
-                )}
+                {
+                    currentUser.posts.length > 0 ? 
+                        currentUser.posts.map((item) => 
+                            <Post
+                                // editable props to make user just edit post in his profile screen
+                                editable={true}
+                                disableNavigation={true}
+                                navigation={navigation}
+                                key={item.id}
+                                localId={localId}
+                                postData={item}
+                            />
+                        )
+                        : 
+                        <Text>Create your first post!</Text>
+                }
             </View>
         </ScrollView>
     )
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
         height: DeviceDimensions.deviceWidth / 4,
     },
     actions: {
-        width: '80%',
+        width: '90%',
     },
     title: {
         fontSize: 30,

@@ -165,8 +165,8 @@ export default (state = initialState, action) => {
             }
         case SET_USER: 
             return {
-                ...state,
-                currentUser: {...action.userData}
+                newsFeed: [],
+                currentUser: action.userData,
             }
     
         default:

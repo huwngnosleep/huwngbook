@@ -70,12 +70,13 @@ const styles = StyleSheet.create({
         backgroundColor: AppColors.mainWhite,
         margin: 10,
         alignItems: 'center',
-    },
-    imageContainer: {
-        width: '80%',
-        height: '80%',
         overflow: 'hidden',
         borderRadius: 5,
+    },
+    imageContainer: {
+        width: '100%',
+        height: '80%',
+        overflow: 'hidden',
     },
     image: {
         height: '100%',
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: '20%',
         width: '100%',
-        backgroundColor: AppColors.mainWhite,
+        backgroundColor: AppColors.mainGrey,
     },
 
 })

@@ -36,14 +36,14 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         justifyContent: 'center',
+        alignItems: 'center',
     },
     list: {
         alignSelf: 'center',
-        flex: 1,
     },
     friendCard: {
-        width: DeviceDimensions.deviceWidth / 3,
-        height: DeviceDimensions.deviceWidth / 3,
+        width: DeviceDimensions.deviceWidth / 2.75,
+        height: DeviceDimensions.deviceWidth / 2.75,
     },
 })
 

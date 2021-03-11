@@ -61,15 +61,16 @@ const CreatePostScreen = ({navigation}) => {
                         customText={new Date().toDateString()}
                     />
                 </View>
-                <View style={styles.textInputContainer}>
+                <View style={styles.inputContainer}>
                     <TextInput
-                        style={styles.textInput}
+                        style={Style.editPostTextInput}
                         multiline={true}
                         placeholder=" What's on your mind?"
                         onChangeText={(text) => {setTextInput(text)}}
                         value={textInput}
                     />
                     <AppImagePicker
+                        canToggle={true}
                         onImageTaken={(imageUri) => setImage(imageUri)}
                         currentImage={image}
                         style={{...Style.imagePicker}}
@@ -89,12 +90,9 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginVertical: 10,
     },
-    textInputContainer: {
+    inputContainer: {
         width: '90%',
         alignSelf: 'center',
-    },
-    textInput: {
-        fontSize: 18,
     },
 })
 

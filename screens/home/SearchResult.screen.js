@@ -17,7 +17,6 @@ import DeviceDimensions from '../../constants/DeviceDimensions'
 
 const SearchResultScreen = ({route, navigation}) => {
     const { searchedData } = route.params
-    console.log(searchedData)
 
     const localId = useSelector((state) => state.auth.localId)
 

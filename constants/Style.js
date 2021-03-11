@@ -12,4 +12,8 @@ export default StyleSheet.create({
         marginRight: 10,
         paddingHorizontal: 5,
     },
+    editPostTextInput: {
+        fontSize: 18,
+        paddingBottom: 20,
+    },
 })

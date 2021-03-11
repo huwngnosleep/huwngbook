@@ -78,6 +78,15 @@ export const deletePost = (localId, postId) => {
         fetch(`${DatabaseUrl}/users/${localId}/posts/${postId}.json`, {
             method: 'DELETE'
         })
+
+        // try deleting post image in storage
+        try {
+            const storageRef = firebase.storage().ref().child(`${localId}/posts/${postId}`)
+            storageRef.delete()
+        } catch (error) {
+            // if post has no image, there will be an error naturally, just ignore it
+            console.log(error)
+        }
         dispatch({
             type: DELETE_POST,
             postId,

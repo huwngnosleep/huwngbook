@@ -56,9 +56,9 @@ const EditPostScreen = ({route, navigation}) => {
                         customText={currentPostData.date}
                     />
                 </View>
-                <View style={styles.textInputContainer}>
+                <View style={styles.inputContainer}>
                     <TextInput
-                        style={styles.textInput}
+                        style={Style.editPostTextInput}
                         multiline={true}
                         onChangeText={(text) => {setContent(text)}}
                         value={content}
@@ -79,13 +79,9 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginVertical: 10,
     },
-    textInputContainer: {
+    inputContainer: {
         width: '90%',
         alignSelf: 'center',
-        marginBottom: 10,
-    },
-    textInput: {
-        fontSize: 18,
     },
 })
 
