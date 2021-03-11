@@ -82,15 +82,17 @@ export const setUser = (id) => {
         const resData = await response.json()
 
         const loadedPosts = []
-
-        // map posts form from hash table to array for rendering
-        for(const key in resData.posts) {
+        
+        // map posts from hash table to array for rendering
+        for(const post in resData.posts) {
             loadedPosts.unshift(new PostModel({
-                id: resData.posts[key].id,
-                ownerId: resData.posts[key].ownerId,
-                date: resData.posts[key].date,
-                imageUri: resData.posts[key].imageUri,
-                content: resData.posts[key].content
+                id: resData.posts[post].id,
+                ownerId: resData.posts[post].ownerId,
+                date: resData.posts[post].date,
+                imageUri: resData.posts[post].imageUri,
+                content: resData.posts[post].content,
+                likes: resData.posts[post].likes || {},
+                comments: resData.posts[post].comments || {},
             }))
         }
 

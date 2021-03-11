@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { 
     StyleSheet, 
     View, 
     Text,
     ScrollView,
+    VirtualizedList,
 } from 'react-native'
 import { useSelector } from 'react-redux'
 
@@ -17,15 +18,34 @@ import Icon from "react-native-vector-icons/Ionicons"
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import AppColors from '../../constants/AppColors'
 import CustomButton from '../../components/UI/CustomButton'
+import DatabaseUrl from '../../constants/DatabaseUrl'
+import PostModel from '../../models/post.model'
 
 const ProfileScreen = ({navigation}) => {
     const currentUser = useSelector((state) => state.user.currentUser)
     const localId = useSelector((state) => state.auth.localId)
+    const [currentUserPosts, setCurrentUserPosts] = useState([])
+
+    const fetchPosts = useCallback(async () => {
+        const postsData = await (await fetch(`${DatabaseUrl}/users/${localId}/posts.json`)).json()
+        const loadedPost = []
+        for(const post in postsData) {
+            loadedPost.unshift(new PostModel(postsData[post]))
+        }
+        loadedPost.sort((post1, post2) => Date.parse(post2.date) - Date.parse(post1.date))
+        setCurrentUserPosts(loadedPost)
+    }, [setCurrentUserPosts])
 
     useEffect(() => {
-        return navigation.setOptions({
+        fetchPosts()
+    }, [fetchPosts])
+
+    useEffect(() => {
+        navigation.setOptions({
             title: 'Your Profile'
         })
+        const focusSubs = navigation.addListener('focus', fetchPosts)
+        return focusSubs
     })
 
     return(
@@ -91,34 +111,35 @@ const ProfileScreen = ({navigation}) => {
                             : 
                             <Text>You have no friend yet!</Text>
                     }
+                    
                 </View>
                 {
                     currentUser.friends.length > 0 ? 
                         <CustomButton 
                             style={styles.actions}
                             title="See all friends"
-                            color={AppColors.mainGrey}
+                            color={AppColors.mainGreyBolder}
                             onPress={() => {navigation.navigate('Friends')}}
                         />
                         :
                         null
                 }
+                
             </View>
             <View style={styles.container}>
                 <View style={styles.textSummary}>
                     <Text style={styles.title}>Post</Text>
                 </View>
                 {
-                    currentUser.posts.length > 0 ? 
-                        currentUser.posts.map((item) => 
+                    currentUserPosts.length > 0 ? 
+                        currentUserPosts.map((post) => 
                             <Post
                                 // editable props to make user just edit post in his profile screen
                                 editable={true}
                                 disableNavigation={true}
                                 navigation={navigation}
-                                key={item.id}
-                                localId={localId}
-                                postData={item}
+                                key={post.postId}
+                                postData={post}
                             />
                         )
                         : 

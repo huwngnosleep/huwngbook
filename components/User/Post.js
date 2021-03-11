@@ -3,13 +3,10 @@ import {
     StyleSheet, 
     Text, 
     View, 
-    Alert,
     TouchableOpacity,
 } from 'react-native'
-import { deletePost } from '../../store/actions/user/post.actions'
-import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-import ActionButton from './ActionButton'
 import CustomImage from '../UI/CustomImage'
 import InfoBar from './InfoBar'
 
@@ -17,59 +14,11 @@ import Icon from "react-native-vector-icons/Ionicons"
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import AppColors from '../../constants/AppColors'
+import PostActionsBar from './Post/PostActionsBar'
+import PostDropdownMenu from './Post/PostDropdownMenu'
+import ActionButton from './ActionButton'
 
-const PostDropdownMenu = ({ currentPostData, navigation, localId, editable }) => {
-    
-    const dispatch = useDispatch()
-    if(editable === true) {
-        return(
-            <View
-                style={styles.postDropdownMenu}
-            >
-                <ActionButton 
-                    style={styles.dropdownButton} 
-                    iconName="pencil" 
-                    action="Edit"
-                    onPress={() => {navigation.navigate('Edit Post', {currentPostData})}}
-                />
-                <ActionButton 
-                    style={styles.dropdownButton} 
-                    iconName="trash" 
-                    action="Delete"
-                    onPress={() => {
-                        Alert.alert(
-                            'Wait!!!',
-                            'Are you sure?',
-                            [
-                                {
-                                    text: 'Cancel',
-                                },{
-                                    text: 'Delete', 
-                                    style: 'destructive',
-                                    onPress: () => {dispatch(deletePost(localId, currentPostData.id))}
-                                }
-                            ]
-                        )
-                    }}
-                />
-            </View>
-        )
-    }
-    return(
-        <View
-                style={styles.postDropdownMenu}
-            >
-                <ActionButton 
-                    style={styles.dropdownButton} 
-                    iconName="bookmark" 
-                    action="Save"
-                    onPress={() => {}}
-                />
-            </View>
-    )
-}
-
-const Post = ({navigation, localId, postData, editable, disableNavigation}) => {
+const Post = ({navigation, postData, editable, disableNavigation}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
 
@@ -97,6 +46,7 @@ const Post = ({navigation, localId, postData, editable, disableNavigation}) => {
     }, [setError, fetchOwnerData])
 
     if (error) {
+        console.log(error)
         return null
     }
 
@@ -111,9 +61,8 @@ const Post = ({navigation, localId, postData, editable, disableNavigation}) => {
                     <PostDropdownMenu 
                         // passing currentPostData for editing later
                         editable={editable}
-                        currentPostData={{...postData}}
+                        postData={postData}
                         navigation={navigation} 
-                        localId={localId} 
                     /> 
                     : 
                     null
@@ -148,10 +97,10 @@ const Post = ({navigation, localId, postData, editable, disableNavigation}) => {
                 <Text>{postData.content}</Text>
             </View>
             <CustomImage imageUri={postData.imageUri}/>
-            <View style={styles.actionsContainer}>
-                <ActionButton style={styles.action} iconName="heart-outline" action="Like"/>
-                <ActionButton style={styles.action} iconName="chatbox-ellipses-outline" action="Comment"/>
-            </View>
+            
+            <PostActionsBar 
+                postData={postData}
+            />
         </View>
     )
 }
@@ -169,32 +118,10 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         marginBottom: 10,
     },
-    postDropdownMenu: {
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        position: 'absolute',
-        top: 20,
-        right: 0,
-    },
-    dropdownButton: {
-        width: '100%',
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        borderBottomWidth: 1,
-        borderBottomColor: AppColors.mainGrey,
-        justifyContent: 'flex-start',
-    },
     content: {
         paddingVertical: 10,
     },
-    actionsContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    action: {
-        width: '50%',
-    },
+    
 })
 
 export default Post

@@ -82,7 +82,7 @@ const SearchResultScreen = ({route, navigation}) => {
                             })}}
                             imageUri={itemData.item.avatar}
                             mainText={itemData.item.name}
-                            customText={itemData.item.userName}
+                            customText={'@' + itemData.item.userName}
                         />
                         <CustomButton 
                             title="Add"

@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: '20%',
         width: '100%',
-        backgroundColor: AppColors.mainGrey,
+        backgroundColor: AppColors.mainGreyLighter,
     },
 
 })

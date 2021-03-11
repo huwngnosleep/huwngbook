@@ -11,7 +11,6 @@ const ActionButton = ({style, onPress, iconName, action}) => {
     return(
         <TouchableOpacity 
             onPress={onPress}
-            activeOpacity={0.5}    
             style={{...styles.container, ...style}} 
         >
             <Icon 
@@ -34,6 +33,7 @@ const styles = StyleSheet.create({
     actionItem: {
         marginHorizontal: 5,
         fontSize: 16,
+        fontWeight: '200',
     },
 })
 

@@ -7,30 +7,37 @@ import {
     KeyboardAvoidingView,
     Alert,
 } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
-import { editPost } from '../../store/actions/user/post.actions'
+import { useSelector } from 'react-redux'
 
 import InfoBar from '../../components/User/InfoBar'
 import CustomImage from '../../components/UI/CustomImage'
 
 import CustomButton from '../../components/UI/CustomButton'
 import Style from '../../constants/Style'
+import DatabaseUrl from '../../constants/DatabaseUrl'
 
 const EditPostScreen = ({route, navigation}) => {
-    const { currentPostData } = route.params
+    const { postData } = route.params
     
-    const [content, setContent] = useState(currentPostData.content)
+    const [content, setContent] = useState(postData.content)
 
     const localId = useSelector((state) => state.auth.localId)
     const currentUserName = useSelector((state) => state.user.currentUser.name)
     const currentUserAvatar = useSelector((state) => state.user.currentUser.avatar)
 
-    const dispatch = useDispatch()
+    const submitHandler = async () => {
+        await fetch(`${DatabaseUrl}/users/${localId}/posts/${postData.postId}.json`,  {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                content,
+            })
+        })
 
-    const submitHandler = useCallback(async () => {
-        dispatch(editPost(localId, currentPostData.id, content))
         navigation.goBack()
-    }, [dispatch, content])
+    }
 
     useEffect(() => {
         navigation.setOptions({
@@ -53,7 +60,7 @@ const EditPostScreen = ({route, navigation}) => {
                     <InfoBar 
                         imageUri={currentUserAvatar} 
                         mainText={currentUserName} 
-                        customText={currentPostData.date}
+                        customText={postData.date}
                     />
                 </View>
                 <View style={styles.inputContainer}>
@@ -63,7 +70,7 @@ const EditPostScreen = ({route, navigation}) => {
                         onChangeText={(text) => {setContent(text)}}
                         value={content}
                     />
-                    <CustomImage imageUri={currentPostData.imageUri}/>
+                    <CustomImage imageUri={postData.imageUri}/>
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>

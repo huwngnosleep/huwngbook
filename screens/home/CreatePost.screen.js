@@ -8,14 +8,15 @@ import {
     KeyboardAvoidingView,
     Alert,
 } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
-import { createPost } from '../../store/actions/user/post.actions'
+import { useSelector } from 'react-redux'
+import * as firebase from 'firebase'
 
 import InfoBar from '../../components//User/InfoBar'
 import AppImagePicker from '../../components/User/AppImagePicker'
 
 import Style from '../../constants/Style'
 import CustomButton from '../../components/UI/CustomButton'
+import DatabaseUrl from '../../constants/DatabaseUrl'
 
 const CreatePostScreen = ({navigation}) => {
     const [textInput, setTextInput] = useState('')
@@ -24,15 +25,45 @@ const CreatePostScreen = ({navigation}) => {
     const currentUser = useSelector((state) => state.user.currentUser)
     const localId = useSelector((state) => state.auth.localId)
 
-    const dispatch = useDispatch()
-
     const submitHandler = async () => {
-        dispatch(createPost(localId, {
-            ownerId: localId,
-            date: new Date().toDateString(),
-            imageUri: image,
-            content: textInput,
-        }))
+        const response = await fetch(`${DatabaseUrl}/users/${localId}/posts.json`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ownerId: localId,
+                date: new Date().toDateString(),
+                content: textInput,
+                likes: {},
+                comments: {},
+            })
+        })
+        
+        const resData = await response.json()
+        
+        let imageDownloadUrl
+        
+        if(image) {
+            const pickedImage = await fetch(image)
+            const blob = await pickedImage.blob()
+            await firebase.storage().ref().child(`${localId}/posts/${resData.name}`).put(blob)
+            var storageRef = firebase.storage().ref().child(`${localId}/posts/${resData.name}`).put(blob)
+            imageDownloadUrl = await storageRef.snapshot.ref.getDownloadURL()
+        }
+
+        // after creating the new post, i'll give it an id for editing later in database
+        await fetch(`${DatabaseUrl}/users/${localId}/posts/${resData.name}.json`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                postId: resData.name,
+                imageUri: imageDownloadUrl || '',
+            })
+        })
+
         navigation.goBack()
     }
 

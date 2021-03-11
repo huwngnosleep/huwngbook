@@ -3,13 +3,11 @@ import {
     StyleSheet, 
     View, 
     Text, 
-    FlatList, 
     ActivityIndicator,
     RefreshControl,
     ScrollView
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { setNewsFeed } from '../../store/actions/user/post.actions'
 
 import Post from '../../components/User/Post'
 import PostStatus from '../../components/User/PostStatus'
@@ -18,9 +16,9 @@ import SearchBar from '../../components/UI/SearchBar'
 import Icon from 'react-native-vector-icons/Ionicons'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import AppColors from '../../constants/AppColors'
-import CustomButton from '../../components/UI/CustomButton'
 import { Badge } from 'react-native-elements'
 import AppTitle from '../../components/UI/AppTitle'
+import PostModel from '../../models/post.model'
 
 
 const SearchHeaderBar = ({navigation}) => {
@@ -114,40 +112,52 @@ const SearchHeaderBar = ({navigation}) => {
 
 const HomeScreen = ({navigation}) => {
     const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(null)
     const [isRefreshing, setIsRefreshing] = useState(false)
+    const [newsFeed, setNewsFeed] = useState([])
     
-    const newsFeed = useSelector((state) => state.user.newsFeed)
     const localId = useSelector((state) => state.auth.localId)
     const currentUserAvatar = useSelector((state) => state.user.currentUser.avatar)
     
     const dispatch = useDispatch()
     
-    const loadNewsFeed = useCallback(async () => {
-        setError(null)
+    const fetchNewsFeed = useCallback(async () => {
         setIsRefreshing(true)
-        try {
-            await dispatch(setNewsFeed(localId))
-        } catch (error) {
-            setError(error.message)
+            // await dispatch(setNewsFeed(localId))
+
+        const currentUserPosts = await (await fetch(`${DatabaseUrl}/users/${localId}/posts.json`)).json()
+
+        const loadedPosts = []
+        for(const post in currentUserPosts) {
+            loadedPosts.unshift(new PostModel(currentUserPosts[post]))
         }
+        
+        const friendsList = await (await fetch(`${DatabaseUrl}/users/${localId}/friends.json`)).json()
+
+        const loadedFriendsPosts = []
+
+        for(const key in friendsList) {
+            const eachFriendPosts = await (await fetch(`${DatabaseUrl}/users/${friendsList[key]}/posts.json`)).json()
+
+            for(const post in eachFriendPosts) {
+                loadedFriendsPosts.unshift(new PostModel(eachFriendPosts[key]))
+            }
+        }
+
+        const totalLoadedPosts = loadedFriendsPosts.concat(loadedPosts)
+        totalLoadedPosts.sort((post1, post2) => Date.parse(post2.date) - Date.parse(post1.date))
+        setNewsFeed(totalLoadedPosts)
+
         setIsRefreshing(false)
-    }, [dispatch, setError, setIsRefreshing, localId])
+    }, [setIsRefreshing, setNewsFeed])
     
     useEffect(() => {
         setIsLoading(true)
-        loadNewsFeed(localId).then(() => {
+        fetchNewsFeed().then(() => {
             setIsLoading(false)
         })
-    }, [dispatch, loadNewsFeed, setIsLoading, localId])
+    }, [dispatch, fetchNewsFeed, setIsLoading])
     
 
-    if (error) {
-        return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text>{error}</Text>
-            <CustomButton onPress={loadNewsFeed} title='Reload' />
-        </View>
-    }
 
     if (isLoading) {
         return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -160,7 +170,7 @@ const HomeScreen = ({navigation}) => {
             contentContainerStyle={styles.screen} 
         >
             <RefreshControl 
-                onRefresh={loadNewsFeed}
+                onRefresh={fetchNewsFeed}
                 refreshing={isRefreshing}
             />
             <SearchHeaderBar navigation={navigation}/>
@@ -169,7 +179,7 @@ const HomeScreen = ({navigation}) => {
                 newsFeed.length > 0 ?
                     newsFeed.map((item) =>
                         <Post 
-                            key={item.id}
+                            key={item.postId}
                             editable={false}
                             postData={item}
                             navigation={navigation}
