@@ -89,7 +89,7 @@ const OtherProfileScreen = ({navigation, route}) => {
             </View>
             <View style={styles.detail}>
                 <View style={styles.detailItem}>
-                    <ProfileDetail title="" content={user.userName}/>
+                    <ProfileDetail title="@" content={user.userName}/>
                     <ProfileDetail title="Lives in: " content={user.address}/>
                     <ProfileDetail title="Birth Day: " content={user.birthday}/>
                     <ProfileDetail title="Phone number: " content={user.phoneNumber}/>

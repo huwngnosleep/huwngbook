@@ -122,7 +122,6 @@ const HomeScreen = ({navigation}) => {
     
     const fetchNewsFeed = useCallback(async () => {
         setIsRefreshing(true)
-            // await dispatch(setNewsFeed(localId))
 
         const currentUserPosts = await (await fetch(`${DatabaseUrl}/users/${localId}/posts.json`)).json()
 
@@ -135,18 +134,20 @@ const HomeScreen = ({navigation}) => {
 
         const loadedFriendsPosts = []
 
-        for(const key in friendsList) {
-            const eachFriendPosts = await (await fetch(`${DatabaseUrl}/users/${friendsList[key]}/posts.json`)).json()
+        for(const friend in friendsList) {
+            const eachFriendPosts = await (await fetch(`${DatabaseUrl}/users/${friendsList[friend]}/posts.json`)).json()
 
             for(const post in eachFriendPosts) {
-                loadedFriendsPosts.unshift(new PostModel(eachFriendPosts[key]))
+                loadedFriendsPosts.unshift(new PostModel(eachFriendPosts[post]))
             }
         }
 
         const totalLoadedPosts = loadedFriendsPosts.concat(loadedPosts)
-        totalLoadedPosts.sort((post1, post2) => Date.parse(post2.date) - Date.parse(post1.date))
+        totalLoadedPosts.sort((post1, post2) => 
+            Date.parse(post2.date.substring(8)) - Date.parse(post1.date.substring(8))
+        )
+        
         setNewsFeed(totalLoadedPosts)
-
         setIsRefreshing(false)
     }, [setIsRefreshing, setNewsFeed])
     

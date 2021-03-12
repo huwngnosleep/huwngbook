@@ -76,7 +76,7 @@ const ProfileScreen = ({navigation}) => {
             </View>
             <View style={styles.detail}>
                 <View>
-                    <ProfileDetail title="User name: " content={'@' + currentUser.userName}/>
+                    <ProfileDetail title="@" content={currentUser.userName}/>
                     <ProfileDetail title="Lives in: " content={currentUser.address}/>
                     <ProfileDetail title="Birth Day: " content={currentUser.birthday}/>
                     <ProfileDetail title="Phone number: " content={currentUser.phoneNumber}/>

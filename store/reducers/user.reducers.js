@@ -53,7 +53,6 @@ export default (state = initialState, action) => {
                 updateOnDatabase()
                 
                 return {
-                    ...state,
                     currentUser: {
                         ...state.currentUser,
                         pendingFriendRequests: newPendingFriendRequests,
@@ -75,7 +74,6 @@ export default (state = initialState, action) => {
                 })
 
                 return {
-                    ...state,
                     currentUser: {
                         ...state.currentUser,
                         pendingFriendRequests: newPendingFriendRequests,
@@ -85,7 +83,6 @@ export default (state = initialState, action) => {
         case EDIT_PROFILE_IMAGE:
             if(action.imageType === 'avatar') {
                 return {
-                    ...state,
                     currentUser: {
                         ...state.currentUser,
                         avatar: action.imageUri,
@@ -93,7 +90,6 @@ export default (state = initialState, action) => {
                 }
             } else {
                 return {
-                    ...state,
                     currentUser: {
                         ...state.currentUser,
                         coverImage: action.imageUri,
@@ -102,14 +98,10 @@ export default (state = initialState, action) => {
             }
         case SIGN_USER_OUT:
             return {
-                ...state,
-                currentUser: {
-                    ...action.userData
-                },
+                currentUser: action.userData,
             }
         case EDIT_USER:
             return {
-                ...state,
                 currentUser: {
                     ...state.currentUser,
                     ...action.userData
@@ -117,7 +109,6 @@ export default (state = initialState, action) => {
             }
         case SET_USER: 
             return {
-                newsFeed: [],
                 currentUser: action.userData,
             }
     

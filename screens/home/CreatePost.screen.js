@@ -33,7 +33,7 @@ const CreatePostScreen = ({navigation}) => {
             },
             body: JSON.stringify({
                 ownerId: localId,
-                date: new Date().toDateString(),
+                date: `${new Date().toTimeString().slice(0, 8)} ${new Date().toDateString()}`,
                 content: textInput,
                 likes: {},
                 comments: {},

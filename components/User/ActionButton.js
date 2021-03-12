@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { 
     StyleSheet, 
     Text,
@@ -8,9 +8,26 @@ import Icon from "react-native-vector-icons/Ionicons"
 import AppColors from '../../constants/AppColors'
 
 const ActionButton = ({style, onPress, iconName, action}) => {
+    const [active, setActive] = useState(true)
+
+    // temporarily disable the button for 3s to decrease chance of getting bug
+    const tempDisableButton = () => {
+        setActive(false)
+        setTimeout(() => {
+           setActive(true) 
+        }, 3000)
+    }
+
     return(
         <TouchableOpacity 
-            onPress={onPress}
+            onPress={active === true ? 
+                () => {
+                    onPress()
+                    tempDisableButton()
+                }
+                : 
+                () => {}
+            }
             style={{...styles.container, ...style}} 
         >
             <Icon 

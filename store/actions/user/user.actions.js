@@ -1,7 +1,6 @@
 import * as firebase from 'firebase'
 import DatabaseUrl from '../../../constants/DatabaseUrl'
 import DefaultGuessUserData from '../../../constants/DefaultGuessUserData'
-import PostModel from '../../../models/post.model'
 
 export const EDIT_PROFILE_IMAGE = 'EDIT_PROFILE_IMAGE'
 export const EDIT_USER = 'EDIT_USER'
@@ -19,6 +18,7 @@ export const friendRequestResponse = (responseStatus, ownerId, localId) => {
         })
     }
 }
+
 export const editProfileImage = (imageType, imageUri, localId) => {
     return async (dispatch) => {
         let newImageUri
@@ -81,28 +81,12 @@ export const setUser = (id) => {
         
         const resData = await response.json()
 
-        const loadedPosts = []
-        
-        // map posts from hash table to array for rendering
-        for(const post in resData.posts) {
-            loadedPosts.unshift(new PostModel({
-                id: resData.posts[post].id,
-                ownerId: resData.posts[post].ownerId,
-                date: resData.posts[post].date,
-                imageUri: resData.posts[post].imageUri,
-                content: resData.posts[post].content,
-                likes: resData.posts[post].likes || {},
-                comments: resData.posts[post].comments || {},
-            }))
-        }
-
         dispatch({
             type: SET_USER,
             userData: {
-                // set default blank friendsList if it's new user, for no error occur with store
+                // set default placeholder property if it's new user, for no error occur with store
                 ...DefaultGuessUserData,
                 ...resData,
-                posts: loadedPosts,
             }
         })
     }
