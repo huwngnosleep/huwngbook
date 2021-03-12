@@ -6,7 +6,12 @@ import {
     Modal,
 } from 'react-native'
 
-const PopUpModal = () => {
+const PopUpModal = ({ownerId, postId}) => {
+
+    const loadPeopleLiked = () => {
+
+    }
+
     return(
         <View >
 

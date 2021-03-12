@@ -22,7 +22,7 @@ const PostActionsBar = ({postData}) => {
 
     const checkIsLiked = () => {
         for(const key in likes) {
-            if(likes[key].localId === localId) {
+            if(likes[key].likeOwnerId === localId) {
                 return true
             }
         }
@@ -45,7 +45,7 @@ const PostActionsBar = ({postData}) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    localId,
+                    likeOwnerId: localId,
                 })
             })
 
@@ -69,7 +69,7 @@ const PostActionsBar = ({postData}) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                ownerId: localId,
+                commentOwnerId: localId,
                 date: `${new Date().toTimeString().slice(0, 8)} ${new Date().toDateString()}`,
                 content,
             })

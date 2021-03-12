@@ -5,7 +5,8 @@ import {
     Text, 
     ActivityIndicator,
     RefreshControl,
-    ScrollView
+    ScrollView,
+    KeyboardAvoidingView,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -167,29 +168,33 @@ const HomeScreen = ({navigation}) => {
     }
     
     return(
-        <ScrollView 
-            contentContainerStyle={styles.screen} 
-        >
-            <RefreshControl 
-                onRefresh={fetchNewsFeed}
-                refreshing={isRefreshing}
-            />
-            <SearchHeaderBar navigation={navigation}/>
-            <PostStatus imageUri={currentUserAvatar} onPress={() => {navigation.navigate('Create Post')}}/>
-            {
-                newsFeed.length > 0 ?
-                    newsFeed.map((item) =>
-                        <Post 
-                            key={item.postId}
-                            editable={false}
-                            postData={item}
-                            navigation={navigation}
-                        />
-                    )
-                    :
-                    <Text>Let's add friend or create a new post!</Text>
-            }
-        </ScrollView>
+        <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={70} >
+            <ScrollView 
+                contentContainerStyle={styles.screen} 
+            >
+                <RefreshControl 
+                    onRefresh={fetchNewsFeed}
+                    refreshing={isRefreshing}
+                />
+                
+                    <SearchHeaderBar navigation={navigation}/>
+                    <PostStatus imageUri={currentUserAvatar} onPress={() => {navigation.navigate('Create Post')}}/>
+                    {
+                        newsFeed.length > 0 ?
+                            newsFeed.map((item) =>
+                                <Post 
+                                    key={item.postId}
+                                    editable={false}
+                                    postData={item}
+                                    navigation={navigation}
+                                />
+                            )
+                            :
+                            <Text>Let's add friend or create a new post!</Text>
+                    }
+                
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 

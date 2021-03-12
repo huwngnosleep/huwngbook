@@ -53,7 +53,8 @@ const PostCommentCreator = ({ commentSubmitHandler }) => {
                             commentSubmitHandler(comment).then(() => {
                                 setComment('')
                                 setIsSending(false)
-                            })}
+                            })
+                        }
                         :
                         () => {}
                     }

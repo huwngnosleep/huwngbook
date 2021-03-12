@@ -19,11 +19,11 @@ const FriendsScreen = ({navigation}) => {
                 contentContainerStyle={styles.list}
                 numColumns={2}
                 data={friends}
+                keyExtractor={(item) => item}
                 renderItem={(itemData) => 
                     <FriendCard 
                         navigation={navigation}
                         friendId={itemData.item}
-                        key={itemData.item}
                         style={styles.friendCard}
                     />
                 }
@@ -34,12 +34,13 @@ const FriendsScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
     screen: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
     list: {
+        marginTop: 20,
         alignSelf: 'center',
+        flex: 1,
     },
     friendCard: {
         width: DeviceDimensions.deviceWidth / 2.75,

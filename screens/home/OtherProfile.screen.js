@@ -5,6 +5,7 @@ import {
     Text,
     ScrollView,
     ActivityIndicator,
+    KeyboardAvoidingView,
 } from 'react-native'
 
 import Avatar from '../../components/User/Avatar'
@@ -39,14 +40,8 @@ const OtherProfileScreen = ({navigation, route}) => {
         } catch (error) {
             setError(error.message)
         }
-        for(const key in user.posts) {
-            userPosts.unshift(new PostModel({
-                id: user.posts[key].id,
-                ownerId: user.posts[key].ownerId,
-                date: user.posts[key].date,
-                imageUri: user.posts[key].imageUri,
-                content: user.posts[key].content
-            }))
+        for(const post in user.posts) {
+            userPosts.unshift(new PostModel(user.posts[post]))
         }
 
     }, [setError])
@@ -72,59 +67,64 @@ const OtherProfileScreen = ({navigation, route}) => {
     }
 
     return(
-        <ScrollView style={styles.screen} >
-            <View>
-                <Avatar imageUri={user.coverImage} style={styles.backgroundImg}/>
-                <View style={styles.introContainer}>
-                    <Avatar 
-                        imageUri={user.avatar}
-                        style={styles.avatar}
-                        onPress={() => {}}
-                    />
-                    <View style={styles.intro}>
-                        <Text style={styles.name}>{user.name}</Text>
-                        <Text style={styles.bio}>{user.bio}</Text>
+        <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={70} >
+            <ScrollView style={styles.screen} >
+                <View>
+                    <Avatar imageUri={user.coverImage} style={styles.backgroundImg}/>
+                    <View style={styles.introContainer}>
+                        <Avatar 
+                            imageUri={user.avatar}
+                            style={styles.avatar}
+                            onPress={() => {}}
+                        />
+                        <View style={styles.intro}>
+                            <Text style={styles.name}>{user.name}</Text>
+                            <Text style={styles.bio}>{user.bio}</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
-            <View style={styles.detail}>
-                <View style={styles.detailItem}>
-                    <ProfileDetail title="@" content={user.userName}/>
-                    <ProfileDetail title="Lives in: " content={user.address}/>
-                    <ProfileDetail title="Birth Day: " content={user.birthday}/>
-                    <ProfileDetail title="Phone number: " content={user.phoneNumber}/>
-                    <ProfileDetail title="Email: " content={user.email}/>
-                </View>
-                <Icon
-                    onPress={() => {}}
-                    style={styles.editInfoIcon} 
-                    name="chatbubble-ellipses-outline"
-                    size={30}
-                />
-            </View>
-            <View style={styles.line}></View>
-            <View style={styles.container}>
-                <View style={styles.textSummary}>
-                    <Text style={styles.title}>Post</Text>
-                </View>
-            </View>
-            <View style={styles.container}>
-                {userPosts.length > 0 ? null : <Text>This user currently has no post yet!</Text>}
-                {userPosts.map((item) => 
-                    <Post
-                        disableNavigation={true}
-                        key={item.id}
-                        postData={item}
+                <View style={styles.detail}>
+                    <View style={styles.detailItem}>
+                        <ProfileDetail title="@" content={user.userName}/>
+                        <ProfileDetail title="Lives in: " content={user.address}/>
+                        <ProfileDetail title="Birth Day: " content={user.birthday}/>
+                        <ProfileDetail title="Phone number: " content={user.phoneNumber}/>
+                        <ProfileDetail title="Email: " content={user.email}/>
+                    </View>
+                    <Icon
+                        onPress={() => {}}
+                        style={styles.editInfoIcon} 
+                        name="chatbubble-ellipses-outline"
+                        size={30}
                     />
-                )}
-            </View>
-        </ScrollView>
+                </View>
+                <View style={styles.line}></View>
+                <View style={styles.container}>
+                    <View style={styles.textSummary}>
+                        <Text style={styles.title}>Post</Text>
+                    </View>
+                </View>
+                <View style={styles.container}>
+                    {
+                        userPosts.length > 0 ? 
+                            userPosts.map((item) => 
+                                <Post
+                                    disableNavigation={true}
+                                    key={item.id}
+                                    postData={item}
+                                />
+                            )
+                            : 
+                            <Text>This user currently has no post yet!</Text>
+                    }
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 
 const styles = StyleSheet.create({
     screen: {
-        flex: 1,
         
     },
     backgroundImg: {
