@@ -81,6 +81,8 @@ export const setUser = (id) => {
         
         const resData = await response.json()
 
+        delete resData.posts
+
         dispatch({
             type: SET_USER,
             userData: {

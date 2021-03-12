@@ -21,9 +21,9 @@ import ActionButton from './ActionButton'
 const Post = ({navigation, postData, editable, disableNavigation}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
-
+    
     const [isDropdownVisible, setDropdownVisible] = useState(false)
-
+    
     const [postOwnerData, setPostOwnerData] = useState({})
 
     const fetchOwnerData = useCallback(async () => {
@@ -97,7 +97,6 @@ const Post = ({navigation, postData, editable, disableNavigation}) => {
                 <Text>{postData.content}</Text>
             </View>
             <CustomImage imageUri={postData.imageUri}/>
-            
             <PostActionsBar 
                 postData={postData}
             />

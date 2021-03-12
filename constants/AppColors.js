@@ -1,4 +1,5 @@
 export default {
+    mainWhiteLighter: '#f7f7f7',
     mainWhite: '#f2f2f2',
     mainGreyLighter: '#e6e6e6',
     mainGrey: '#ccc',

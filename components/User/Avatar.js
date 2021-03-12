@@ -6,7 +6,11 @@ import {
 } from 'react-native'
 import DefaultProfileImagePlaceholder from '../../constants/DefaultProfileImagePlaceholder'
 
-const Avatar = ({style, onPress, imageUri = DefaultProfileImagePlaceholder}) => {
+const Avatar = ({style, onPress, imageUri = ''}) => {
+
+    if(imageUri.length === 0) {
+        imageUri = DefaultProfileImagePlaceholder
+    }
     
     return(
         <TouchableOpacity

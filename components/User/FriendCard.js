@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     },
     nameContainer: {
         alignItems: 'center',
+        justifyContent: 'center',
         height: '20%',
         width: '100%',
         backgroundColor: AppColors.mainGreyLighter,

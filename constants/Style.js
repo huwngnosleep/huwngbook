@@ -1,5 +1,6 @@
 import DeviceDimensions from "./DeviceDimensions"
 import { StyleSheet } from 'react-native'
+import AppColors from "./AppColors"
 
 export default StyleSheet.create({
     imagePicker: {
@@ -15,5 +16,14 @@ export default StyleSheet.create({
     editPostTextInput: {
         fontSize: 18,
         paddingBottom: 20,
+    },
+    postStatusListItemContainer: {
+        marginBottom: 30,
+        borderBottomWidth: 1,
+        borderRightWidth: 1,
+        borderBottomEndRadius: 10,
+        borderColor: AppColors.mainGrey,
+        overflow: 'hidden',
+        padding: 10,
     },
 })

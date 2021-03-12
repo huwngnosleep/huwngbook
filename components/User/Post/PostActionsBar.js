@@ -4,6 +4,8 @@ import {
     View, 
     Text,
     Alert,
+    TouchableOpacity,
+    FlatList,
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import DatabaseUrl from '../../../constants/DatabaseUrl'
@@ -11,14 +13,33 @@ import ActionButton from '../ActionButton'
 import Icon from "react-native-vector-icons/Ionicons"
 import AppColors from '../../../constants/AppColors'
 import PostCommentCreator from './PostCommentCreater'
+import PostStatusPopup from './PostStatusPopup'
+import CommentListItem from './CommentListItem'
 
 const PostActionsBar = ({postData}) => {
     const { likes, comments, ownerId, postId} = postData
     const localId = useSelector((state) => state.auth.localId)
 
+    const [active, setActive] = useState(true)
+    // temporarily disable the button for 3s to decrease chance of getting bug
+    const tempDisableButton = () => {
+        setActive(false)
+        setTimeout(() => {
+           setActive(true) 
+        }, 3000)
+    }
+
+    const loadedComments = []
+    for(const key in comments) {
+        loadedComments.unshift(comments[key])
+    }
+
     const [likesNumber, setLikesNumber] = useState(Object.keys({...likes}).length)
     const [commentsNumber, setCommentsNumber] = useState(Object.keys({...comments}).length)
     const [isCommenting, setIsCommenting] = useState(false)
+
+    const [isCommentsModalVisible, setIsCommentsModalVisible] = useState(false)
+    const [isLikesModalVisible, setIsLikesModalVisible] = useState(false)
 
     const checkIsLiked = () => {
         for(const key in likes) {
@@ -83,26 +104,47 @@ const PostActionsBar = ({postData}) => {
 
     } 
 
-
     return(
         <View>
             <View style={styles.postStatusContainer}>
-                    <View style={styles.postStatusItem}>
+                    <TouchableOpacity 
+                        onPress={
+                            active ? 
+                                () => {
+                                    tempDisableButton()
+                                    setIsLikesModalVisible((prevState) => !prevState)
+                                }
+                                :
+                                () => {}
+                        }
+                        style={styles.postStatusItem}
+                    >
                         <Text style={styles.postStatusNumber}>{likesNumber}</Text>
                         <Icon 
                             name="heart"
                             color={AppColors.mainBlack}
                             size={20}
                         />
-                    </View>
-                    <View style={styles.postStatusItem}>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                        onPress={
+                            active ? 
+                                () => {
+                                    tempDisableButton()
+                                    setIsCommentsModalVisible((prevState) => !prevState)
+                                }
+                                :
+                                () => {}
+                        }
+                        style={styles.postStatusItem}
+                    >
                         <Text style={styles.postStatusNumber}>{commentsNumber}</Text>
                         <Icon 
                             name="chatbox-ellipses"
                             color={AppColors.mainBlack}
                             size={20}
                         />
-                    </View>
+                    </TouchableOpacity>
                 </View>
             <View style={styles.actionsContainer}>
                 <ActionButton 
@@ -126,6 +168,20 @@ const PostActionsBar = ({postData}) => {
                     :
                     null   
             }
+            <PostStatusPopup
+                ownerId={ownerId}
+                postId={postId}
+                isModalVisible={isLikesModalVisible} 
+                setIsModalVisible={setIsLikesModalVisible}
+                renderedItemsType="likes"
+            />
+            <PostStatusPopup
+                ownerId={ownerId}
+                postId={postId}
+                isModalVisible={isCommentsModalVisible} 
+                setIsModalVisible={setIsCommentsModalVisible}
+                renderedItemsType="comments"
+            />
         </View>
 
     )

@@ -11,7 +11,6 @@ export default {
     address: 'Viet Nam',
     phoneNumber: '0123456789',
     email: 'guess@gmail.com',
-    posts: [],
     friends: [],
     pendingFriendRequests: [],
 }

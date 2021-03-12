@@ -19,11 +19,12 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case FRIEND_REQUEST_RESPONSE:
             if(action.responseStatus === 'confirmed') {
-                // check whether current user have any friend
+                
                 const newFriendList = state.currentUser.friends.concat(action.ownerId)
                 const newPendingFriendRequests = state.currentUser.pendingFriendRequests.filter(
                     (requestOwnerId) => requestOwnerId !== action.ownerId
                 )
+
                 const updateOnDatabase = async () => {
                     fetch(`${DatabaseUrl}/users/${action.localId}.json`, {
                         method: 'PATCH',
@@ -109,7 +110,7 @@ export default (state = initialState, action) => {
             }
         case SET_USER: 
             return {
-                currentUser: action.userData,
+                currentUser: action.userData
             }
     
         default:
