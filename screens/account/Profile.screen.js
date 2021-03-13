@@ -4,7 +4,6 @@ import {
     View, 
     Text,
     ScrollView,
-    KeyboardAvoidingView,
 } from 'react-native'
 import { useSelector } from 'react-redux'
 
@@ -12,7 +11,7 @@ import Avatar from '../../components/User/Avatar'
 import FriendCard from '../../components/User/FriendCard'
 import ProfileDetail from '../../components/User/ProfileDetail'
 import Post from '../../components/User/Post'
-import PostStatus from '../../components/User/PostStatus'
+import PostCreator from '../../components/User/PostCreator'
 
 import Icon from "react-native-vector-icons/Ionicons"
 import DeviceDimensions from '../../constants/DeviceDimensions'
@@ -20,6 +19,7 @@ import AppColors from '../../constants/AppColors'
 import CustomButton from '../../components/UI/CustomButton'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import PostModel from '../../models/post.model'
+import CustomKeyboardAvoidView from '../../components/UI/CustomKeyboardAvoidView'
 
 export default function ProfileScreen ({navigation}) {
     const currentUser = useSelector((state) => state.user.currentUser)
@@ -49,7 +49,7 @@ export default function ProfileScreen ({navigation}) {
     })
 
     return(
-        <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={30} >
+        <CustomKeyboardAvoidView>
             <ScrollView style={styles.screen} >
                     <View>
                         <Avatar 
@@ -93,7 +93,7 @@ export default function ProfileScreen ({navigation}) {
                             />
                     </View>
                     <View style={styles.container}>
-                        <PostStatus imageUri={currentUser.avatar} onPress={() => {navigation.navigate('Create Post')}}/>
+                        <PostCreator imageUri={currentUser.avatar} onPress={() => {navigation.navigate('Create Post')}}/>
                         <View style={styles.textSummary}>
                             <Text style={styles.title}>Friends</Text>
                             {currentUser.friends.length > 0 ? <Text>{currentUser.friends.length} friends</Text> : null}
@@ -148,7 +148,7 @@ export default function ProfileScreen ({navigation}) {
                         }
                     </View>
             </ScrollView>
-        </KeyboardAvoidingView>
+        </CustomKeyboardAvoidView>
     )
 }
 

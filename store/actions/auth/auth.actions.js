@@ -45,10 +45,8 @@ export const signUp = (email, password) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                idToken: resData.idToken,
                 localId: resData.localId,
                 email,
-                password,
                 name: 'New User',
                 userName: '',
                 avatar: 'https://www.cstitches.com/wp-content/uploads/2019/05/no_avatar.png',

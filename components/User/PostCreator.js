@@ -13,7 +13,7 @@ import DeviceDimensions from '../../constants/DeviceDimensions'
 import AppColors from '../../constants/AppColors'
 
 
-export default function PostStatus ({onPress, imageUri}) {
+export default function PostCreator ({onPress, imageUri}) {
 
     return(
         <TouchableOpacity 
@@ -26,7 +26,7 @@ export default function PostStatus ({onPress, imageUri}) {
                 <Text style={styles.text}>What's on your mind?</Text>
             </View>
             <Icon 
-                name="add-outline"
+                name="chevron-forward"
                 color={AppColors.mainBlack}
                 size={30}
             />

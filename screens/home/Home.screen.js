@@ -10,7 +10,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 
 import Post from '../../components/User/Post'
-import PostStatus from '../../components/User/PostStatus'
+import PostCreator from '../../components/User/PostCreator'
 import SearchBar from '../../components/UI/SearchBar'
 
 import DatabaseUrl from '../../constants/DatabaseUrl'
@@ -18,8 +18,8 @@ import { Badge } from 'react-native-elements'
 import AppTitle from '../../components/UI/AppTitle'
 import PostModel from '../../models/post.model'
 import CustomIcon from '../../components/UI/CustomIcon'
-import DeviceDimensions from '../../constants/DeviceDimensions'
 import LoadingCircle from '../../components/UI/LoadingCircle'
+import CustomKeyboardAvoidView from '../../components/UI/CustomKeyboardAvoidView'
 
 
 const SearchHeaderBar = ({navigation}) => {
@@ -112,6 +112,8 @@ const SearchHeaderBar = ({navigation}) => {
 }
 
 export default function HomeScreen ({navigation}) {
+    const friendsList = useSelector((state) => state.user.currentUser.friends)
+
     const [isLoading, setIsLoading] = useState(false)
     const [isRefreshing, setIsRefreshing] = useState(false)
     const [newsFeed, setNewsFeed] = useState([])
@@ -124,31 +126,31 @@ export default function HomeScreen ({navigation}) {
     const fetchNewsFeed = useCallback(async () => {
         setIsRefreshing(true)
 
-        const currentUserPosts = await (await fetch(`${DatabaseUrl}/users/${localId}/posts.json`)).json()
-
-        const loadedPosts = []
-        for(const post in currentUserPosts) {
-            loadedPosts.unshift(new PostModel(currentUserPosts[post]))
-        }
-        
-        const friendsList = await (await fetch(`${DatabaseUrl}/users/${localId}/friends.json`)).json()
-
-        const loadedFriendsPosts = []
-
-        for(const friend in friendsList) {
-            const eachFriendPosts = await (await fetch(`${DatabaseUrl}/users/${friendsList[friend]}/posts.json`)).json()
-
-            for(const post in eachFriendPosts) {
-                loadedFriendsPosts.unshift(new PostModel(eachFriendPosts[post]))
+        try {
+            
+            const currentUserPosts = await (await fetch(`${DatabaseUrl}/users/${localId}/posts.json`)).json()
+            const loadedCurrentUserPosts = []
+            for(const post in currentUserPosts) {
+                loadedCurrentUserPosts.push(new PostModel(currentUserPosts[post]))
+            }            
+    
+            const loadedFriendsPosts = []
+            for(const friend in friendsList) {
+                const eachFriendPosts = await (await fetch(`${DatabaseUrl}/users/${friendsList[friend]}/posts.json`)).json()
+                for(const post in eachFriendPosts) {
+                    loadedFriendsPosts.push(new PostModel(eachFriendPosts[post]))
+                }
             }
+    
+            const totalLoadedPosts = loadedFriendsPosts.concat(loadedCurrentUserPosts)
+            totalLoadedPosts.sort((post1, post2) => 
+                Date.parse(post2.date.substring(8)) - Date.parse(post1.date.substring(8))
+            )
+            
+            setNewsFeed(totalLoadedPosts)
+        } catch (error) {
+            console.log(error)
         }
-
-        const totalLoadedPosts = loadedFriendsPosts.concat(loadedPosts)
-        totalLoadedPosts.sort((post1, post2) => 
-            Date.parse(post2.date.substring(8)) - Date.parse(post1.date.substring(8))
-        )
-        
-        setNewsFeed(totalLoadedPosts)
         setIsRefreshing(false)
     }, [setIsRefreshing, setNewsFeed])
     
@@ -166,7 +168,7 @@ export default function HomeScreen ({navigation}) {
     }
     
     return(
-        <KeyboardAvoidingView style={styles.screen} behavior="padding" keyboardVerticalOffset={30} >
+        <CustomKeyboardAvoidView style={styles.screen}>
             <ScrollView 
                 contentContainerStyle={styles.newsFeed}
             >
@@ -176,7 +178,7 @@ export default function HomeScreen ({navigation}) {
                 />
                 
                     <SearchHeaderBar navigation={navigation}/>
-                    <PostStatus imageUri={currentUserAvatar} onPress={() => {navigation.navigate('Create Post')}}/>
+                    <PostCreator imageUri={currentUserAvatar} onPress={() => {navigation.navigate('Create Post')}}/>
                     {
                         newsFeed.length > 0 ?
                             newsFeed.map((item) =>
@@ -192,7 +194,7 @@ export default function HomeScreen ({navigation}) {
                     }
                 
             </ScrollView>
-        </KeyboardAvoidingView>
+        </CustomKeyboardAvoidView>
     )
 }
 

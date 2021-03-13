@@ -15,10 +15,10 @@ import DatabaseUrl from '../../constants/DatabaseUrl'
 import AppColors from '../../constants/AppColors'
 import PostActionsBar from './Post/PostActionsBar'
 import PostDropdownMenu from './Post/PostDropdownMenu'
+import CustomIcon from '../UI/CustomIcon'
 
 export default function Post ({navigation, postData, editable, disableNavigation}) {
     const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(null)
     
     const [isDropdownVisible, setDropdownVisible] = useState(false)
     
@@ -26,27 +26,25 @@ export default function Post ({navigation, postData, editable, disableNavigation
 
     const fetchOwnerData = useCallback(async () => {
         try {
-            const response = await fetch(`${DatabaseUrl}/users/${postData.ownerId}.json`)
-            const resData = await response.json()
-            for(const key in resData) {
-                postOwnerData[key] = resData[key]
-            }
+            const name = await (await fetch(`${DatabaseUrl}/users/${postData.ownerId}/name.json`)).json()
+            const avatar = await (await fetch(`${DatabaseUrl}/users/${postData.ownerId}/avatar.json`)).json()
+            
+            setPostOwnerData({
+                name,
+                avatar,
+            })
+
         } catch (error) {
-            setError(error.message)
+            console.log(error)
         }
-    }, [setPostOwnerData, setError])
+    }, [setPostOwnerData])
 
     useEffect(() => {
         setIsLoading(true)
         fetchOwnerData().then(() => {
             setIsLoading(false)
         })
-    }, [setError, fetchOwnerData])
-
-    if (error) {
-        console.log(error)
-        return null
-    }
+    }, [setIsLoading, fetchOwnerData])
 
     if (isLoading) {
         return null
@@ -79,17 +77,12 @@ export default function Post ({navigation, postData, editable, disableNavigation
                     mainText={postOwnerData.name} 
                     customText={postData.date}
                 />
-                <TouchableOpacity
-                    activeOpacity={0.5}
-                    onPress={() => {}}
-                >
-                    <Icon 
-                        onPress={() => setDropdownVisible((prevState) => !prevState)}
-                        name="ellipsis-horizontal"
-                        color={AppColors.mainBlack}
-                        size={25}
-                    />
-                </TouchableOpacity>
+                <CustomIcon 
+                    onPress={() => setDropdownVisible((prevState) => !prevState)}
+                    name="ellipsis-horizontal"
+                    color={AppColors.mainBlack}
+                    size={25}
+                />
             </View>
             <View style={styles.content}>
                 <Text>{postData.content}</Text>

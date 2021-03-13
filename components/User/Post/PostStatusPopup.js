@@ -41,10 +41,11 @@ export default function PostStatusPopup ({isModalVisible, setIsModalVisible, own
 
     return(
         <Modal 
+            onShow={fetchData}
+            onRequestClose={() => {setIsModalVisible(false)}}
             transparent={true}
             animationType="fade" 
             visible={isModalVisible}
-            onShow={fetchData}
         >
             <View 
                 style={{backgroundColor: '#000000aa', flex: 1,}}

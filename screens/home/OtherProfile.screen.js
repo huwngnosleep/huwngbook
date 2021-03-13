@@ -106,7 +106,7 @@ export default function OtherProfileScreen ({navigation, route}) {
                             userPosts.map((item) => 
                                 <Post
                                     disableNavigation={true}
-                                    key={item.id}
+                                    key={item.postId}
                                     postData={item}
                                 />
                             )

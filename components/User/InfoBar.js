@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import { 
     StyleSheet, 
     View, 
@@ -10,15 +10,35 @@ import Avatar from './Avatar'
 
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
-export default function InfoBar ({onPress, style, mainText, customText, imageUri, children}) {
+export default function InfoBar ({onPress = () => {}, style, mainText, customText, imageUri, children}) {
+    const [isActive, setIsActive] = useState(true)
+
+    // temporarily disable the button for 3s to decrease chance of getting bug
+    const tempDisableButton = useCallback(() => {
+        setIsActive(false)
+        setTimeout(() => {
+           setIsActive(true) 
+        }, 3000)
+    }, [setIsActive])
     
     return(
-        <TouchableOpacity onPress={onPress} style={{...styles.container, ...style}}>
+        <TouchableOpacity
+            onPress={
+                isActive ? 
+                    () => {
+                        tempDisableButton()
+                        onPress()
+                    }
+                    :
+                    () => {}
+            } 
+            style={{...styles.container, ...style}}
+        >
             <Avatar imageUri={imageUri} />
             <View>
                 <Text numberOfLines={1} style={styles.mainText}>{mainText}</Text>
                 <Text style={styles.customText}>{customText}</Text>
-                {children ? children : null}
+                {children}
             </View>
         </TouchableOpacity>
     )

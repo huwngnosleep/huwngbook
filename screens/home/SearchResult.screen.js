@@ -35,6 +35,12 @@ export default function SearchResultScreen ({route, navigation}) {
                     'You are friends already!'
                 )
             }
+
+            if(friendLocalId === localId) {
+                return Alert.alert(
+                    'You can not become friend with yourself!!!'
+                )
+            }
             await fetch(`${DatabaseUrl}/users/${friendLocalId}.json`, {
                 method: 'PATCH',
                 headers: {

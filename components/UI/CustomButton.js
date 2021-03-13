@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { 
     StyleSheet, 
     View,
@@ -12,12 +12,12 @@ const CustomButton = ({style, onPress, title, color}) => {
     const [active, setActive] = useState(true)
 
     // temporarily disable the button for 3s to decrease chance of getting bug
-    const tempDisableButton = () => {
+    const tempDisableButton = useCallback(() => {
         setActive(false)
         setTimeout(() => {
            setActive(true) 
         }, 3000)
-    }
+    }, [setActive])
 
     // set style here to use color props more easily
     const styles = StyleSheet.create({

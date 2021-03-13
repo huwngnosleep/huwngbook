@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { 
     StyleSheet, 
     Text,
@@ -12,12 +12,12 @@ export default function ActionButton ({style, onPress, iconName, action, activeO
     const [active, setActive] = useState(true)
 
     // temporarily disable the button for 3s to decrease chance of getting bug
-    const tempDisableButton = () => {
+    const tempDisableButton = useCallback(() => {
         setActive(false)
-        return setTimeout(() => {
+        setTimeout(() => {
            setActive(true) 
         }, TempDisableOnPressTime)
-    }
+    }, [setActive])
 
     return(
         <TouchableOpacity 
