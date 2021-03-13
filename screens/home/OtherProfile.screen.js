@@ -4,7 +4,6 @@ import {
     View, 
     Text,
     ScrollView,
-    ActivityIndicator,
     KeyboardAvoidingView,
 } from 'react-native'
 
@@ -17,11 +16,10 @@ import DeviceDimensions from '../../constants/DeviceDimensions'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import PostModel from '../../models/post.model'
 import AppColors from '../../constants/AppColors'
-import CustomButton from '../../components/UI/CustomButton'
+import LoadingCircle from '../../components/UI/LoadingCircle'
 
-const OtherProfileScreen = ({navigation, route}) => {
+export default function OtherProfileScreen ({navigation, route}) {
     const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(null)
     const [user, setUser] = useState({})
     const [userPosts, setUserPosts] = useState([])
 
@@ -29,22 +27,29 @@ const OtherProfileScreen = ({navigation, route}) => {
 
     const fetchUserData = useCallback(async () => {
         try {
-            const response = await fetch(`${DatabaseUrl}/users/${userId}.json`)
-            const resData = await response.json()
-            for(const key in resData) {
-                user[key] = resData[key]
+            const fetchedData = await (await fetch(`${DatabaseUrl}/users/${userId}.json`)).json()
+            
+            const loadedUser = {}
+            for(const key in fetchedData) {
+                loadedUser[key] = fetchedData[key]
             }
+            setUser(loadedUser)
+            
+            const loadedPosts = []
+            for(const post in fetchedData.posts) {
+                loadedPosts.unshift(new PostModel(fetchedData.posts[post]))
+            }
+            setUserPosts(loadedPosts)
+
             navigation.setOptions({
                 title: `${resData.name}'s Profile`
             })
         } catch (error) {
-            setError(error.message)
-        }
-        for(const post in user.posts) {
-            userPosts.unshift(new PostModel(user.posts[post]))
+            console.log(error)
         }
 
-    }, [setError])
+
+    }, [setUserPosts, setUser])
 
     useEffect(() => {
         setIsLoading(true)
@@ -53,21 +58,12 @@ const OtherProfileScreen = ({navigation, route}) => {
         })
     }, [setIsLoading, fetchUserData])
 
-    if (error) {
-        return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text>{error}</Text>
-            <CustomButton onPress={fetchUserData} title='Reload' />
-        </View>
-    }
-
     if (isLoading) {
-        return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <ActivityIndicator color={AppColors.mainBlack} />
-        </View>
+        return <LoadingCircle />
     }
 
     return(
-        <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={70} >
+        <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={30} >
             <ScrollView style={styles.screen} >
                 <View>
                     <Avatar imageUri={user.coverImage} style={styles.backgroundImg}/>
@@ -196,5 +192,3 @@ const styles = StyleSheet.create({
         borderBottomColor: AppColors.mainGrey,
     },
 })
-
-export default OtherProfileScreen

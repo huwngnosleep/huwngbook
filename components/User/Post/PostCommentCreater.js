@@ -4,28 +4,17 @@ import {
     View, 
     Text,
     TextInput,
-    TouchableOpacity,
 } from 'react-native'
-import Icon from "react-native-vector-icons/Ionicons"
 import { useSelector } from 'react-redux'
 import AppColors from '../../../constants/AppColors'
+import CustomIcon from '../../UI/CustomIcon'
 import Avatar from '../Avatar'
 
-const PostCommentCreator = ({ commentSubmitHandler }) => {
+export default function PostCommentCreator ({ commentSubmitHandler }) {
     const avatar = useSelector((state) => state.user.currentUser.avatar)
     
     const [isSending, setIsSending] = useState(false)
     const [comment, setComment] = useState('')
-
-    const [active, setActive] = useState(true)
-
-    // temporarily disable the button for 3s to decrease chance of getting bug
-    const tempDisableButton = () => {
-        setActive(false)
-        setTimeout(() => {
-           setActive(true) 
-        }, 3000)
-    }
 
     return(
         <View style={styles.textInputContainer}>
@@ -45,28 +34,19 @@ const PostCommentCreator = ({ commentSubmitHandler }) => {
                             style={styles.textInput}
                         />
                 }
-                <TouchableOpacity 
-                    onPress={active === true ?
-                        () => {
-                            tempDisableButton()
-                            setIsSending(true)
-                            commentSubmitHandler(comment).then(() => {
-                                setComment('')
-                                setIsSending(false)
-                            })
-                        }
-                        :
-                        () => {}
-                    }
-                    style={styles.iconContainer}
-                >
-                    <Icon 
-                        name={ comment.length > 0 ? "paper-plane" : "paper-plane-outline" }
-                        color={AppColors.mainBlack}
-                        size={25}
-                        style={styles.icon}
-                    />
-                </TouchableOpacity>
+                <CustomIcon 
+                    onPress={() => {
+                        setIsSending(true)
+                        commentSubmitHandler(comment).then(() => {
+                            setComment('')
+                            setIsSending(false)
+                        })
+                    }}
+                    name={comment.length > 0 ? "paper-plane" : "paper-plane-outline"}
+                    color={AppColors.mainBlack}
+                    size={25}
+                    style={styles.customIcon}
+                />
             </View>
         </View>
     )
@@ -102,12 +82,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    iconContainer: {
+    customIcon: {
         marginHorizontal: 5,
     },
     textInput: {
         width: '80%',
     },
 })
-
-export default PostCommentCreator

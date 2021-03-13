@@ -6,7 +6,6 @@ import {
     Alert, 
 } from 'react-native'
 import { StackActions } from '@react-navigation/native'
-
 import { useDispatch, useSelector } from 'react-redux'
 import { editUser } from '../../store/actions/user/user.actions'
 
@@ -20,7 +19,9 @@ import AppColors from '../../constants/AppColors'
 import CustomButton from '../../components/UI/CustomButton'
 import Style from '../../constants/Style'
 
-const CreateUserScreen = ({route, navigation}) => {
+export default function CreateUserScreen ({route, navigation}) {
+
+    // remove alert text after a short time
     const [alertText, setAlertText] = useState(route.params.alertText)
     setTimeout(() => {
         setAlertText('')
@@ -162,5 +163,3 @@ const styles = StyleSheet.create({
         fontSize: 20,
     }
 })
-
-export default CreateUserScreen

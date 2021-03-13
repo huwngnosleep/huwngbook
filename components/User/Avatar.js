@@ -6,11 +6,7 @@ import {
 } from 'react-native'
 import DefaultProfileImagePlaceholder from '../../constants/DefaultProfileImagePlaceholder'
 
-const Avatar = ({style, onPress, imageUri = ''}) => {
-
-    if(imageUri.length === 0) {
-        imageUri = DefaultProfileImagePlaceholder
-    }
+export default function Avatar ({style, onPress, imageUri = DefaultProfileImagePlaceholder}) {
     
     return(
         <TouchableOpacity
@@ -40,4 +36,3 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Avatar

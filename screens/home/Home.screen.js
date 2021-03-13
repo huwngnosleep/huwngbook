@@ -3,7 +3,6 @@ import {
     StyleSheet, 
     View, 
     Text, 
-    ActivityIndicator,
     RefreshControl,
     ScrollView,
     KeyboardAvoidingView,
@@ -14,12 +13,13 @@ import Post from '../../components/User/Post'
 import PostStatus from '../../components/User/PostStatus'
 import SearchBar from '../../components/UI/SearchBar'
 
-import Icon from 'react-native-vector-icons/Ionicons'
 import DatabaseUrl from '../../constants/DatabaseUrl'
-import AppColors from '../../constants/AppColors'
 import { Badge } from 'react-native-elements'
 import AppTitle from '../../components/UI/AppTitle'
 import PostModel from '../../models/post.model'
+import CustomIcon from '../../components/UI/CustomIcon'
+import DeviceDimensions from '../../constants/DeviceDimensions'
+import LoadingCircle from '../../components/UI/LoadingCircle'
 
 
 const SearchHeaderBar = ({navigation}) => {
@@ -86,13 +86,13 @@ const SearchHeaderBar = ({navigation}) => {
                     />
                     :
                     <View style={{flexDirection: 'row'}}>
-                        <Icon 
+                        <CustomIcon 
                             name="search-outline"
                             size={30}
                             onPress={() => {setIsSearchBarVisible((prevState) => !prevState)}}
                         />
                         <View>
-                            <Icon 
+                            <CustomIcon 
                                 name="people-outline"
                                 size={30}
                                 onPress={() => {navigation.navigate('Friend Requests')}}
@@ -111,7 +111,7 @@ const SearchHeaderBar = ({navigation}) => {
     )
 }
 
-const HomeScreen = ({navigation}) => {
+export default function HomeScreen ({navigation}) {
     const [isLoading, setIsLoading] = useState(false)
     const [isRefreshing, setIsRefreshing] = useState(false)
     const [newsFeed, setNewsFeed] = useState([])
@@ -162,15 +162,13 @@ const HomeScreen = ({navigation}) => {
 
 
     if (isLoading) {
-        return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <ActivityIndicator color={AppColors.mainBlack}/>
-        </View>
+        return <LoadingCircle />
     }
     
     return(
-        <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={70} >
+        <KeyboardAvoidingView style={styles.screen} behavior="padding" keyboardVerticalOffset={30} >
             <ScrollView 
-                contentContainerStyle={styles.screen} 
+                contentContainerStyle={styles.newsFeed}
             >
                 <RefreshControl 
                     onRefresh={fetchNewsFeed}
@@ -200,6 +198,10 @@ const HomeScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
     screen: {
+        flex: 1,
+        alignItems: 'center',
+    },
+    newsFeed: {
         alignItems: 'center',
     },
     badgeStyle: {
@@ -208,5 +210,3 @@ const styles = StyleSheet.create({
         right: -4,
     },
 })
-
-export default HomeScreen

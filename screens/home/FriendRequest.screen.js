@@ -35,7 +35,6 @@ const FriendRequestItem = ({onPress, ownerId, localId}) => {
 
     useEffect(() => {
         fetchData()
-        return fetchData
     })
 
     return(
@@ -65,7 +64,7 @@ const FriendRequestItem = ({onPress, ownerId, localId}) => {
     )
 }
 
-const FriendRequestScreen = ({navigation}) => {
+export default function FriendRequestScreen ({navigation}) {
     const pendingFriendRequests = useSelector((state) => state.user.currentUser.pendingFriendRequests)
     const localId = useSelector((state) => state.user.currentUser.localId)
 
@@ -127,5 +126,3 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
 })
-
-export default FriendRequestScreen

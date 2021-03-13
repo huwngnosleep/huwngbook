@@ -7,10 +7,10 @@ import {
 } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
-import ActionButton from './ActionButton'
+import ActionButton from '../UI/ActionButton'
 import CustomButton from '../UI/CustomButton'
 
-const AppImagePicker = ({style, onImageTaken, currentImage, canToggle}) => {
+export default function AppImagePicker ({style, onImageTaken, currentImage, canToggle}) {
     const [image, setImage] = useState(currentImage)
 
     if(canToggle === true) {
@@ -128,5 +128,3 @@ const styles = StyleSheet.create({
     },
 
 })
-
-export default AppImagePicker

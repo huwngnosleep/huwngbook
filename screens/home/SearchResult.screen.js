@@ -15,7 +15,7 @@ import AppColors from '../../constants/AppColors'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
-const SearchResultScreen = ({route, navigation}) => {
+export default function SearchResultScreen ({route, navigation}) {
     const { searchedData } = route.params
 
     const localId = useSelector((state) => state.auth.localId)
@@ -124,4 +124,3 @@ const styles = StyleSheet.create({
     },
 })
 
-export default SearchResultScreen

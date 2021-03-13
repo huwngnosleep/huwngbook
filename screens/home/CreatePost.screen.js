@@ -18,7 +18,7 @@ import Style from '../../constants/Style'
 import CustomButton from '../../components/UI/CustomButton'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 
-const CreatePostScreen = ({navigation}) => {
+export default function CreatePostScreen ({navigation}) {
     const [textInput, setTextInput] = useState('')
     const [image, setImage] = useState('')
 
@@ -126,5 +126,3 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
 })
-
-export default CreatePostScreen

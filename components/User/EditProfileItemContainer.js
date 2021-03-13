@@ -7,7 +7,7 @@ import {
 
 import AppColors from '../../constants/AppColors'
 
-const EditProfileItemContainer = ({label, children}) => {
+export default function EditProfileItemContainer ({label, children}) {
     return(
         <View style={styles.container}>
             <View style={styles.headerContainer}>
@@ -40,5 +40,3 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
 })
-
-export default EditProfileItemContainer

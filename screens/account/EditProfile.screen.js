@@ -14,7 +14,7 @@ import CustomButton from '../../components/UI/CustomButton'
 import Style from '../../constants/Style'
 
 
-const EditUserInfoScreen = ({navigation}) => {
+export default function EditUserInfoScreen ({navigation}) {
     const currentUser = useSelector((state) => state.user.currentUser)
     const localId = useSelector((state) => state.auth.localId)
 
@@ -106,4 +106,3 @@ const styles = StyleSheet.create({
     },
 })
 
-export default EditUserInfoScreen

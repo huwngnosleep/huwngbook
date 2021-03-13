@@ -5,7 +5,6 @@ import {
     View, 
     TouchableOpacity,
 } from 'react-native'
-import { useSelector } from 'react-redux'
 
 import CustomImage from '../UI/CustomImage'
 import InfoBar from './InfoBar'
@@ -16,9 +15,8 @@ import DatabaseUrl from '../../constants/DatabaseUrl'
 import AppColors from '../../constants/AppColors'
 import PostActionsBar from './Post/PostActionsBar'
 import PostDropdownMenu from './Post/PostDropdownMenu'
-import ActionButton from './ActionButton'
 
-const Post = ({navigation, postData, editable, disableNavigation}) => {
+export default function Post ({navigation, postData, editable, disableNavigation}) {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
     
@@ -123,5 +121,3 @@ const styles = StyleSheet.create({
     },
     
 })
-
-export default Post

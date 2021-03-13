@@ -17,7 +17,7 @@ import AppColors from '../../constants/AppColors'
 import CustomButton from '../../components/UI/CustomButton'
 import AppTitle from '../../components/UI/AppTitle'
 
-const AuthScreen = ({navigation}) => {
+export default function AuthScreen ({navigation}) {
     const [isSignIn, setIsSignIn] = useState(true)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -128,5 +128,3 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
 })
-
-export default AuthScreen

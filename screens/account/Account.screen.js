@@ -10,7 +10,7 @@ import InfoBar from '../../components/User/InfoBar'
 import Icon from "react-native-vector-icons/Ionicons"
 import AppColors from '../../constants/AppColors'
 
-const AccountScreen = ({navigation}) => {
+export default function AccountScreen ({navigation}) {
     const localId = useSelector((state) => state.auth.localId)
     const currentUser = useSelector((state) => state.user.currentUser)
     
@@ -82,5 +82,3 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 })
-
-export default AccountScreen

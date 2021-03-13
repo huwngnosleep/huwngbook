@@ -9,7 +9,7 @@ import Icon from "react-native-vector-icons/Ionicons"
 import AppColors from '../../constants/AppColors'
 
 
-const ProfileDetail = ({title, content}) => {
+export default function ProfileDetail ({title, content}) {
     return(
         <View style={styles.container} >
             <View style={styles.iconContainer}>
@@ -32,12 +32,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginBottom: 10,
     },
-    iconContainer: {
-    },
     detail: {
         fontSize: 18,
         color: AppColors.mainGreyBolder,
     },
 })
-
-export default ProfileDetail

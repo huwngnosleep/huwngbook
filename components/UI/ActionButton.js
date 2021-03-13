@@ -6,16 +6,17 @@ import {
 } from 'react-native'
 import Icon from "react-native-vector-icons/Ionicons"
 import AppColors from '../../constants/AppColors'
+import TempDisableOnPressTime from '../../constants/TempDisableOnPressTime'
 
-const ActionButton = ({style, onPress, iconName, action}) => {
+export default function ActionButton ({style, onPress, iconName, action, activeOpacity}) {
     const [active, setActive] = useState(true)
 
     // temporarily disable the button for 3s to decrease chance of getting bug
     const tempDisableButton = () => {
         setActive(false)
-        setTimeout(() => {
+        return setTimeout(() => {
            setActive(true) 
-        }, 3000)
+        }, TempDisableOnPressTime)
     }
 
     return(
@@ -28,6 +29,7 @@ const ActionButton = ({style, onPress, iconName, action}) => {
                 : 
                 () => {}
             }
+            activeOpacity={activeOpacity || 0.2}
             style={{...styles.container, ...style}} 
         >
             <Icon 
@@ -54,4 +56,3 @@ const styles = StyleSheet.create({
     },
 })
 
-export default ActionButton

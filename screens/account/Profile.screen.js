@@ -4,7 +4,6 @@ import {
     View, 
     Text,
     ScrollView,
-    VirtualizedList,
     KeyboardAvoidingView,
 } from 'react-native'
 import { useSelector } from 'react-redux'
@@ -22,7 +21,7 @@ import CustomButton from '../../components/UI/CustomButton'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import PostModel from '../../models/post.model'
 
-const ProfileScreen = ({navigation}) => {
+export default function ProfileScreen ({navigation}) {
     const currentUser = useSelector((state) => state.user.currentUser)
     const localId = useSelector((state) => state.auth.localId)
     const [currentUserPosts, setCurrentUserPosts] = useState([])
@@ -50,7 +49,7 @@ const ProfileScreen = ({navigation}) => {
     })
 
     return(
-        <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={70} >
+        <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={30} >
             <ScrollView style={styles.screen} >
                     <View>
                         <Avatar 
@@ -217,4 +216,3 @@ const styles = StyleSheet.create({
     },
 })
 
-export default ProfileScreen

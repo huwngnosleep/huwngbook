@@ -1,39 +1,34 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { 
     StyleSheet, 
     View, 
     Text,
     Modal,
     ScrollView,
-    TouchableOpacity,
-    FlatList,
-    ActivityIndicator,
-    RefreshControl,
 } from 'react-native'
-import Icon from "react-native-vector-icons/Ionicons"
 import AppColors from '../../../constants/AppColors'
 import DatabaseUrl from '../../../constants/DatabaseUrl'
 import DeviceDimensions from '../../../constants/DeviceDimensions'
+import CustomIcon from '../../UI/CustomIcon'
 import CommentListItem from './CommentListItem'
 import LikeListItem from './LikeListItem'
 
 
-const PostStatusPopup = ({isModalVisible, setIsModalVisible, ownerId, postId, renderedItemsType}) => {
+export default function PostStatusPopup ({isModalVisible, setIsModalVisible, ownerId, postId, renderedItemsType}) {
 
+    // upper case just the first letter to make a title
     const title = renderedItemsType[0].toUpperCase() + renderedItemsType.substring(1);
 
     const [content, setContent] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
 
     const fetchData = useCallback(async () => {
-        setIsLoading(true)
         try {
             const fetchedData = await (await fetch(`${DatabaseUrl}/users/${ownerId}/posts/${postId}/${renderedItemsType}.json`)).json()
             
             // fetched Data is hash table, need converting to array for rendering
             const loadedContent = []
             for(const key in fetchedData) {
-                loadedContent.push(fetchedData[key])
+                loadedContent.unshift(fetchedData[key])
             }
     
             setContent(loadedContent)
@@ -42,16 +37,7 @@ const PostStatusPopup = ({isModalVisible, setIsModalVisible, ownerId, postId, re
             console.log(error)
         }
 
-        setIsLoading(false)
-
-    }, [setContent, setIsLoading])
-
-    // useEffect(() => {
-    //     setIsLoading(true)
-    //     fetchData().then(() => {
-    //         setIsLoading(false)
-    //     })
-    // }, [fetchData])
+    }, [setContent])
 
     return(
         <Modal 
@@ -85,17 +71,14 @@ const PostStatusPopup = ({isModalVisible, setIsModalVisible, ownerId, postId, re
                                 )
                             }
                         </ScrollView>
-                        <TouchableOpacity
-                            style={{position: 'absolute', bottom: 10, right: 10,}}
-                            onPress={() => {setIsModalVisible(false)}}
-                        >
-                            <Icon 
+                        <View style={{position: 'absolute', bottom: 10, right: 10,}}>
+                            <CustomIcon 
+                                onPress={() => {setIsModalVisible(false)}}
                                 name="close"
                                 color={AppColors.mainBlack}
                                 size={30}
-                                
-                                />
-                        </TouchableOpacity>
+                            />
+                        </View>
                     </View>
             </View>
         </Modal>        
@@ -124,5 +107,3 @@ const styles = StyleSheet.create({
         margin: 20,
     },
 })
-
-export default PostStatusPopup

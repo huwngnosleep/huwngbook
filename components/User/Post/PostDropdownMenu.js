@@ -2,35 +2,39 @@ import React from 'react'
 import { 
     StyleSheet, 
     View, 
-    Text,
     Alert,
 } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import * as firebase from 'firebase'
 
 import AppColors from '../../../constants/AppColors'
 import DatabaseUrl from '../../../constants/DatabaseUrl'
-import ActionButton from '../ActionButton'
+import ActionButton from '../../UI/ActionButton'
 
-const PostDropdownMenu = ({ postData, navigation, editable }) => {
+export default function PostDropdownMenu ({ postData, navigation, editable }) {
     const { postId } = postData
 
     const localId = useSelector((state) => state.auth.localId)
 
     const deleteButtonHandler = async () => {
-        await fetch(`${DatabaseUrl}/users/${localId}/posts/${postId}.json`, {
-            method: 'DELETE'
-        })
+        try {
+            fetch(`${DatabaseUrl}/users/${localId}/posts/${postId}.json`, {
+                method: 'DELETE'
+            })
+    
+            // try deleting post image in storage
+            if(postData.imageUri) {
+                const storageRef = firebase.storage().ref().child(`${localId}/posts/${postId}`)
+                storageRef.delete()
+            }
+    
+            Alert.alert('Deleted')
+            navigation.goBack()
+            navigation.navigate('Profile')
 
-        // try deleting post image in storage
-        if(postData.imageUri) {
-            const storageRef = firebase.storage().ref().child(`${localId}/posts/${postId}`)
-            storageRef.delete()
+        } catch (error) {
+            console.log(error)
         }
-
-        Alert.alert('Deleted')
-        navigation.goBack()
-        navigation.navigate('Profile')
     }
 
     if(editable === true) {
@@ -98,5 +102,3 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
 })
-
-export default PostDropdownMenu

@@ -9,18 +9,23 @@ import DatabaseUrl from '../../../constants/DatabaseUrl'
 import Style from '../../../constants/Style'
 import InfoBar from '../InfoBar'
 
-const CommentListItem = ({ commentOwnerId, content, date}) => {
+export default function CommentListItem ({ commentOwnerId, content, date}) {
     const [isLoading, setIsLoading] = useState(false)
 
     const [name, setName] = useState('')
     const [avatar, setAvatar] = useState('')
 
     const fetchOwnerData = useCallback(async () => {
-        const name = await (await fetch(`${DatabaseUrl}/users/${commentOwnerId}/name.json`)).json()
-        setName(name)
-
-        const avatar = await (await fetch(`${DatabaseUrl}/users/${commentOwnerId}/avatar.json`)).json()
-        setAvatar(avatar)
+        try {
+            const name = await (await fetch(`${DatabaseUrl}/users/${commentOwnerId}/name.json`)).json()
+            setName(name)
+    
+            const avatar = await (await fetch(`${DatabaseUrl}/users/${commentOwnerId}/avatar.json`)).json()
+            setAvatar(avatar)
+            
+        } catch (error) {
+            console.log(error)
+        }
         
     }, [setName, setAvatar])
 
@@ -63,5 +68,3 @@ const styles = StyleSheet.create({
         borderBottomEndRadius: 10,
     },
 })
-
-export default CommentListItem

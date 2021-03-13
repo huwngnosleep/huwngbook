@@ -5,9 +5,9 @@ import {
 } from 'react-native'
 import Icon from "react-native-vector-icons/Ionicons";
 import AppColors from '../../constants/AppColors';
-import ActionButton from './ActionButton';
+import ActionButton from '../UI/ActionButton';
 
-const AccountItem = ({onPress, iconName, action, haveRightArrow}) => {
+export default function AccountItem ({onPress, iconName, action, haveRightArrow}) {
     return(
         <View style={styles.container} activeOpacity={1}>
             <ActionButton 
@@ -33,5 +33,3 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
 })
-
-export default AccountItem

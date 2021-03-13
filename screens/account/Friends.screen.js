@@ -10,7 +10,7 @@ import FriendCard from '../../components/User/FriendCard'
 
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
-const FriendsScreen = ({navigation}) => {
+export default function FriendsScreen ({navigation}) {
     const friends = useSelector((state) => state.user.currentUser.friends)
     
     return(
@@ -48,4 +48,3 @@ const styles = StyleSheet.create({
     },
 })
 
-export default FriendsScreen

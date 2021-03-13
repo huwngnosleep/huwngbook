@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import { 
     StyleSheet, 
     View, 
@@ -16,7 +16,7 @@ import CustomButton from '../../components/UI/CustomButton'
 import Style from '../../constants/Style'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 
-const EditPostScreen = ({route, navigation}) => {
+export default function EditPostScreen ({route, navigation}) {
     const { postData } = route.params
     
     const [content, setContent] = useState(postData.content)
@@ -91,5 +91,3 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
 })
-
-export default EditPostScreen

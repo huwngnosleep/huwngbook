@@ -10,34 +10,31 @@ import {
 import AppColors from '../../constants/AppColors'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 
-const FriendCard = ({style, friendId, navigation}) => {
+export default function FriendCard ({style, friendId, navigation}) {
     const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(null)
-    const [friendData] = useState({})
+    const [friendData, setFriendData] = useState({})
+
     const fetchFriendData = useCallback(async () => {
         try {
-            const response = await fetch(`${DatabaseUrl}/users/${friendId}.json`)
-            const resData = await response.json()
-            for(const key in resData) {
-                friendData[key] = resData[key]
+            const fetchedData = await (await fetch(`${DatabaseUrl}/users/${friendId}.json`)).json()
+
+            const loadedData = {}
+            for(const key in fetchedData) {
+                loadedData[key] = fetchedData[key]
             }
+            setFriendData(loadedData)
             
         } catch (error) {
-            setError(error.message)
             console.log(error)
         }
-    }, [setError])
+    }, [])
 
     useEffect(() => {
         setIsLoading(true)
         fetchFriendData().then(() => {
             setIsLoading(false)
         })
-    }, [setError, fetchFriendData])
-
-    if (error) {
-        return null
-    }
+    }, [setIsLoading, fetchFriendData])
 
     if (isLoading) {
         return null
@@ -91,5 +88,3 @@ const styles = StyleSheet.create({
     },
 
 })
-
-export default FriendCard

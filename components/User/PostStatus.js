@@ -13,7 +13,7 @@ import DeviceDimensions from '../../constants/DeviceDimensions'
 import AppColors from '../../constants/AppColors'
 
 
-const PostStatus = ({onPress, imageUri}) => {
+export default function PostStatus ({onPress, imageUri}) {
 
     return(
         <TouchableOpacity 
@@ -64,8 +64,4 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: AppColors.mainGrey,
     },
-
-
 })
-
-export default PostStatus

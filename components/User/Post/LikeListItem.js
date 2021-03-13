@@ -2,16 +2,18 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { 
     StyleSheet, 
     View, 
-    Text,
 } from 'react-native'
-import AppColors from '../../../constants/AppColors'
 import DatabaseUrl from '../../../constants/DatabaseUrl'
 import Style from '../../../constants/Style'
 import InfoBar from '../InfoBar'
 
-const LikeListItem = ({likeOwnerId}) => {
+export default function LikeListItem ({likeOwnerId}) {
 
-    const [userData, setUserData] = useState({})
+    const [userData, setUserData] = useState({
+        name: '',
+        userName: '',
+        avatar: '',
+    })
     const [isLoading, setIsLoading] = useState(false)
 
     const fetchData = useCallback(async () => {
@@ -58,4 +60,3 @@ const styles = StyleSheet.create({
     container: Style.postStatusListItemContainer
 })
 
-export default LikeListItem

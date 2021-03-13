@@ -10,7 +10,7 @@ import Avatar from './Avatar'
 
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
-const InfoBar = ({onPress, style, mainText, customText, imageUri, children}) => {
+export default function InfoBar ({onPress, style, mainText, customText, imageUri, children}) {
     
     return(
         <TouchableOpacity onPress={onPress} style={{...styles.container, ...style}}>
@@ -39,4 +39,3 @@ const styles = StyleSheet.create({
     },
 })
 
-export default InfoBar

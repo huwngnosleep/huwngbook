@@ -13,7 +13,7 @@ import Style from '../../constants/Style'
 import CustomButton from '../../components/UI/CustomButton'
 
 
-const EditImageScreen = ({navigation, route}) => {
+export default function EditImageScreen ({navigation, route}) {
     const localId = useSelector((state) => state.auth.localId)
     const { currentUserImage, imageType } = route.params
     
@@ -61,5 +61,3 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
 })
-
-export default EditImageScreen

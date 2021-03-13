@@ -4,30 +4,18 @@ import {
     View, 
     Text,
     Alert,
-    TouchableOpacity,
-    FlatList,
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import DatabaseUrl from '../../../constants/DatabaseUrl'
-import ActionButton from '../ActionButton'
-import Icon from "react-native-vector-icons/Ionicons"
+import ActionButton from '../../UI/ActionButton'
 import AppColors from '../../../constants/AppColors'
 import PostCommentCreator from './PostCommentCreater'
 import PostStatusPopup from './PostStatusPopup'
-import CommentListItem from './CommentListItem'
+import CustomIcon from '../../UI/CustomIcon'
 
-const PostActionsBar = ({postData, navigation}) => {
+export default function PostActionsBar ({postData, navigation}) {
     const { likes, comments, ownerId, postId} = postData
     const localId = useSelector((state) => state.auth.localId)
-
-    const [active, setActive] = useState(true)
-    // temporarily disable the button for 3s to decrease chance of getting bug
-    const tempDisableButton = () => {
-        setActive(false)
-        setTimeout(() => {
-           setActive(true) 
-        }, 3000)
-    }
 
     const [likesNumber, setLikesNumber] = useState(Object.keys({...likes}).length)
     const [commentsNumber, setCommentsNumber] = useState(Object.keys({...comments}).length)
@@ -102,44 +90,24 @@ const PostActionsBar = ({postData, navigation}) => {
     return(
         <View>
             <View style={styles.postStatusContainer}>
-                    <TouchableOpacity 
-                        onPress={
-                            active ? 
-                                () => {
-                                    tempDisableButton()
-                                    setIsLikesModalVisible(true)
-                                }
-                                :
-                                () => {}
-                        }
-                        style={styles.postStatusItem}
-                    >
+                    <View style={{flexDirection: 'row', alignItems: 'center', marginHorizontal: 10}}>
                         <Text style={styles.postStatusNumber}>{likesNumber}</Text>
-                        <Icon 
+                        <CustomIcon 
+                            onPress={() => setIsLikesModalVisible(true)}
                             name="heart"
                             color={AppColors.mainBlack}
                             size={20}
                         />
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                        onPress={
-                            active ? 
-                                () => {
-                                    tempDisableButton()
-                                    setIsCommentsModalVisible(true)
-                                }
-                                :
-                                () => {}
-                        }
-                        style={styles.postStatusItem}
-                    >
+                    </View>
+                    <View style={{flexDirection: 'row', alignItems: 'center', marginHorizontal: 10}}>
                         <Text style={styles.postStatusNumber}>{commentsNumber}</Text>
-                        <Icon 
+                        <CustomIcon 
+                            onPress={() => setIsCommentsModalVisible(true)}
                             name="chatbox-ellipses"
                             color={AppColors.mainBlack}
                             size={20}
                         />
-                    </TouchableOpacity>
+                    </View>
                 </View>
             <View style={styles.actionsContainer}>
                 <ActionButton 
@@ -164,20 +132,18 @@ const PostActionsBar = ({postData, navigation}) => {
                     null   
             }
             <PostStatusPopup
+                renderedItemsType="likes"
                 ownerId={ownerId}
                 postId={postId}
                 isModalVisible={isLikesModalVisible} 
                 setIsModalVisible={setIsLikesModalVisible}
-                renderedItemsType="likes"
-                navigation={navigation}
             />
             <PostStatusPopup
+                renderedItemsType="comments"
                 ownerId={ownerId}
                 postId={postId}
                 isModalVisible={isCommentsModalVisible} 
                 setIsModalVisible={setIsCommentsModalVisible}
-                renderedItemsType="comments"
-                navigation={navigation}
             />
         </View>
 
@@ -211,5 +177,3 @@ const styles = StyleSheet.create({
     },
     
 })
-
-export default PostActionsBar
