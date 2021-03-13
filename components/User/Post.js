@@ -98,6 +98,7 @@ const Post = ({navigation, postData, editable, disableNavigation}) => {
             </View>
             <CustomImage imageUri={postData.imageUri}/>
             <PostActionsBar 
+                navigation={navigation}
                 postData={postData}
             />
         </View>

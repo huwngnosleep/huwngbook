@@ -16,7 +16,7 @@ import PostCommentCreator from './PostCommentCreater'
 import PostStatusPopup from './PostStatusPopup'
 import CommentListItem from './CommentListItem'
 
-const PostActionsBar = ({postData}) => {
+const PostActionsBar = ({postData, navigation}) => {
     const { likes, comments, ownerId, postId} = postData
     const localId = useSelector((state) => state.auth.localId)
 
@@ -27,11 +27,6 @@ const PostActionsBar = ({postData}) => {
         setTimeout(() => {
            setActive(true) 
         }, 3000)
-    }
-
-    const loadedComments = []
-    for(const key in comments) {
-        loadedComments.unshift(comments[key])
     }
 
     const [likesNumber, setLikesNumber] = useState(Object.keys({...likes}).length)
@@ -112,7 +107,7 @@ const PostActionsBar = ({postData}) => {
                             active ? 
                                 () => {
                                     tempDisableButton()
-                                    setIsLikesModalVisible((prevState) => !prevState)
+                                    setIsLikesModalVisible(true)
                                 }
                                 :
                                 () => {}
@@ -131,7 +126,7 @@ const PostActionsBar = ({postData}) => {
                             active ? 
                                 () => {
                                     tempDisableButton()
-                                    setIsCommentsModalVisible((prevState) => !prevState)
+                                    setIsCommentsModalVisible(true)
                                 }
                                 :
                                 () => {}
@@ -174,6 +169,7 @@ const PostActionsBar = ({postData}) => {
                 isModalVisible={isLikesModalVisible} 
                 setIsModalVisible={setIsLikesModalVisible}
                 renderedItemsType="likes"
+                navigation={navigation}
             />
             <PostStatusPopup
                 ownerId={ownerId}
@@ -181,6 +177,7 @@ const PostActionsBar = ({postData}) => {
                 isModalVisible={isCommentsModalVisible} 
                 setIsModalVisible={setIsCommentsModalVisible}
                 renderedItemsType="comments"
+                navigation={navigation}
             />
         </View>
 

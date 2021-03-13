@@ -12,30 +12,42 @@ import InfoBar from '../InfoBar'
 const LikeListItem = ({likeOwnerId}) => {
 
     const [userData, setUserData] = useState({})
+    const [isLoading, setIsLoading] = useState(false)
 
     const fetchData = useCallback(async () => {
+        try {
+            const fetchedName = await (await fetch(`${DatabaseUrl}/users/${likeOwnerId}/name.json`)).json()
+            const fetchedUserName = await (await fetch(`${DatabaseUrl}/users/${likeOwnerId}/userName.json`)).json()
+            const fetchedAvatar = await (await fetch(`${DatabaseUrl}/users/${likeOwnerId}/avatar.json`)).json()
+            
+            setUserData({
+                name: fetchedName,
+                userName: fetchedUserName,
+                avatar: fetchedAvatar,
+            })
+        } catch (error) {
+            console.log(error)
+        }
 
-        const fetchedName = await (await fetch(`${DatabaseUrl}/users/${likeOwnerId}/name.json`)).json()
-        const fetchedUserName = await (await fetch(`${DatabaseUrl}/users/${likeOwnerId}/userName.json`)).json()
-        const fetchedAvatar = await (await fetch(`${DatabaseUrl}/users/${likeOwnerId}/avatar.json`)).json()
-
-        setUserData({
-            name: fetchedName,
-            userName: fetchedUserName,
-            avatar: fetchedAvatar,
-        })
 
     }, [setUserData])
 
     useEffect(() => {
-        fetchData()
-    }, [fetchData])
+        setIsLoading(true)
+        fetchData().then(() => {
+            setIsLoading(false)
+        })
+    }, [fetchData, setIsLoading])
+
+    if(isLoading === true) {
+        return null
+    }
 
     return(
         <View style={styles.container}>
             <InfoBar
                 mainText={userData.name}
-                customText={userData.userName}
+                customText={'@' + userData.userName}
                 imageUri={userData.avatar} 
             />
         </View>

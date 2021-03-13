@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { render } from 'react-dom'
 import { 
     StyleSheet, 
     View, 
@@ -9,6 +8,7 @@ import {
     TouchableOpacity,
     FlatList,
     ActivityIndicator,
+    RefreshControl,
 } from 'react-native'
 import Icon from "react-native-vector-icons/Ionicons"
 import AppColors from '../../../constants/AppColors'
@@ -26,7 +26,7 @@ const PostStatusPopup = ({isModalVisible, setIsModalVisible, ownerId, postId, re
     const [isLoading, setIsLoading] = useState(false)
 
     const fetchData = useCallback(async () => {
-
+        setIsLoading(true)
         try {
             const fetchedData = await (await fetch(`${DatabaseUrl}/users/${ownerId}/posts/${postId}/${renderedItemsType}.json`)).json()
             
@@ -42,56 +42,52 @@ const PostStatusPopup = ({isModalVisible, setIsModalVisible, ownerId, postId, re
             console.log(error)
         }
 
-    }, [setContent])
+        setIsLoading(false)
 
-    useEffect(() => {
-        setIsLoading(true)
-        fetchData().then(() => {
-            setIsLoading(false)
-        })
-    }, [setIsLoading, fetchData])
+    }, [setContent, setIsLoading])
+
+    // useEffect(() => {
+    //     setIsLoading(true)
+    //     fetchData().then(() => {
+    //         setIsLoading(false)
+    //     })
+    // }, [fetchData])
 
     return(
         <Modal 
             transparent={true}
             animationType="fade" 
             visible={isModalVisible}
+            onShow={fetchData}
         >
             <View 
                 style={{backgroundColor: '#000000aa', flex: 1,}}
             >
                     <View style={styles.listContainer}>
-                        <Text style={styles.title}>{title}</Text>
-                        {
-                            isLoading ?
-                            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                                <ActivityIndicator color={AppColors.mainBlack}/>
-                            </View>
-                            :
-                            <ScrollView style={styles.list}>
-                                {
-                                    renderedItemsType === 'comments' ?
-                                    content.map((item) => 
-                                        <CommentListItem 
-                                            key={`${item.commentOwnerId}${item.date}`}
-                                            commentOwnerId={item.commentOwnerId}
-                                            content={item.content}
-                                            date={item.date}
-                                        />
-                                    )
-                                    :
-                                    content.map((item) => 
-                                        <LikeListItem 
-                                            key={item.likeOwnerId}
-                                            likeOwnerId={item.likeOwnerId}
-                                        />
-                                    )
-                                }
-                            </ScrollView>
-                        }
+                        <Text style={styles.title}>{title}</Text> 
+                        <ScrollView style={styles.list}>
+                            {
+                                renderedItemsType === 'comments' ?
+                                content.map((item) => 
+                                    <CommentListItem 
+                                        key={`${item.commentOwnerId}${item.date}`}
+                                        commentOwnerId={item.commentOwnerId}
+                                        content={item.content}
+                                        date={item.date}
+                                    />
+                                )
+                                :
+                                content.map((item) => 
+                                    <LikeListItem 
+                                        key={item.likeOwnerId}
+                                        likeOwnerId={item.likeOwnerId}
+                                    />
+                                )
+                            }
+                        </ScrollView>
                         <TouchableOpacity
                             style={{position: 'absolute', bottom: 10, right: 10,}}
-                            onPress={() => {setIsModalVisible((prevState) => !prevState)}}
+                            onPress={() => {setIsModalVisible(false)}}
                         >
                             <Icon 
                                 name="close"
