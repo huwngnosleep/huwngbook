@@ -5,15 +5,13 @@ import {
     Text, 
     RefreshControl,
     ScrollView,
-    KeyboardAvoidingView,
 } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
+import DatabaseUrl from '../../constants/DatabaseUrl'
 import Post from '../../components/User/Post'
 import PostCreator from '../../components/User/PostCreator'
 import SearchBar from '../../components/UI/SearchBar'
-
-import DatabaseUrl from '../../constants/DatabaseUrl'
 import { Badge } from 'react-native-elements'
 import AppTitle from '../../components/UI/AppTitle'
 import PostModel from '../../models/post.model'
@@ -82,7 +80,7 @@ const SearchHeaderBar = ({navigation}) => {
                         }}
                         value={searchInput}
                         placeholder="Who are you looking for?"
-                        onPress={() => {setIsSearchBarVisible((prevState) => !prevState)}}
+                        onCancelPress={() => {setIsSearchBarVisible((prevState) => !prevState)}}
                     />
                     :
                     <View style={{flexDirection: 'row'}}>

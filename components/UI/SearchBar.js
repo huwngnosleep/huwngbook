@@ -8,7 +8,15 @@ import Icon from "react-native-vector-icons/Ionicons"
 import AppColors from '../../constants/AppColors'
 import CustomButton from './CustomButton'
 
-const SearchBar = ({onPress, style, placeholder, onChangeText, onSubmitEditing, value}) => {
+export default function SearchBar ({
+    onCancelPress = () => {}, 
+    style, 
+    placeholder, 
+    onChangeText, 
+    onSubmitEditing, 
+    value,
+    noCancelButton = false,
+}) {
 
     return(
         <View style={{...styles.container, ...style}}>
@@ -17,19 +25,25 @@ const SearchBar = ({onPress, style, placeholder, onChangeText, onSubmitEditing, 
                     size={25}
                     name="search-outline"
                 />
-                <TextInput 
-                    style={{paddingLeft: 5}}
-                    value={value}
-                    onSubmitEditing={onSubmitEditing}
-                    onChangeText={onChangeText} 
-                    placeholder={placeholder} 
-                />
+                <View style={styles.inputContainer}>
+                    <TextInput 
+                        value={value}
+                        onSubmitEditing={onSubmitEditing}
+                        onChangeText={onChangeText} 
+                        placeholder={placeholder} 
+                    />
+                </View>
             </View>
-            <CustomButton
-                onPress={onPress}
-                title="Cancel"
-                style={styles.cancelButton}
-            />
+            {
+                noCancelButton === true ?
+                    null
+                    :
+                    <CustomButton
+                        onPress={onCancelPress}
+                        title="Cancel"
+                        style={styles.cancelButton}
+                    />
+            }
         </View>
     )
 }
@@ -48,10 +62,12 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         borderRadius: 50,
     },
+    inputContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     cancelButton: {
         marginLeft: 10,
         paddingHorizontal: 7,
     },
 })
-
-export default SearchBar

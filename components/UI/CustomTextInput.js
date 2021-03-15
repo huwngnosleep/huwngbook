@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import AppColors from '../../constants/AppColors'
 
-const CustomTextInput = (props) => {
+export default function CustomTextInput (props) {
 
     return (
         <View style={styles.container}>
@@ -40,5 +40,3 @@ const styles = StyleSheet.create({
         textAlign: 'right',
     },
 })
-
-export default CustomTextInput

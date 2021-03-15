@@ -12,7 +12,7 @@ export default function CustomIcon ({name, color, size, onPress, activeOpacity, 
     // temporarily disable the button for a while to decrease chance of getting bug
     const tempDisableButton = () => {
         setIsActive(false)
-        return setTimeout(() => {
+        setTimeout(() => {
            setIsActive(true) 
         }, TempDisableOnPressTime)
     }

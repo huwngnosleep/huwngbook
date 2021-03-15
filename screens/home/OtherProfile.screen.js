@@ -4,7 +4,6 @@ import {
     View, 
     Text,
     ScrollView,
-    KeyboardAvoidingView,
 } from 'react-native'
 
 import Avatar from '../../components/User/Avatar'
@@ -17,6 +16,7 @@ import DatabaseUrl from '../../constants/DatabaseUrl'
 import PostModel from '../../models/post.model'
 import AppColors from '../../constants/AppColors'
 import LoadingCircle from '../../components/UI/LoadingCircle'
+import CustomKeyboardAvoidView from '../../components/UI/CustomKeyboardAvoidView'
 
 export default function OtherProfileScreen ({navigation, route}) {
     const [isLoading, setIsLoading] = useState(false)
@@ -63,7 +63,7 @@ export default function OtherProfileScreen ({navigation, route}) {
     }
 
     return(
-        <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={30} >
+        <CustomKeyboardAvoidView>
             <ScrollView style={styles.screen} >
                 <View>
                     <Avatar imageUri={user.coverImage} style={styles.backgroundImg}/>
@@ -115,7 +115,7 @@ export default function OtherProfileScreen ({navigation, route}) {
                     }
                 </View>
             </ScrollView>
-        </KeyboardAvoidingView>
+        </CustomKeyboardAvoidView>
     )
 }
 

@@ -34,7 +34,7 @@ export default function InfoBar ({onPress = () => {}, style, mainText, customTex
             } 
             style={{...styles.container, ...style}}
         >
-            <Avatar imageUri={imageUri} />
+            <Avatar imageUri={imageUri}/>
             <View>
                 <Text numberOfLines={1} style={styles.mainText}>{mainText}</Text>
                 <Text style={styles.customText}>{customText}</Text>

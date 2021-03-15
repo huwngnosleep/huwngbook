@@ -3,13 +3,11 @@ import {
     StyleSheet, 
     Text, 
     View, 
-    TouchableOpacity,
 } from 'react-native'
 
 import CustomImage from '../UI/CustomImage'
 import InfoBar from './InfoBar'
 
-import Icon from "react-native-vector-icons/Ionicons"
 import DeviceDimensions from '../../constants/DeviceDimensions'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import AppColors from '../../constants/AppColors'

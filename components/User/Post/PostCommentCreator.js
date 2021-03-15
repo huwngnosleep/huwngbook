@@ -10,14 +10,14 @@ import AppColors from '../../../constants/AppColors'
 import CustomIcon from '../../UI/CustomIcon'
 import Avatar from '../Avatar'
 
-export default function PostCommentCreator ({ commentSubmitHandler }) {
+export default function PostCommentCreator ({ textSubmitHandler, style }) {
     const avatar = useSelector((state) => state.user.currentUser.avatar)
     
     const [isSending, setIsSending] = useState(false)
-    const [comment, setComment] = useState('')
+    const [text, setText] = useState('')
 
     return(
-        <View style={styles.textInputContainer}>
+        <View style={{...styles.textInputContainer, ...style}}>
             <View style={styles.avatarContainer}>
                 <Avatar imageUri={avatar} style={styles.avatar} />
             </View>
@@ -27,8 +27,8 @@ export default function PostCommentCreator ({ commentSubmitHandler }) {
                         <Text style={{color: AppColors.mainGrey}}>Sending...</Text>
                         :
                         <TextInput  
-                            value={comment}
-                            onChangeText={(text) => setComment(text)}
+                            value={text}
+                            onChangeText={(text) => setText(text)}
                             placeholder="Type something..."
                             multiline={true}
                             style={styles.textInput}
@@ -37,12 +37,12 @@ export default function PostCommentCreator ({ commentSubmitHandler }) {
                 <CustomIcon 
                     onPress={() => {
                         setIsSending(true)
-                        commentSubmitHandler(comment).then(() => {
-                            setComment('')
+                        textSubmitHandler(text).then(() => {
+                            setText('')
                             setIsSending(false)
                         })
                     }}
-                    name={comment.length > 0 ? "paper-plane" : "paper-plane-outline"}
+                    name={text.length > 0 ? "paper-plane" : "paper-plane-outline"}
                     color={AppColors.mainBlack}
                     size={25}
                     style={styles.customIcon}

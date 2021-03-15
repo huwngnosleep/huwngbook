@@ -1,19 +1,44 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
-
-import HomeNavigator from './home/Home.navigator'
-import AccountNavigator from './account/Account.navigator'
 import { useSelector } from 'react-redux'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 
+import HomeNavigator from './home/Home.navigator'
+import AccountNavigator from './account/Account.navigator'
+import ChatNavigator from './chat/Chat.navigator'
+
 
 const Tab = createBottomTabNavigator()
 
-const MainNavigator = () => {
+export default function MainNavigator () {
     
     const localId = useSelector((state) => state.auth.localId)
+
+    if(localId === null) {
+        return(
+            <NavigationContainer>
+                <Tab.Navigator>
+                    <Tab.Screen 
+                        name="Account" 
+                        component={AccountNavigator} 
+                        options={() => ({
+                            tabBarLabel: 'Profile',
+                            tabBarIcon: () => {
+                                return(
+                                    <Icon
+                                        size={25}
+                                        name='person' >
+                                    </Icon>
+                                )
+                            },
+                        })}
+                    />
+                </Tab.Navigator>
+            </NavigationContainer>
+        )
+    }
 
     return (
         <NavigationContainer>
@@ -35,6 +60,22 @@ const MainNavigator = () => {
                     })}
                 />}
                 <Tab.Screen 
+                    name="Chat" 
+                    component={ChatNavigator} 
+                    options={() => ({
+                        tabBarLabel: 'Chat',
+                        tabBarIcon: ({focused}) => {
+                            const iconName = focused ? 'chatbubbles' : 'chatbubbles-outline'
+                            return(
+                                <Icon
+                                    size={25}
+                                    name={iconName} >
+                                </Icon>
+                            )
+                        },
+                    })}
+                />
+                <Tab.Screen 
                     name="Account" 
                     component={AccountNavigator} 
                     options={() => ({
@@ -52,9 +93,7 @@ const MainNavigator = () => {
                 />
             </Tab.Navigator>
         </NavigationContainer>
-
     )
 }
 
 
-export default MainNavigator

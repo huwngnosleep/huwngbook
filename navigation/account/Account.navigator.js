@@ -16,7 +16,7 @@ import OtherProfileScreen from '../../screens/home/OtherProfile.screen'
 
 const Stack = createStackNavigator()
 
-const AccountNavigator = () => {
+export default function AccountNavigator () {
     const localId = useSelector((state) => state.auth.localId)
 
     return (
@@ -34,5 +34,3 @@ const AccountNavigator = () => {
         </Stack.Navigator>
     )
 }
-
-export default AccountNavigator

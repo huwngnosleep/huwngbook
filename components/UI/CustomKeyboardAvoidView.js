@@ -9,7 +9,7 @@ export default function CustomKeyboardAvoidView ({children, style}) {
     if(Platform.OS === 'ios') {
         return(
             <KeyboardAvoidingView 
-                behavior="position"
+                behavior="height"
                 keyboardVerticalOffset={50}
                 style={style}
             >
@@ -17,9 +17,10 @@ export default function CustomKeyboardAvoidView ({children, style}) {
             </KeyboardAvoidingView>
         )
     }
+
     return(
         <KeyboardAvoidingView style={style}>
-                {children}
-            </KeyboardAvoidingView>
+            {children}
+        </KeyboardAvoidingView>
     )
 }

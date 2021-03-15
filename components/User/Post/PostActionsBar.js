@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 import DatabaseUrl from '../../../constants/DatabaseUrl'
 import ActionButton from '../../UI/ActionButton'
 import AppColors from '../../../constants/AppColors'
-import PostCommentCreator from './PostCommentCreater'
+import PostCommentCreator from './PostCommentCreator'
 import PostStatusPopup from './PostStatusPopup'
 import CustomIcon from '../../UI/CustomIcon'
 
@@ -127,7 +127,7 @@ export default function PostActionsBar ({postData, navigation}) {
             </View>
             {
                 isCommenting ? 
-                    <PostCommentCreator commentSubmitHandler={commentSubmitHandler}/>
+                    <PostCommentCreator textSubmitHandler={commentSubmitHandler}/>
                     :
                     null   
             }
