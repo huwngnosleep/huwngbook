@@ -4,11 +4,8 @@ import {
     View, 
     Text,
 } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
-import CustomIcon from '../../components/UI/CustomIcon'
 import CustomKeyboardAvoidView from '../../components/UI/CustomKeyboardAvoidView'
 import PostCommentCreator from '../../components/User/Post/PostCommentCreator'
-import AppColors from '../../constants/AppColors'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import { useSelector } from 'react-redux'
 
@@ -25,8 +22,11 @@ export default function ChatScreen ({route, navigation}) {
     const fetchUserData = useCallback(async () => {
         const name = await (await fetch(`${DatabaseUrl}/users/${userId}/name.json`)).json()
         
-        const doc = await firestore.collection(`${localId}`).get()
-        console.log(doc)
+        // firestore.collection("characters").doc("mario").set({
+        //     employment: "hjhj",
+        //     outfitColor: "bla",
+        //     specialAttack: "bla"
+        // })
 
         setUserData({
             name,

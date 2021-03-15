@@ -9,6 +9,8 @@ export const firebaseConfig = {
     storageBucket: 'huwngbook.appspot.com',
     
 }
-
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig)
+}
 export const firestore = firebase.firestore()
 
