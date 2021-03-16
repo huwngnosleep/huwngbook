@@ -29,20 +29,14 @@ export default function AccountScreen ({navigation}) {
             <View style={styles.actions}>
                 <AccountItem 
                     haveRightArrow
-                    iconName="flag" 
-                    action="Pages"
-                    onPress={() => {}}
-                />
-                <AccountItem 
-                    haveRightArrow
-                    iconName="people" 
-                    action="Groups"
-                    onPress={() => {}}
-                />
-                <AccountItem 
-                    haveRightArrow
                     iconName="bookmarks" 
                     action="Saved" 
+                    onPress={() => {}}
+                />
+                <AccountItem 
+                    haveRightArrow
+                    iconName="settings" 
+                    action="Settings"
                     onPress={() => {}}
                 />
                 <AccountItem 
@@ -68,7 +62,7 @@ export default function AccountScreen ({navigation}) {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        marginTop: 10,
+        marginTop: 40,
     },
     goToProfile: {
         flexDirection: 'row',

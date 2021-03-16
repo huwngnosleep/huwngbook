@@ -1,13 +1,14 @@
 {
   "expo": {
-    "name": "huwngbook",
+    "name": "HuwngBook",
     "slug": "huwngbook",
+    "description": "A clone version of Facebook",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {
@@ -20,10 +21,12 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+      "icon": "./assets/icon.png",
+      "permissions": [
+        "CAMERA",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
+      "package": "com.huwngnosleep.huwngbook"
     },
     "web": {
       "favicon": "./assets/favicon.png"

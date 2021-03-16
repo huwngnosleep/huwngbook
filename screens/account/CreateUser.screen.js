@@ -18,6 +18,7 @@ import DefaultProfileImagePlaceholder from '../../constants/DefaultProfileImageP
 import AppColors from '../../constants/AppColors'
 import CustomButton from '../../components/UI/CustomButton'
 import Style from '../../constants/Style'
+import CustomKeyboardAvoidView from '../../components/UI/CustomKeyboardAvoidView'
 
 export default function CreateUserScreen ({route, navigation}) {
 
@@ -75,17 +76,18 @@ export default function CreateUserScreen ({route, navigation}) {
     })
 
     return(
-        <View style={styles.screen}>
+        <CustomKeyboardAvoidView style={styles.screen}>
             <ScrollView contentContainerStyle={styles.container}>
                 <AlertText style={styles.alertText} alertText={alertText} />
                 <CustomTextInput 
+                    maxLength={16}
                     placeholder="Full name"
                     onChangeText={(text) => {
-                        setName(text)
-                        
+                        setName(text) 
                     }}
                 />
                 <CustomTextInput 
+                    maxLength={16}
                     placeholder="User name"
                     autoCapitalize='none'
                     onChangeText={(text) => {
@@ -93,6 +95,7 @@ export default function CreateUserScreen ({route, navigation}) {
                     }}
                 />
                 <CustomTextInput 
+                    maxLength={10}
                     placeholder="Phone number"
                     keyboardType="number-pad"
                     onChangeText={(text) => {
@@ -135,7 +138,7 @@ export default function CreateUserScreen ({route, navigation}) {
                     onDateChange={(date) => {setBirthday(date)}}
                 />
             </ScrollView>
-        </View>
+        </CustomKeyboardAvoidView>
     )
 }
 

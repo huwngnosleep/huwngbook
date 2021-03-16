@@ -48,14 +48,13 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
+        flex: 1,
     },
     mainText: {
         fontWeight: 'bold',
-        maxWidth: DeviceDimensions.deviceWidth / 3.5,
-        fontSize: DeviceDimensions.deviceWidth > 400 ? 20 : 18,
+        fontSize: DeviceDimensions.deviceWidth > 400 ? 22 : 20,
     },
     customText: {
-        maxWidth: DeviceDimensions.deviceWidth / 3.5,
         fontSize: 12,
         fontWeight: '300',
     },

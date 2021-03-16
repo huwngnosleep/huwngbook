@@ -39,7 +39,6 @@ export default function ChatListScreen ({navigation}) {
                 style={styles.searchBar}
             />
             <FlatList 
-                numColumns={2}
                 contentContainerStyle={styles.list}
                 data={friends}
                 keyExtractor={(item) => item}

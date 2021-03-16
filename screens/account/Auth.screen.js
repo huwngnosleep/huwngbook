@@ -62,10 +62,8 @@ export default function AuthScreen ({navigation}) {
                         }}
                     />
                     <CustomTextInput 
-                        style={styles.input}
                         placeholder="Password"
-                        keyboardType='default'
-                        secureTextEntry
+                        secureTextEntry={true}
                         autoCapitalize='none'
                         value={password}
                         onChangeText={(text) => {

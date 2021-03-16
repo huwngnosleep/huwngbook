@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
         width: '80%',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 15,
+        marginVertical: 10,
     },
 })

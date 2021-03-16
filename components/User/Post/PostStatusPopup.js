@@ -12,10 +12,9 @@ import DeviceDimensions from '../../../constants/DeviceDimensions'
 import CustomIcon from '../../UI/CustomIcon'
 import CommentListItem from './CommentListItem'
 import LikeListItem from './LikeListItem'
-
+import LoadingCircle from '../../UI/LoadingCircle'
 
 export default function PostStatusPopup ({isModalVisible, setIsModalVisible, ownerId, postId, renderedItemsType}) {
-
     // upper case just the first letter to make a title
     const title = renderedItemsType[0].toUpperCase() + renderedItemsType.substring(1);
 
