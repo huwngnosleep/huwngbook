@@ -33,6 +33,7 @@ export default function OtherProfileScreen ({navigation, route}) {
             for(const key in fetchedData) {
                 loadedUser[key] = fetchedData[key]
             }
+
             setUser(loadedUser)
             
             const loadedPosts = []
@@ -42,13 +43,11 @@ export default function OtherProfileScreen ({navigation, route}) {
             setUserPosts(loadedPosts)
 
             navigation.setOptions({
-                title: `${resData.name}'s Profile`
+                title: `${fetchedData.name}`
             })
         } catch (error) {
             console.log(error)
         }
-
-
     }, [setUserPosts, setUser])
 
     useEffect(() => {

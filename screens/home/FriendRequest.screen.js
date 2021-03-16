@@ -52,6 +52,7 @@ const FriendRequestItem = ({onPress, ownerId, localId}) => {
                     />
                     <CustomButton
                         title="Reject"
+                        color={AppColors.mainGreyBolder}
                         style={styles.button}
                         onPress={() => {
                             dispatch(friendRequestResponse('rejected', ownerId, localId))
@@ -69,8 +70,8 @@ export default function FriendRequestScreen ({navigation}) {
     const localId = useSelector((state) => state.user.currentUser.localId)
 
     if(pendingFriendRequests.length === 0) {
-        return <View style={{alignItems: 'center', flex: 1,}}>
-            <Text style={{marginTop: 20}}>You have no friend request yet!</Text>
+        return <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+            <Text>You have no friend request yet!</Text>
         </View>
     }
 

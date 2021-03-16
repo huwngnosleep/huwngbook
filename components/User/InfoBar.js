@@ -37,7 +37,7 @@ export default function InfoBar ({onPress = () => {}, style, mainText, customTex
             <Avatar imageUri={imageUri}/>
             <View>
                 <Text numberOfLines={1} style={styles.mainText}>{mainText}</Text>
-                <Text style={styles.customText}>{customText}</Text>
+                <Text numberOfLines={1} style={styles.customText}>{customText}</Text>
                 {children}
             </View>
         </TouchableOpacity>
@@ -51,9 +51,11 @@ const styles = StyleSheet.create({
     },
     mainText: {
         fontWeight: 'bold',
+        maxWidth: DeviceDimensions.deviceWidth / 3.5,
         fontSize: DeviceDimensions.deviceWidth > 400 ? 20 : 18,
     },
     customText: {
+        maxWidth: DeviceDimensions.deviceWidth / 3.5,
         fontSize: 12,
         fontWeight: '300',
     },

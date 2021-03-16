@@ -80,6 +80,20 @@ export default function ChatScreen ({route, navigation}) {
             console.log(error)
         }
     }
+    
+    if(messages.length === 0) {
+        return(
+            <CustomKeyboardAvoidView style={styles.screen} >
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                    <Text>Say 'Hi!' to your friend</Text>
+                </View>
+                <MessageCreator 
+                    textSubmitHandler={submitHandler}
+                    style={styles.textInput}
+                />
+            </CustomKeyboardAvoidView>
+        )
+    }
 
     return(
         <CustomKeyboardAvoidView style={styles.screen} >

@@ -12,7 +12,6 @@ import SearchBar from '../../components/UI/SearchBar'
 export default function ChatListScreen ({navigation}) {
     const [searchInput, setSearchInput] = useState('')
 
-    
     const friends = useSelector((state) => state.user.currentUser.friends)
 
     useEffect(() => {
@@ -20,6 +19,14 @@ export default function ChatListScreen ({navigation}) {
             title: 'Chat'
         })
     })
+
+    if(friends.length === 0) {
+        return(
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Text>Add friend to start chatting...</Text>
+            </View>
+        )
+    }
 
     return(
         <View style={styles.screen} >

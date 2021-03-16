@@ -174,23 +174,23 @@ export default function HomeScreen ({navigation}) {
                     onRefresh={fetchNewsFeed}
                     refreshing={isRefreshing}
                 />
-                
-                    <SearchHeaderBar navigation={navigation}/>
-                    <PostCreator imageUri={currentUserAvatar} onPress={() => {navigation.navigate('Create Post')}}/>
-                    {
-                        newsFeed.length > 0 ?
-                            newsFeed.map((item) =>
-                                <Post 
-                                    key={item.postId}
-                                    editable={false}
-                                    postData={item}
-                                    navigation={navigation}
-                                />
-                            )
-                            :
+                <SearchHeaderBar navigation={navigation}/>
+                <PostCreator imageUri={currentUserAvatar} onPress={() => {navigation.navigate('Create Post')}}/>
+                {
+                    newsFeed.length > 0 ?
+                        newsFeed.map((item) =>
+                            <Post 
+                                key={item.postId}
+                                editable={false}
+                                postData={item}
+                                navigation={navigation}
+                            />
+                        )
+                        :
+                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                             <Text>Let's add friend or create a new post!</Text>
-                    }
-                
+                        </View>
+                }
             </ScrollView>
         </CustomKeyboardAvoidView>
     )
