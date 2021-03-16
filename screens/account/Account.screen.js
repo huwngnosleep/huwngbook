@@ -62,15 +62,14 @@ export default function AccountScreen ({navigation}) {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        marginTop: 40,
     },
     goToProfile: {
+        paddingVertical: 30,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
         alignSelf: 'center',
         width: '80%',
-        marginBottom: 20,
+        marginBottom: 10,
     },
     actions: {
         alignItems: 'center',

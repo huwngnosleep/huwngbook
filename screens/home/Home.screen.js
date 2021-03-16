@@ -159,7 +159,10 @@ export default function HomeScreen ({navigation}) {
         })
     }, [dispatch, fetchNewsFeed, setIsLoading])
     
-
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', fetchNewsFeed)
+        return unsubscribe
+    })
 
     if (isLoading) {
         return <LoadingCircle />

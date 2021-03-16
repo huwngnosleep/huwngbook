@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import { Badge } from 'react-native-elements'
 import { useSelector } from 'react-redux'
+import AppColors from '../../constants/AppColors'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import TempDisableOnPressTime from '../../constants/TempDisableOnPressTime'
 import InfoBar from '../User/InfoBar'
@@ -84,6 +85,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginVertical: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: AppColors.mainGrey,
+        paddingBottom: 10,
     },
     badgeStyle: {
         position: 'absolute',
