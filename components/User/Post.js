@@ -73,7 +73,7 @@ export default function Post ({navigation, postData, editable, disableNavigation
                     }
                     imageUri={postOwnerData.avatar} 
                     mainText={postOwnerData.name} 
-                    customText={postData.date}
+                    customText={`${postData.date.slice(0, 5)}, ${postData.date.slice(13)}`}
                 />
                 <CustomIcon 
                     onPress={() => setDropdownVisible((prevState) => !prevState)}

@@ -6,11 +6,11 @@ import {
     TextInput,
 } from 'react-native'
 import { useSelector } from 'react-redux'
-import AppColors from '../../../constants/AppColors'
-import CustomIcon from '../../UI/CustomIcon'
-import Avatar from '../Avatar'
+import AppColors from '../../constants/AppColors'
+import CustomIcon from '../UI/CustomIcon'
+import Avatar from './Avatar'
 
-export default function PostCommentCreator ({ textSubmitHandler, style }) {
+export default function MessageCreator ({ textSubmitHandler, style }) {
     const avatar = useSelector((state) => state.user.currentUser.avatar)
     
     const [isSending, setIsSending] = useState(false)
@@ -35,12 +35,12 @@ export default function PostCommentCreator ({ textSubmitHandler, style }) {
                         />
                 }
                 <CustomIcon 
-                    onPress={() => {
+                    onPress={async () => {
                         setIsSending(true)
-                        textSubmitHandler(text).then(() => {
-                            setText('')
-                            setIsSending(false)
-                        })
+                        await textSubmitHandler(text)
+                        setText('')
+                        setIsSending(false)
+                        
                     }}
                     name={text.length > 0 ? "paper-plane" : "paper-plane-outline"}
                     color={AppColors.mainBlack}

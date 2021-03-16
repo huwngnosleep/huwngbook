@@ -44,7 +44,7 @@ export default function CommentListItem ({ commentOwnerId, content, date}) {
         <View style={styles.container} >
             <InfoBar 
                 mainText={name}
-                customText={date}
+                customText={`${date.slice(0, 5)}, ${date.slice(13)}`}
                 imageUri={avatar}
             />
             <View style={styles.contentContainer}>

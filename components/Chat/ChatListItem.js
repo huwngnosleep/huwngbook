@@ -6,7 +6,9 @@ import {
     TouchableOpacity,
 } from 'react-native'
 import { Badge } from 'react-native-elements'
+import { useSelector } from 'react-redux'
 import DatabaseUrl from '../../constants/DatabaseUrl'
+import TempDisableOnPressTime from '../../constants/TempDisableOnPressTime'
 import InfoBar from '../User/InfoBar'
 
 export default function ChatListItem ({userId, onPress = () => {}}) {
@@ -14,6 +16,27 @@ export default function ChatListItem ({userId, onPress = () => {}}) {
         name: '',
         userName: '',
         avatar: '',
+    })
+    const [numberPending, setNumberPending] = useState(0)
+    const [active, setActive] = useState(true)
+    
+    const localId = useSelector((state) => state.auth.localId)
+
+    // temporarily disable the button for 3s to decrease chance of getting bug
+    const tempDisableButton = useCallback(() => {
+        setActive(false)
+        setTimeout(() => {
+           setActive(true) 
+        }, TempDisableOnPressTime)
+    }, [setActive])
+
+
+    const fetchNumberPendingMessage = useCallback(async () => {
+        const fetchedNumber = await (await fetch(`${DatabaseUrl}/users/${localId}/pendingUnreadMessages/${userId}.json`)).json()
+        if(fetchedNumber) {
+            
+            setNumberPending(fetchedNumber)
+        }
     })
 
     const fetchData = useCallback(async () => {
@@ -30,11 +53,21 @@ export default function ChatListItem ({userId, onPress = () => {}}) {
 
     useEffect(() => {
         fetchData()
-    }, [fetchData])
+        fetchNumberPendingMessage()
+    }, [fetchData, fetchNumberPendingMessage])
     
     return(
         <TouchableOpacity 
-            onPress={onPress}
+            onPress={
+                active ? 
+                    async () => {
+                        setNumberPending(0)
+                        tempDisableButton()
+                        onPress()
+                    }
+                    :
+                    () => {}
+            }
             style={styles.container} 
         >
             <InfoBar 
@@ -42,7 +75,7 @@ export default function ChatListItem ({userId, onPress = () => {}}) {
                 customText={'@' + user.userName}
                 imageUri={user.avatar}
             />
-            <Badge value="5" status="error" containerStyle={styles.badgeStyle} />
+            {numberPending !== 0 ? <Badge value={numberPending} status="error" containerStyle={styles.badgeStyle} /> : null}
         </TouchableOpacity>
     )
 }

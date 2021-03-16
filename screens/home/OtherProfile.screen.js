@@ -87,12 +87,6 @@ export default function OtherProfileScreen ({navigation, route}) {
                         <ProfileDetail title="Phone number: " content={user.phoneNumber}/>
                         <ProfileDetail title="Email: " content={user.email}/>
                     </View>
-                    <Icon
-                        onPress={() => {}}
-                        style={styles.editInfoIcon} 
-                        name="chatbubble-ellipses-outline"
-                        size={30}
-                    />
                 </View>
                 <View style={styles.line}></View>
                 <View style={styles.container}>

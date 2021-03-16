@@ -9,12 +9,6 @@ npm-debug.*
 *.orig.*
 web-build/
 env.js
-.firebaserc
-database.rules.json
-firebase.json
-firestore.indexes/json
-firestore.rules
-storage.rules
 
 # macOS
 .DS_Store

@@ -9,11 +9,12 @@ import { useSelector } from 'react-redux'
 import DatabaseUrl from '../../../constants/DatabaseUrl'
 import ActionButton from '../../UI/ActionButton'
 import AppColors from '../../../constants/AppColors'
-import PostCommentCreator from './PostCommentCreator'
+import MessageCreator from '../MessageCreator'
 import PostStatusPopup from './PostStatusPopup'
 import CustomIcon from '../../UI/CustomIcon'
+import CatchCurrentTime from '../../../constants/CatchCurrentTime'
 
-export default function PostActionsBar ({postData, navigation}) {
+export default function PostActionsBar ({postData}) {
     const { likes, comments, ownerId, postId} = postData
     const localId = useSelector((state) => state.auth.localId)
 
@@ -74,7 +75,7 @@ export default function PostActionsBar ({postData, navigation}) {
             },
             body: JSON.stringify({
                 commentOwnerId: localId,
-                date: `${new Date().toTimeString().slice(0, 8)} ${new Date().toDateString()}`,
+                date: CatchCurrentTime(),
                 content,
             })
         })
@@ -127,7 +128,7 @@ export default function PostActionsBar ({postData, navigation}) {
             </View>
             {
                 isCommenting ? 
-                    <PostCommentCreator textSubmitHandler={commentSubmitHandler}/>
+                    <MessageCreator textSubmitHandler={commentSubmitHandler}/>
                     :
                     null   
             }

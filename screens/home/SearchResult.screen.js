@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import CustomButton from '../../components/UI/CustomButton'
+import CustomIcon from '../../components/UI/CustomIcon'
 
 import InfoBar from '../../components/User/InfoBar'
 
@@ -90,9 +91,9 @@ export default function SearchResultScreen ({route, navigation}) {
                             mainText={itemData.item.name}
                             customText={'@' + itemData.item.userName}
                         />
-                        <CustomButton 
-                            title="Add"
-                            style={styles.addButton}
+                        <CustomIcon 
+                            name="person-add-outline"
+                            size={30}
                             onPress={() => {
                                 addFriendHandler(localId, itemData.item.localId)
                             }}
