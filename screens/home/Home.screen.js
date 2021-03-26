@@ -110,6 +110,7 @@ const SearchHeaderBar = ({navigation}) => {
 }
 
 export default function HomeScreen ({navigation}) {
+    // get friendsList for fetching news feed
     const friendsList = useSelector((state) => state.user.currentUser.friends)
 
     const [isLoading, setIsLoading] = useState(false)
@@ -209,7 +210,7 @@ const styles = StyleSheet.create({
     },
     badgeStyle: {
         position: 'absolute',
-        top: -4,
-        right: -4,
+        top: -2,
+        right: -2,
     },
 })

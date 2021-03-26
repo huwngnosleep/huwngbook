@@ -9,6 +9,7 @@ import InfoBar from '../../components/User/InfoBar'
 
 import Icon from "react-native-vector-icons/Ionicons"
 import AppColors from '../../constants/AppColors'
+import DeviceDimensions from '../../constants/DeviceDimensions'
 
 export default function AccountScreen ({navigation}) {
     const localId = useSelector((state) => state.auth.localId)
@@ -64,12 +65,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     goToProfile: {
-        paddingVertical: 30,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center',
         alignSelf: 'center',
         width: '80%',
-        marginBottom: 10,
+        flex: 1,
+        maxHeight: 100,
     },
     actions: {
         alignItems: 'center',

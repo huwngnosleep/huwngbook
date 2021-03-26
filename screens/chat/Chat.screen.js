@@ -50,6 +50,9 @@ export default function ChatScreen ({route, navigation}) {
     }, [fetchReceiverData])
     
     const submitHandler = async (text) => {
+        if(text.trim().length === 0) {
+            return
+        }
         const message = {
             text,
             createAt: Date.now(),

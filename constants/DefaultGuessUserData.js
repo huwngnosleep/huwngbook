@@ -3,7 +3,7 @@ import DefaultProfileImagePlaceholder from "./DefaultProfileImagePlaceholder"
 // use for newly created user
 export default {
     name: 'Guess',
-    userName: '@guess',
+    userName: 'guess',
     avatar: DefaultProfileImagePlaceholder,
     coverImage: DefaultProfileImagePlaceholder,
     bio: 'Bio',

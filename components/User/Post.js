@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
     container: {
         width: DeviceDimensions.deviceWidth * 0.9,
         marginBottom: 20,
+        paddingBottom: 10,
         borderBottomColor: AppColors.mainGrey,
         borderBottomWidth: 1,
     },
@@ -110,5 +111,4 @@ const styles = StyleSheet.create({
     content: {
         paddingVertical: 10,
     },
-    
 })

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import { 
     StyleSheet, 
     View, 
@@ -7,6 +7,7 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useSelector } from 'react-redux'
 import AppColors from '../../constants/AppColors'
+import DeviceDimensions from '../../constants/DeviceDimensions'
 
 export default function ChatBubble ({content, time, senderId}) {
     const [isTimeVisible, setTimeVisible] = useState(false)
@@ -18,6 +19,7 @@ export default function ChatBubble ({content, time, senderId}) {
             marginTop: 10,
             alignSelf: senderId === localId ? 'flex-end' : 'flex-start',
             overflow: 'hidden',
+            maxWidth: DeviceDimensions.deviceWidth * 0.5,
         },
         messageContainer: {
             backgroundColor: senderId === localId ? AppColors.mainGrey : AppColors.mainGreyLighter,
@@ -26,12 +28,13 @@ export default function ChatBubble ({content, time, senderId}) {
             paddingVertical: 7,
             borderColor: AppColors.mainGrey,
             borderWidth: 1,
-            borderRadius: 50,
+            borderRadius: 20,
         },
         timeText: {
-            textAlign: senderId === localId ? 'right' : 'left',
+            alignSelf: senderId === localId ? 'flex-end' : 'flex-start',
             opacity: isTimeVisible ? 0.3 : 0,
             fontSize: 12,
+            marginHorizontal: 10,
         },
         message: {
             textAlign: senderId === localId ? 'right' : 'left',
@@ -46,7 +49,12 @@ export default function ChatBubble ({content, time, senderId}) {
             style={styles.container} 
         >
             <View style={styles.messageContainer}>
-                <Text style={styles.message}>{content}</Text>
+                <Text 
+                    style={styles.message}
+                    
+                >
+                    {content}
+                </Text>
             </View>
                 {
                     isTimeVisible ?
@@ -59,4 +67,3 @@ export default function ChatBubble ({content, time, senderId}) {
         </TouchableOpacity>
     )
 }
-

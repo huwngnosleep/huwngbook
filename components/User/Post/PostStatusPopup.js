@@ -38,6 +38,38 @@ export default function PostStatusPopup ({isModalVisible, setIsModalVisible, own
 
     }, [setContent])
 
+    if(content.length === 0) {
+        return(
+            <Modal 
+                onShow={fetchData}
+                onRequestClose={() => {setIsModalVisible(false)}}
+                transparent={true}
+                animationType="fade" 
+                visible={isModalVisible}
+            >
+                <View 
+                
+                    style={{backgroundColor: '#000000aa', flex: 1,}}
+                >
+                        <View style={styles.listContainer}>
+                            <Text style={styles.title}>{title}</Text> 
+                            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                                <Text>Do something with this post...</Text>
+                            </View>
+                            <View style={{position: 'absolute', bottom: 10, right: 10,}}>
+                                <CustomIcon 
+                                    onPress={() => {setIsModalVisible(false)}}
+                                    name="close"
+                                    color={AppColors.mainBlack}
+                                    size={30}
+                                />
+                            </View>
+                        </View>
+                </View>
+            </Modal>
+        )
+    }
+
     return(
         <Modal 
             onShow={fetchData}

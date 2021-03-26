@@ -5,12 +5,12 @@ import ENV from './env'
 
 const firebaseConfig = {
     apiKey: ENV.googleApiKey,
-    authDomain: "huwngbook.firebaseapp.com",
-    databaseURL: "https://huwngbook-default-rtdb.firebaseio.com",
-    projectId: "huwngbook",
-    storageBucket: "huwngbook.appspot.com",
-    messagingSenderId: "571731341028",
-    appId: "1:571731341028:web:34432af01464fe8bb046f1"
+    authDomain: "huwngbookkk.firebaseapp.com",
+    projectId: "huwngbookkk",
+    storageBucket: "huwngbookkk.appspot.com",
+    messagingSenderId: "351823757538",
+    appId: "1:351823757538:web:98717c58339afe75d85ebb",
+    measurementId: "G-LGWKKMM8RM"
 }
 
 if (!firebase.apps.length) {

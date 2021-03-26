@@ -83,11 +83,12 @@ export default function ChatListItem ({userId, onPress = () => {}}) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        alignSelf: 'center',
         marginVertical: 10,
         borderBottomWidth: 1,
         borderBottomColor: AppColors.mainGrey,
         paddingBottom: 10,
+        width: '90%',
     },
     badgeStyle: {
         position: 'absolute',
