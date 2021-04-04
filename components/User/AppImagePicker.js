@@ -83,7 +83,7 @@ export default function AppImagePicker ({style, onImageTaken, currentImage, canT
             {
                 image.length > 0 ? 
                     <View style={styles.imageContainer}>
-                        <Image style={styles.image} source={{uri: image}}/>
+                        <Image style={styles.image} source={{uri: image}} resizeMode="contain" />
                     </View>
                     :
                     null
@@ -112,11 +112,11 @@ const styles = StyleSheet.create({
         flex: 1,
         alignSelf: 'center',
         overflow: 'hidden',
-        backgroundColor: '#ccc',
     },
     image: {
         height: '100%',
         width: '100%',
+        flex: 1,
     },
     buttonsContainer: {
         flexDirection: 'row',

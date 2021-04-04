@@ -4,22 +4,27 @@ import {
     View, 
     Image,
 } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import DeviceDimensions from '../../constants/DeviceDimensions'
 
 
-const CustomImage = ({style, imageUri}) => {
+const CustomImage = ({style, imageUri, onPress = null}) => {
 
     if(!imageUri) {
         return null
     }
 
     return(
-        <View style={{...styles.imageContainer, ...style}}>
+        <TouchableOpacity 
+            activeOpacity={0.9}
+            onPress={onPress}
+            style={{...styles.imageContainer, ...style}}
+        >
             <Image 
                 source={{uri: imageUri}}
                 style={styles.image}
             />
-        </View>
+        </TouchableOpacity>
     )
 }
 

@@ -20,9 +20,11 @@ import CustomButton from '../../components/UI/CustomButton'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import PostModel from '../../models/post.model'
 import CustomKeyboardAvoidView from '../../components/UI/CustomKeyboardAvoidView'
+import ProfileSummary from '../../components/User/ProfileSummary'
 
 export default function ProfileScreen ({navigation}) {
     const currentUser = useSelector((state) => state.user.currentUser)
+
     const localId = useSelector((state) => state.auth.localId)
     const [currentUserPosts, setCurrentUserPosts] = useState([])
 
@@ -51,30 +53,20 @@ export default function ProfileScreen ({navigation}) {
     return(
         <CustomKeyboardAvoidView>
             <ScrollView style={styles.screen} >
-                    <View>
-                        <Avatar 
-                            style={styles.backgroundImg}
-                            imageUri={currentUser.coverImage}
-                            onPress={() => {navigation.navigate('Edit Image', {
-                                imageType: 'coverImage',
-                                currentUserImage: currentUser.coverImage,
-                            })}}
-                        />
-                        <View style={styles.introContainer}>
-                            <Avatar 
-                                imageUri={currentUser.avatar}
-                                style={styles.avatar}
-                                onPress={() => {navigation.navigate('Edit Image', {
-                                    imageType: 'avatar',
-                                    currentUserImage: currentUser.avatar,
-                                })}}
-                            />
-                            <View style={styles.intro}>
-                                <Text style={styles.name}>{currentUser.name}</Text>
-                                <Text style={styles.bio}>{currentUser.bio}</Text>
-                            </View>
-                        </View>
-                    </View>
+                    <ProfileSummary 
+                        name={currentUser.name}
+                        bio={currentUser.bio}
+                        avatarUri={currentUser.avatar}
+                        coverImageUri={currentUser.coverImage}
+                        onCoverImagePress={() => {navigation.navigate('Edit Image', {
+                            imageType: 'coverImage',
+                            currentUserImage: currentUser.coverImage,
+                        })}}
+                        onAvatarPress={() => {navigation.navigate('Edit Image', {
+                            imageType: 'avatar',
+                            currentUserImage: currentUser.avatar,
+                        })}}
+                    />
                     <View style={styles.detail}>
                         <View>
                             <ProfileDetail title="@" content={currentUser.userName}/>
@@ -154,19 +146,9 @@ export default function ProfileScreen ({navigation}) {
 
 const styles = StyleSheet.create({
     screen: {
-        
+            
     },
-    backgroundImg: {
-        height: DeviceDimensions.deviceHeight / 5,
-        width: DeviceDimensions.deviceWidth,
-        borderRadius: 0,
-    },
-    introContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        alignItems: 'flex-end',
-        marginVertical: 20,
-    },
+    
     detail: {
         marginTop: 20,
         width: '90%',
@@ -177,22 +159,8 @@ const styles = StyleSheet.create({
         right: 0,
         top: 0,
     },
-    avatar: {
-        height: DeviceDimensions.deviceWidth / 4,
-        width: DeviceDimensions.deviceWidth / 4,
-        borderRadius: DeviceDimensions.deviceWidth / 8,
-    },
-    intro: {
-        alignItems: 'center',
-    },
-    name: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    bio: {
-        fontSize: 14,
-    },
+    
+    
     container: {
         marginVertical: 5,
         alignItems: 'center',

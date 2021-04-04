@@ -40,7 +40,7 @@ export default function EditImageScreen ({navigation, route}) {
 
     return(
         <View style={styles.screen} >
-            <Text style={styles.title}>Your image here</Text>
+            <Text style={styles.title}>{`Your ${imageType === 'avatar' ? 'avatar' : 'cover image'} here`}</Text>
             <AppImagePicker 
                 onImageTaken={(imageUri) => setImage(imageUri)}
                 currentImage={image}
@@ -58,6 +58,5 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        marginBottom: 10,
     },
 })

@@ -12,13 +12,13 @@ import AppColors from '../../constants/AppColors'
 export default function ProfileDetail ({title, content}) {
     return(
         <View style={styles.container} >
-            <View style={styles.iconContainer}>
+            {/* <View style={styles.iconContainer}>
                 <Icon 
                     name="remove"
                     color={AppColors.mainGreyBolder}
                     size={15}
                 />
-            </View>
+            </View> */}
             <Text style={styles.detail}>{title}{content}</Text>
         </View>
     )

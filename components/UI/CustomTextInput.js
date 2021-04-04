@@ -14,7 +14,7 @@ export default function CustomTextInput (props) {
             <Text style={styles.label}>{props.label}</Text>
             <TextInput
                 textAlignVertical='top'
-                placeholderTextColor={AppColors.mainGrey}
+                placeholderTextColor={AppColors.mainGreyBolder}
                 style={styles.input}
                 {...props}
             />

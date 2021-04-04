@@ -54,45 +54,45 @@ export default function EditUserInfoScreen ({navigation}) {
     })
 
     return(
-            <ScrollView contentContainerStyle={styles.container}>
-                <CustomTextInput 
-                    label="Full Name"
-                    placeholder={currentUser.name}
-                    onChangeText={(text) => setName(text)}
-                />
-                <CustomTextInput 
-                    label="User Name"
-                    placeholder={currentUser.userName}
-                    onChangeText={(text) => setUserName(text)}
-                />
-                <CustomTextInput 
-                    label="Bio"
-                    placeholder={currentUser.bio}
-                    onChangeText={(text) => setBio(text)}
-                />
-                <CustomTextInput 
-                    label="Address"
-                    placeholder={currentUser.address}
-                    onChangeText={(text) => setAddress(text)}
-                />
-                <CustomTextInput 
-                    label="Birthday"
-                    editable={false}
-                    placeholder={currentUser.birthday}
-                    onChangeText={(text) => setBirthday(text)}
-                />
-                <CustomTextInput 
-                    label="Phone Number"
-                    placeholder={currentUser.phoneNumber}
-                    onChangeText={(text) => setPhoneNumber(text)}
-                />
-                <CustomTextInput 
-                    label="Email"
-                    editable={false}
-                    placeholder={currentUser.email}
-                    onChangeText={(text) => setEmail(text)}
-                />
-            </ScrollView>
+        <ScrollView contentContainerStyle={styles.container}>
+            <CustomTextInput 
+                label="Full Name"
+                placeholder={currentUser.name}
+                onChangeText={(text) => setName(text)}
+            />
+            <CustomTextInput 
+                label="User Name"
+                placeholder={currentUser.userName}
+                onChangeText={(text) => setUserName(text)}
+            />
+            <CustomTextInput 
+                label="Bio"
+                placeholder={currentUser.bio}
+                onChangeText={(text) => setBio(text)}
+            />
+            <CustomTextInput 
+                label="Address"
+                placeholder={currentUser.address}
+                onChangeText={(text) => setAddress(text)}
+            />
+            <CustomTextInput 
+                label="Birthday"
+                editable={false}
+                placeholder={currentUser.birthday}
+                onChangeText={(text) => setBirthday(text)}
+            />
+            <CustomTextInput 
+                label="Phone Number"
+                placeholder={currentUser.phoneNumber}
+                onChangeText={(text) => setPhoneNumber(text)}
+            />
+            <CustomTextInput 
+                label="Email"
+                editable={false}
+                placeholder={currentUser.email}
+                onChangeText={(text) => setEmail(text)}
+            />
+        </ScrollView>
     )
 }
 

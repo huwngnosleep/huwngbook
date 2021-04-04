@@ -12,7 +12,7 @@ export default function Avatar ({style, onPress, imageUri = DefaultProfileImageP
         <TouchableOpacity
             style={{...styles.imageContainer, ...style}}
             onPress={onPress}
-            activeOpacity={0.7}
+            activeOpacity={0.9}
         >
             {
                 imageUri !== '' ?

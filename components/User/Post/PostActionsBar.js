@@ -121,7 +121,8 @@ export default function PostActionsBar ({postData}) {
                     onPress={() => {
                         setIsCommenting((prevState) => !prevState)
                     }}
-                    style={styles.action} 
+                    style={styles.action}
+                    notNeedDisable 
                     iconName="chatbox-ellipses-outline" 
                     action="Comment"
                 />

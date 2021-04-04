@@ -17,6 +17,7 @@ import PostModel from '../../models/post.model'
 import AppColors from '../../constants/AppColors'
 import LoadingCircle from '../../components/UI/LoadingCircle'
 import CustomKeyboardAvoidView from '../../components/UI/CustomKeyboardAvoidView'
+import ProfileSummary from '../../components/User/ProfileSummary'
 
 export default function OtherProfileScreen ({navigation, route}) {
     const [isLoading, setIsLoading] = useState(false)
@@ -64,20 +65,12 @@ export default function OtherProfileScreen ({navigation, route}) {
     return(
         <CustomKeyboardAvoidView>
             <ScrollView style={styles.screen} >
-                <View>
-                    <Avatar imageUri={user.coverImage} style={styles.backgroundImg}/>
-                    <View style={styles.introContainer}>
-                        <Avatar 
-                            imageUri={user.avatar}
-                            style={styles.avatar}
-                            onPress={() => {}}
-                        />
-                        <View style={styles.intro}>
-                            <Text style={styles.name}>{user.name}</Text>
-                            <Text style={styles.bio}>{user.bio}</Text>
-                        </View>
-                    </View>
-                </View>
+                <ProfileSummary 
+                    name={user.name}
+                    bio={user.bio}
+                    avatarUri={user.avatar}
+                    coverImageUri={user.coverImage}
+                />
                 <View style={styles.detail}>
                     <View style={styles.detailItem}>
                         <ProfileDetail title="@" content={user.userName}/>

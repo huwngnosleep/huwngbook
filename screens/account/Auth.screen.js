@@ -21,12 +21,19 @@ export default function AuthScreen ({navigation}) {
     const [isSignIn, setIsSignIn] = useState(true)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [passwordAgain, setPasswordAgain] = useState('')
     const [error, setError] = useState()
 
     const dispatch = useDispatch()
 
     const authHandler = useCallback(async () => {
         setError(null)
+        if(!isSignIn && password !== passwordAgain) {
+            setError('Passwords you entered are not matched!')
+            setPassword('')
+            setPasswordAgain('')
+            return
+        }
         try {
             if (isSignIn === true) {
                 await dispatch(signIn(email, password)).then((id) => {
@@ -42,9 +49,8 @@ export default function AuthScreen ({navigation}) {
         } catch (error) {
             setError(error.message)
         }
-        setEmail('')
         setPassword('')
-    }, [dispatch, isSignIn, email, password, error])
+    }, [dispatch, isSignIn, email, password, passwordAgain, error])
 
     return(
         <KeyboardAvoidingView style={styles.screen}>
@@ -71,18 +77,44 @@ export default function AuthScreen ({navigation}) {
                             setError(null)
                         }}
                     />
+                    {
+                        isSignIn ? 
+                            null
+                            :
+                            <CustomTextInput 
+                                placeholder="Enter your password again"
+                                secureTextEntry={true}
+                                autoCapitalize='none'
+                                value={passwordAgain}
+                                onChangeText={(text) => {
+                                    setPasswordAgain(text)
+                                    setError(null)
+                                }}
+                            />
+                    }
                 </ScrollView>
                 {error ? <AlertText alertText={error}/> : null}
                 <View style={styles.buttonsContainer}>
                     <View style={styles.button}>
                         <CustomButton 
-                            title={isSignIn ? 'Sign in' : 'Sign up'} 
+                            title={
+                                isSignIn ? 
+                                    'Sign in' 
+                                    : 
+                                    'Sign up'
+                            } 
                             onPress={authHandler}
                         />
                     </View>
                     <View style={styles.button}>
                         <CustomButton 
-                            title={`Switch to ${isSignIn ? 'Sign up' : 'Sign in' }`} 
+                            notNeedDisable
+                            title={
+                                isSignIn ?
+                                    'Create new account'
+                                    :
+                                    'Already have an account?'
+                            } 
                             onPress={() => {
                                 setIsSignIn((isSignIn) => !isSignIn)
                                 setError(null)

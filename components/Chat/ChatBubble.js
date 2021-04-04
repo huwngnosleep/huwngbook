@@ -29,6 +29,8 @@ export default function ChatBubble ({content, time, senderId}) {
             borderColor: AppColors.mainGrey,
             borderWidth: 1,
             borderRadius: 20,
+            borderBottomEndRadius: senderId === localId ? 0 : null,
+            borderBottomStartRadius: senderId !== localId ? 0 : null,
         },
         timeText: {
             alignSelf: senderId === localId ? 'flex-end' : 'flex-start',
