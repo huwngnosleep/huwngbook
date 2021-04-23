@@ -8,7 +8,6 @@ will be released on Google Store soon
 ![IMG_5539](https://user-images.githubusercontent.com/73866831/115816017-52354c00-a422-11eb-9e6d-23021a842d47.PNG)
 ![IMG_5540](https://user-images.githubusercontent.com/73866831/115816021-53ff0f80-a422-11eb-9228-33cbbdfc36cf.PNG)
 ![IMG_5541](https://user-images.githubusercontent.com/73866831/115816022-5497a600-a422-11eb-8f8c-ac7bcd620ecc.PNG)
-![IMG_5542](https://user-images.githubusercontent.com/73866831/115816024-55303c80-a422-11eb-98c0-69ee04449a43.PNG)
 ![IMG_5543](https://user-images.githubusercontent.com/73866831/115816026-55303c80-a422-11eb-9288-620e12786f7f.PNG)
 ![IMG_5544](https://user-images.githubusercontent.com/73866831/115816027-55c8d300-a422-11eb-8ffb-f160b750837b.PNG)
 ![IMG_5545](https://user-images.githubusercontent.com/73866831/115816030-56616980-a422-11eb-9e1e-830ee3ede934.PNG)
