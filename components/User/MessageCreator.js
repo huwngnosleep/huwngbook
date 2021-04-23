@@ -55,6 +55,7 @@ export default function MessageCreator ({ textSubmitHandler, style }) {
 const styles = StyleSheet.create({
     textInputContainer: {
         marginVertical: 10,
+        marginHorizontal: 20,
         height: 60,
         borderColor: AppColors.mainGrey,
         borderWidth: 1,

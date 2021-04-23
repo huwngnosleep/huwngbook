@@ -43,10 +43,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         alignSelf: 'center',
-        paddingBottom: 20,
-        borderBottomWidth: 1,
-        borderBottomColor: AppColors.mainGrey,
-        marginVertical: 15,
     },
     avatar: {
         height: 60,

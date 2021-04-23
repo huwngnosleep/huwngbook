@@ -96,19 +96,22 @@ export default function Post ({navigation, postData, editable, disableNavigation
 
 const styles = StyleSheet.create({
     container: {
-        width: DeviceDimensions.deviceWidth * 0.9,
+        width: DeviceDimensions.deviceWidth,
         marginBottom: 20,
         paddingBottom: 10,
         borderBottomColor: AppColors.mainGrey,
         borderBottomWidth: 1,
+        alignSelf: 'center',
     },
     topRow: {
+        width: DeviceDimensions.deviceWidth * 0.95,
+        alignSelf: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         marginBottom: 10,
     },
     content: {
-        paddingVertical: 10,
+        margin: 10,
     },
 })

@@ -15,6 +15,7 @@ import InfoBar from '../../components/User/InfoBar'
 import AppColors from '../../constants/AppColors'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import DeviceDimensions from '../../constants/DeviceDimensions'
+import Style from '../../constants/Style'
 
 export default function SearchResultScreen ({route, navigation}) {
     const { searchedData } = route.params
@@ -123,8 +124,9 @@ const styles = StyleSheet.create({
         backgroundColor: AppColors.mainGrey,
         paddingVertical: 10,
         paddingHorizontal: 20,
-        borderRadius: 50,
+        borderRadius: 10,
         marginBottom: 20,
+        ...Style.cardShadow,
     },
     addButton: {
         paddingHorizontal: 7,

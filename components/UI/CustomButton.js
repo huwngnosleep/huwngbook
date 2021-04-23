@@ -7,6 +7,7 @@ import {
     ActivityIndicator,
 } from 'react-native'
 import AppColors from '../../constants/AppColors'
+import Style from '../../constants/Style'
 
 export default function CustomButton ({style, onPress, title, color, notNeedDisable}) {
     const styles = StyleSheet.create({
@@ -16,6 +17,7 @@ export default function CustomButton ({style, onPress, title, color, notNeedDisa
             alignItems: 'center',
             paddingVertical: 7,
             borderRadius: 5,
+            ...Style.cardShadow,
         },
         buttonText: {
             color: AppColors.mainWhite,

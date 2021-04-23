@@ -9,6 +9,7 @@ import {
 
 import AppColors from '../../constants/AppColors'
 import DatabaseUrl from '../../constants/DatabaseUrl'
+import Style from '../../constants/Style'
 
 export default function FriendCard ({style, friendId, navigation}) {
     const [isLoading, setIsLoading] = useState(false)
@@ -69,6 +70,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         overflow: 'hidden',
         borderRadius: 5,
+        ...Style.cardShadow,
     },
     imageContainer: {
         width: '100%',

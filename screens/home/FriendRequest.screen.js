@@ -14,6 +14,7 @@ import CustomButton from '../../components/UI/CustomButton'
 import AppColors from '../../constants/AppColors'
 import DatabaseUrl from '../../constants/DatabaseUrl'
 import DeviceDimensions from '../../constants/DeviceDimensions'
+import Style from '../../constants/Style'
 
 const FriendRequestItem = ({onPress, ownerId, localId}) => {
     const dispatch = useDispatch()
@@ -112,8 +113,9 @@ const styles = StyleSheet.create({
         backgroundColor: AppColors.mainGrey,
         paddingVertical: 10,
         paddingHorizontal: 20,
-        borderRadius: 50,
+        borderRadius: 10,
         marginBottom: 20,
+        ...Style.cardShadow,
     },
     actionsContainer: {
         flexDirection: 'row',

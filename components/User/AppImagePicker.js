@@ -45,7 +45,7 @@ export default function AppImagePicker ({style, onImageTaken, currentImage, canT
         if (type === 'take') {
             const result = await ImagePicker.launchCameraAsync({
                 allowsEditing: true,
-                aspect: [9, 6],
+                aspect: [3, 4],
                 quality: 0.1,
             })
             if (!result.cancelled) {
@@ -56,7 +56,7 @@ export default function AppImagePicker ({style, onImageTaken, currentImage, canT
             const result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 allowsEditing: true,
-                aspect: [9, 6],
+                aspect: [3, 4],
                 quality: 0.1,
             })
             if (!result.cancelled) {

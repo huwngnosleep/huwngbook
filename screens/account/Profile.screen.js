@@ -21,6 +21,9 @@ import DatabaseUrl from '../../constants/DatabaseUrl'
 import PostModel from '../../models/post.model'
 import CustomKeyboardAvoidView from '../../components/UI/CustomKeyboardAvoidView'
 import ProfileSummary from '../../components/User/ProfileSummary'
+import { Divider } from 'react-native-elements';
+import Style from '../../constants/Style'
+
 
 export default function ProfileScreen ({navigation}) {
     const currentUser = useSelector((state) => state.user.currentUser)
@@ -66,57 +69,63 @@ export default function ProfileScreen ({navigation}) {
                             imageType: 'avatar',
                             currentUserImage: currentUser.avatar,
                         })}}
+                        style={styles.profileSummary}
                     />
-                    <View style={styles.detail}>
-                        <View>
-                            <ProfileDetail title="@" content={currentUser.userName}/>
-                            <ProfileDetail title="Lives in: " content={currentUser.address}/>
-                            <ProfileDetail title="Birth Day: " content={currentUser.birthday}/>
-                            <ProfileDetail title="Phone number: " content={currentUser.phoneNumber}/>
-                            <ProfileDetail title="Email: " content={currentUser.email}/>
-                        </View>
-                        <Icon
+                    
+                    <Divider style={Style.dividerStyle}/>
+                    
+                    <View style={styles.container}>
+                        <ProfileDetail iconName="person" title="@" content={currentUser.userName}/>
+                        <ProfileDetail iconName="navigate-circle" title="Lives in: " content={currentUser.address}/>
+                        <ProfileDetail iconName="wine" title="Birth Day: " content={currentUser.birthday}/>
+                        <ProfileDetail iconName="call" title="Phone number: " content={currentUser.phoneNumber}/>
+                        <ProfileDetail iconName="mail" title="Email: " content={currentUser.email}/>
+
+                        <CustomButton 
+                            title="Edit Public Details"
+                            style={styles.actions}
+                            color={AppColors.mainGreyBolder}
                             onPress={() => {
                                 navigation.navigate('Edit Profile')
                             }}
-                            style={styles.editInfoIcon} 
-                            name="create-outline"
-                            size={30}
-                            />
+                        />
                     </View>
+
+                    <PostCreator imageUri={currentUser.avatar} onPress={() => {navigation.navigate('Create Post')}}/>
+                    
+                    <Divider style={Style.dividerStyle}/>
+                    
                     <View style={styles.container}>
-                        <PostCreator imageUri={currentUser.avatar} onPress={() => {navigation.navigate('Create Post')}}/>
+                        
                         <View style={styles.textSummary}>
                             <Text style={styles.title}>Friends</Text>
                             {currentUser.friends.length > 0 ? <Text>{currentUser.friends.length} friends</Text> : null}
                         </View>
+                        
                         <View style={{flexDirection: 'row', alignSelf: 'center', justifyContent: 'center', alignItems: 'center'}}>
-                            {
-                                currentUser.friends.length > 0 ?
-                                    [...currentUser.friends].splice(0, 3).map((item) => 
-                                        <FriendCard 
-                                            navigation={navigation}
-                                            friendId={item}
-                                            key={item}
-                                            style={styles.friendCard}
-                                        />
-                                    )
-                                    : 
-                                    <Text>You have no friend yet!</Text>
-                            }
+                            {currentUser.friends.length > 0 ?
+                                // make new object to avoid mutating state object
+                                [...currentUser.friends].splice(0, 3).map((item) => 
+                                    <FriendCard 
+                                        navigation={navigation}
+                                        friendId={item}
+                                        key={item}
+                                        style={styles.friendCard}
+                                    />
+                                )
+                                : 
+                                <Text>You have no friend yet!</Text>}
                             
                         </View>
-                        {
-                            currentUser.friends.length > 0 ? 
-                                <CustomButton 
-                                    style={styles.actions}
-                                    title="See all friends"
-                                    color={AppColors.mainGreyBolder}
-                                    onPress={() => {navigation.navigate('Friends')}}
-                                />
-                                :
-                                null
-                        }
+                        {currentUser.friends.length > 0 ? 
+                            <CustomButton 
+                                style={styles.actions}
+                                title="See all friends"
+                                color={AppColors.mainGreyBolder}
+                                onPress={() => {navigation.navigate('Friends')}}
+                            />
+                            :
+                            null}
                         
                     </View>
                     <View style={styles.container}>
@@ -146,26 +155,15 @@ export default function ProfileScreen ({navigation}) {
 
 const styles = StyleSheet.create({
     screen: {
-            
+        
     },
-    
-    detail: {
-        marginTop: 20,
+
+    container: {
         width: '90%',
         alignSelf: 'center',
+        marginBottom: 20,
     },
-    editInfoIcon: {
-        position: 'absolute',
-        right: 0,
-        top: 0,
-    },
-    
-    
-    container: {
-        marginVertical: 5,
-        alignItems: 'center',
-        width: DeviceDimensions.deviceWidth,
-    },
+
     textSummary: {
         width: '90%',
         alignItems: 'flex-start',
@@ -176,7 +174,8 @@ const styles = StyleSheet.create({
         height: DeviceDimensions.deviceWidth / 4,
     },
     actions: {
-        width: '90%',
+        width: '100%',
+        marginVertical: 10,
     },
     title: {
         fontSize: 30,

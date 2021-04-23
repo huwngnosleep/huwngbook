@@ -18,6 +18,8 @@ import PostModel from '../../models/post.model'
 import CustomIcon from '../../components/UI/CustomIcon'
 import LoadingCircle from '../../components/UI/LoadingCircle'
 import CustomKeyboardAvoidView from '../../components/UI/CustomKeyboardAvoidView'
+import { Divider } from 'react-native-elements'
+import Style from '../../constants/Style'
 
 
 const SearchHeaderBar = ({navigation}) => {
@@ -63,7 +65,7 @@ const SearchHeaderBar = ({navigation}) => {
 
 
     return(
-        <View style={{width: '90%', height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+        <View style={{width: '90%', height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: 10,}}>
             <View style={{flexDirection: 'row'}}>
                 <AppTitle />
                 {isSearchBarVisible ?
@@ -180,6 +182,10 @@ export default function HomeScreen ({navigation}) {
                 />
                 <SearchHeaderBar navigation={navigation}/>
                 <PostCreator imageUri={currentUserAvatar} onPress={() => {navigation.navigate('Create Post')}}/>
+                
+
+                <Divider style={Style.dividerStyle}/>
+
                 {
                     newsFeed.length > 0 ?
                         newsFeed.map((item) =>

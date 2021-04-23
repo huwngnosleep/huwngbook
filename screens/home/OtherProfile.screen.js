@@ -18,6 +18,8 @@ import AppColors from '../../constants/AppColors'
 import LoadingCircle from '../../components/UI/LoadingCircle'
 import CustomKeyboardAvoidView from '../../components/UI/CustomKeyboardAvoidView'
 import ProfileSummary from '../../components/User/ProfileSummary'
+import { Divider } from 'react-native-elements';
+import Style from '../../constants/Style'
 
 export default function OtherProfileScreen ({navigation, route}) {
     const [isLoading, setIsLoading] = useState(false)
@@ -73,20 +75,20 @@ export default function OtherProfileScreen ({navigation, route}) {
                 />
                 <View style={styles.detail}>
                     <View style={styles.detailItem}>
-                        <ProfileDetail title="@" content={user.userName}/>
-                        <ProfileDetail title="Lives in: " content={user.address}/>
-                        <ProfileDetail title="Birth Day: " content={user.birthday}/>
-                        <ProfileDetail title="Phone number: " content={user.phoneNumber}/>
-                        <ProfileDetail title="Email: " content={user.email}/>
+                        <ProfileDetail iconName="person" title="@" content={user.userName}/>
+                        <ProfileDetail iconName="navigate-circle" title="Lives in: " content={user.address}/>
+                        <ProfileDetail iconName="wine" title="Birth Day: " content={user.birthday}/>
+                        <ProfileDetail iconName="call" title="Phone number: " content={user.phoneNumber}/>
+                        <ProfileDetail iconName="mail" title="Email: " content={user.email}/>
                     </View>
                 </View>
-                <View style={styles.line}></View>
+
+                <Divider style={Style.dividerStyle}/>
+
                 <View style={styles.container}>
                     <View style={styles.textSummary}>
                         <Text style={styles.title}>Post</Text>
                     </View>
-                </View>
-                <View style={styles.container}>
                     {
                         userPosts.length > 0 ? 
                             userPosts.map((item) => 
@@ -124,6 +126,7 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         alignItems: 'center',
         width: DeviceDimensions.deviceWidth,
+        marginBottom: 20,
     },
     textSummary: {
         width: '90%',

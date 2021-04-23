@@ -4,8 +4,8 @@ import AppColors from "./AppColors"
 
 export default StyleSheet.create({
     imagePicker: {
-        height: DeviceDimensions.deviceHeight * 0.6,
-        width: DeviceDimensions.deviceWidth * 0.8,
+        minHeight: DeviceDimensions.deviceHeight * 0.8,
+        width: DeviceDimensions.deviceWidth * 0.9,
         alignSelf: 'center',
         marginVertical: 20,
     },
@@ -25,5 +25,22 @@ export default StyleSheet.create({
         borderColor: AppColors.mainGrey,
         overflow: 'hidden',
         padding: 10,
+    },
+    dividerStyle: {
+        backgroundColor: AppColors.mainGreyBolder, 
+        width: "90%", 
+        alignSelf: 'center',
+        marginVertical: 15,
+    },
+    cardShadow: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
     },
 })
