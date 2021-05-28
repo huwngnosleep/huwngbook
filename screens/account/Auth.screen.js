@@ -1,15 +1,16 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useRef } from 'react'
 import { 
     StyleSheet, 
     View, 
     ScrollView,
     Text,
     KeyboardAvoidingView,
+    Animated,
 } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { signIn, signUp } from '../../store/actions/auth/auth.actions'
 import { setUser } from '../../store/actions/user/user.actions'
-
+import * as Animatable from 'react-native-animatable'
 import AlertText from '../../components/UI/AlertText'
 import CustomTextInput from '../../components/UI/CustomTextInput'
 
@@ -52,9 +53,20 @@ export default function AuthScreen ({navigation}) {
         setPassword('')
     }, [dispatch, isSignIn, email, password, passwordAgain, error])
 
+
+    const switchAuthHandler = () => {
+        setIsSignIn((isSignIn) => !isSignIn)
+        setError(null)
+    }
+
+
     return(
         <KeyboardAvoidingView style={styles.screen}>
-            <View style={styles.authContainer}>
+            <View 
+                
+                style={{...styles.authContainer}}
+                
+            >
                 <ScrollView>
                     <AppTitle />
                     <CustomTextInput 
@@ -115,10 +127,7 @@ export default function AuthScreen ({navigation}) {
                                     :
                                     'Already have an account?'
                             } 
-                            onPress={() => {
-                                setIsSignIn((isSignIn) => !isSignIn)
-                                setError(null)
-                            }}
+                            onPress={switchAuthHandler}
                         />
                     </View>
                 </View>

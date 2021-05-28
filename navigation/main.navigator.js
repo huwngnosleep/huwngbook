@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import HomeNavigator from './home/Home.navigator'
 import AccountNavigator from './account/Account.navigator'
 import ChatNavigator from './chat/Chat.navigator'
-
+import GameNavigator from '../Navigator/Main'
 
 const Tab = createBottomTabNavigator()
 
@@ -66,6 +66,22 @@ export default function MainNavigator () {
                         tabBarLabel: 'Chat',
                         tabBarIcon: ({focused}) => {
                             const iconName = focused ? 'chatbubbles' : 'chatbubbles-outline'
+                            return(
+                                <Icon
+                                    size={25}
+                                    name={iconName} >
+                                </Icon>
+                            )
+                        },
+                    })}
+                />
+                <Tab.Screen 
+                    name="Game" 
+                    component={GameNavigator} 
+                    options={() => ({
+                        tabBarLabel: 'Game',
+                        tabBarIcon: ({focused}) => {
+                            const iconName = focused ? 'game-controller' : 'game-controller-outline'
                             return(
                                 <Icon
                                     size={25}

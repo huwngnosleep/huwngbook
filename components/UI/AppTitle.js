@@ -13,7 +13,7 @@ const AppTitle = () => {
             AppColors.mainGreyBolder, 
             fontWeight: 'bold',
         }}>
-            HuwngBook
+            FingerBook
         </Text>
     )
 }

@@ -114,7 +114,7 @@ export default function ProfileScreen ({navigation}) {
                                     />
                                 )
                                 : 
-                                <Text>You have no friend yet!</Text>}
+                                <Text style={{textAlign: 'center'}}>You have no friend yet!</Text>}
                             
                         </View>
                         {currentUser.friends.length > 0 ? 
@@ -145,7 +145,7 @@ export default function ProfileScreen ({navigation}) {
                                     />
                                 )
                                 : 
-                                <Text>Create your first post!</Text>
+                                <Text style={{textAlign: 'center'}}>Create your first post!</Text>
                         }
                     </View>
             </ScrollView>
