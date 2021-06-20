@@ -14,7 +14,7 @@ import Obstacles from "../components/Bird/obstacles";
 import { Audio } from 'expo-av';
 
 var axios = require('axios')
-var databaseUrl = 'https://storage-7f406-default-rtdb.asia-southeast1.firebasedatabase.app/user/userId/highScore.json'
+var databaseUrl = `https://storage-7f406-default-rtdb.asia-southeast1.firebasedatabase.app/user/userId/highScore.json`
 
 
 export default function App() {

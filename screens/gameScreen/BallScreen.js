@@ -1,9 +1,11 @@
-import React, {Component} from 'react';
-import {View,
-        TouchableWithoutFeedback,
-        StyleSheet,
-        Dimensions,
-        Image} from 'react-native';
+import React, { Component } from 'react';
+import {
+    View,
+    TouchableWithoutFeedback,
+    StyleSheet,
+    Dimensions,
+    Image
+} from 'react-native';
 import Score from '../components/Soccer/Score';
 import Emoji from '../components/Soccer/Emoji';
 import { Audio } from 'expo-av'
@@ -43,10 +45,11 @@ export default class BallScreen extends Component {
 
     componentDidMount() {
         this.interval = setInterval(this.update.bind(this), 1000 / 60);
+
     }
 
     componentWillUnmount() {
-        if(this.interval) {
+        if (this.interval) {
             clearInterval(this.interval);
         }
     }
@@ -54,13 +57,13 @@ export default class BallScreen extends Component {
 
     async playSoundKick() {
         const { sound } = await Audio.Sound.createAsync(
-          require('../audio/BallSound/kick.mp3')
+            require('../audio/BallSound/kick.mp3')
         )
         await sound.playAsync()
     }
 
     onTap(event) {
-        if(this.state.lifeCycle === LC_TAPPED) {
+        if (this.state.lifeCycle === LC_TAPPED) {
             this.setState({
                 lifeCycle: LC_RUNNING,
                 scored: false,
@@ -89,19 +92,19 @@ export default class BallScreen extends Component {
         nextState.y += nextState.vy;
         nextState.rotate += ROTATION_FACTOR * nextState.vx;
         // Hit the left wall
-        if(nextState.x < BALL_WIDTH / 2) {
+        if (nextState.x < BALL_WIDTH / 2) {
             nextState.vx = -nextState.vx;
             nextState.x = BALL_WIDTH / 2;
         }
 
         // Hit the right wall
-        if(nextState.x > SCREEN_WIDTH - BALL_WIDTH / 2) {
+        if (nextState.x > SCREEN_WIDTH - BALL_WIDTH / 2) {
             nextState.vx = -nextState.vx;
             nextState.x = SCREEN_WIDTH - BALL_WIDTH / 2;
         }
 
         // Reset after falling down
-        if(nextState.y > SCREEN_HEIGHT + BALL_HEIGHT) {
+        if (nextState.y > SCREEN_HEIGHT + BALL_HEIGHT) {
             nextState.y = FLOOR_Y;
             nextState.x = FLOOR_X;
             nextState.lifeCycle = LC_IDLE;
@@ -116,7 +119,7 @@ export default class BallScreen extends Component {
     }
 
     update() {
-        if(this.state.lifeCycle === LC_IDLE) {
+        if (this.state.lifeCycle === LC_IDLE) {
             return;
         }
 
@@ -135,18 +138,18 @@ export default class BallScreen extends Component {
         }
         var rotation = {
             transform: [
-                {rotate: this.state.rotate + 'deg'},
+                { rotate: this.state.rotate + 'deg' },
             ],
         }
         return (
             <View>
-                <Score score={this.state.score} y={SCORE_Y} scored={this.state.scored}/>
-                <Emoji scored={this.state.scored} y={EMOJI_Y} lost={this.state.lost}/>
+                <Score score={this.state.score} y={SCORE_Y} scored={this.state.scored} />
+                <Emoji scored={this.state.scored} y={EMOJI_Y} lost={this.state.lost} />
                 <TouchableWithoutFeedback onPress={(event) => {
                     this.onTap(event.nativeEvent)
-                    }}
+                }}
                 >
-                  <Image source={require('../img/Soccer/soccer.png')} style={[styles.ball, position, rotation]} />
+                    <Image source={require('../img/Soccer/soccer.png')} style={[styles.ball, position, rotation]} />
                 </TouchableWithoutFeedback>
             </View>
         );

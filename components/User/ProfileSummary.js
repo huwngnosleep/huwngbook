@@ -18,6 +18,7 @@ export default function ProfileSummary ({
     name, 
     bio,
     style,
+    notMe,
 }) {
     
     return(
@@ -35,11 +36,11 @@ export default function ProfileSummary ({
                                 style={{...styles.coverImage, backgroundColor: AppColors.mainGreyBolder}}
                             ></View>
                     }
-                    <IconButton 
+                    {!notMe && <IconButton 
                         onPress={onCoverImagePress} 
                         iconName="camera"
                         style={{position: 'absolute', bottom: 10, right: 10}} 
-                    />
+                    />}
                 </View>
 
                 <View style={styles.avatarContainer}>
@@ -47,11 +48,11 @@ export default function ProfileSummary ({
                         style={styles.avatar}
                         imageUri={avatarUri}
                     />
-                    <IconButton 
+                    {!notMe && <IconButton 
                         onPress={onAvatarPress}
                         iconName="camera"
                         style={{position: 'absolute', bottom: -0, right: 0}} 
-                    />
+                    />}
                 </View>
             </View>
             <View style={styles.intro}>

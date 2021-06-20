@@ -68,6 +68,7 @@ export default function OtherProfileScreen ({navigation, route}) {
         <CustomKeyboardAvoidView>
             <ScrollView style={styles.screen} >
                 <ProfileSummary 
+                    notMe={true}
                     name={user.name}
                     bio={user.bio}
                     avatarUri={user.avatar}

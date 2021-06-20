@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "HuwngBook",
-    "slug": "huwngbook",
+    "name": "FingerBook",
+    "slug": "FingerBook",
     "description": "A clone version of Facebook",
     "version": "1.0.0",
     "orientation": "portrait",
